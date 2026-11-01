@@ -36,7 +36,8 @@ The first vertical slice is intentionally small and playable:
 - Chapter 10's Unfinished Game turns a half-built level into a production checklist. Complete three TODO markers in order, avoid the wrong one, and finish the build to unlock the exit.
 - Chapter 11's Patch Notes turns updates into physical world changes. Apply three patches in the right release order or trigger a rollback that resets the room.
 - Chapter 12's Last Save lets you restore one of three archived room states. Two snapshots are corrupted; restoring the last stable save changes the room back and opens the real exit.
-- Chapter 13's Control Room makes the player settle a power struggle between the Narrator and SYSTEM-02 by routing three live channels into a stable ownership pattern.\n- Chapter 14's Final Decision closes the main arc with three physical choices: trust the Narrator, trust SYSTEM-02, or reject both. Each choice changes the final chamber, plays its own bilingual ending dialogue, unlocks the exit and saves the selected ending locally.
+- Chapter 13's Control Room makes the player settle a power struggle between the Narrator and SYSTEM-02 by routing three live channels into a stable ownership pattern.
+- Chapter 14's Final Decision closes the main arc with three physical choices: trust the Narrator, trust SYSTEM-02, or reject both. Each choice changes the final chamber, plays its own bilingual ending dialogue, unlocks the exit and saves the selected ending locally.
 - Chapter 2 and Chapter 3 have separate checkpoints, localized entry beats and fall recovery.
 - The full campaign target is approximately 2 hours for the main story and approximately 3 hours including 5–8 hidden chapters/rooms.
 - The dual-scale relay only accepts objects once they have physically settled on their pads.
