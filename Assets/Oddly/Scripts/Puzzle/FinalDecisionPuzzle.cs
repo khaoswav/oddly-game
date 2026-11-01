@@ -51,6 +51,7 @@ namespace Oddly
             PlayerPrefs.SetInt("oddly.ending", endingIndex);
             PlayerPrefs.SetString("oddly.ending.name", endingName);
             PlayerPrefs.Save();
+            CampaignDirector.Instance?.CompleteCampaign(endingIndex);
 
             if (endingLight != null)
             {
