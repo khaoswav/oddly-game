@@ -28,12 +28,10 @@ namespace Oddly
                 ? history.FailedInteractionCount + history.DoorAttemptCount : 0;
             int waits = history != null ? history.IdleEpisodeCount : 0;
 
-            // A clean run defaults to WAIT. Ties favour the more physical habit.
-            selectedRoute = drops > retries && drops >= waits ? 0
-                : retries > waits ? 1
-                : waits > 0 ? 2
-                : drops > 0 ? 0
-                : retries > 0 ? 1 : 2;
+            // A clean run defaults to WAIT. Ties resolve deterministically: DROP, then RETRY, then WAIT.
+            selectedRoute = drops > 0 && drops >= retries && drops >= waits ? 0
+                : retries > 0 && retries >= waits ? 1
+                : waits > 0 ? 2 : 2;
 
             for (int i = 0; i < memoryBridges.Length; i++)
             {
