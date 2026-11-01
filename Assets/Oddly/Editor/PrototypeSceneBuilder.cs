@@ -412,6 +412,89 @@ namespace Oddly.Editor
             chapterThreeSign.alignment = TextAlignment.Center;
             chapterThreeSign.color = new Color(0.22f, 0.25f, 0.32f);
 
+            // Chapter 4: two voices give contradictory switch orders. The room
+            // deliberately makes the disagreement part of the puzzle language.
+            CreatePrimitive("Chapter 4 system error floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 159), new Vector3(10, 0.5f, 24), floorMat);
+            CreatePrimitive("Chapter 4 left wall", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 159), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 4 right wall", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 159), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 4 far wall left", PrimitiveType.Cube,
+                new Vector3(-4.15f, 2.5f, 171), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 4 far wall right", PrimitiveType.Cube,
+                new Vector3(4.15f, 2.5f, 171), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 4 far wall header", PrimitiveType.Cube,
+                new Vector3(0, 4.55f, 171), new Vector3(6.6f, 0.9f, 0.5f), wallMat);
+
+            GameObject chapterFourExit = CreatePrimitive("Chapter 4 system error exit",
+                PrimitiveType.Cube, new Vector3(0, 2, 170.7f), new Vector3(2.8f, 4, 0.35f), doorMat);
+            DoorController chapterFourExitController = chapterFourExit.AddComponent<DoorController>();
+
+            GameObject chapterFourEntry = new GameObject("Chapter 4 entry trigger");
+            chapterFourEntry.transform.position = new Vector3(0, 1.2f, 147.2f);
+            BoxCollider chapterFourEntryCollider = chapterFourEntry.AddComponent<BoxCollider>();
+            chapterFourEntryCollider.isTrigger = true;
+            chapterFourEntryCollider.size = new Vector3(8.5f, 2.4f, 1.2f);
+            ChapterEntryTrigger chapterFourEntryTrigger = chapterFourEntry.AddComponent<ChapterEntryTrigger>();
+            GameObject chapterFourCheckpoint = new GameObject("Chapter 4 checkpoint");
+            chapterFourCheckpoint.transform.position = new Vector3(0f, 0.15f, 148.5f);
+            TextMesh chapterFourSign = new GameObject("Chapter 4 title sign").AddComponent<TextMesh>();
+            chapterFourSign.transform.position = new Vector3(0, 3.65f, 150f);
+            chapterFourSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            chapterFourSign.text = "CHAPTER 04 / SYSTEM ERROR";
+            chapterFourSign.fontSize = 42;
+            chapterFourSign.characterSize = 0.055f;
+            chapterFourSign.anchor = TextAnchor.MiddleCenter;
+            chapterFourSign.alignment = TextAlignment.Center;
+            chapterFourSign.color = new Color(0.22f, 0.25f, 0.32f);
+
+            TextMesh narratorInstruction = new GameObject("Narrator instruction").AddComponent<TextMesh>();
+            narratorInstruction.transform.position = new Vector3(-2.2f, 3.1f, 157f);
+            narratorInstruction.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            narratorInstruction.text = "NARRATOR: LEFT / RIGHT / LEFT";
+            narratorInstruction.fontSize = 30;
+            narratorInstruction.characterSize = 0.045f;
+            narratorInstruction.anchor = TextAnchor.MiddleCenter;
+            narratorInstruction.alignment = TextAlignment.Center;
+            narratorInstruction.color = new Color(0.82f, 0.28f, 0.42f);
+
+            TextMesh systemInstruction = new GameObject("System instruction").AddComponent<TextMesh>();
+            systemInstruction.transform.position = new Vector3(2.2f, 3.1f, 157f);
+            systemInstruction.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            systemInstruction.text = "SYSTEM-02: RIGHT / LEFT / RIGHT";
+            systemInstruction.fontSize = 30;
+            systemInstruction.characterSize = 0.045f;
+            systemInstruction.anchor = TextAnchor.MiddleCenter;
+            systemInstruction.alignment = TextAlignment.Center;
+            systemInstruction.color = new Color(0.20f, 0.42f, 0.78f);
+
+            GameObject systemErrorRoot = new GameObject("System Error puzzle controller");
+            SystemErrorPuzzle systemErrorPuzzle = systemErrorRoot.AddComponent<SystemErrorPuzzle>();
+            SetPrivate(systemErrorPuzzle, "linkedDoor", chapterFourExitController);
+
+            GameObject narratorSwitch = CreatePrimitive("Narrator switch", PrimitiveType.Cube,
+                new Vector3(-2.2f, 0.62f, 163f), new Vector3(1.25f, 0.42f, 1.25f), accentMat);
+            MetaPuzzleNode narratorSwitchNode = narratorSwitch.AddComponent<MetaPuzzleNode>();
+            SetPrivate(narratorSwitchNode, "action", MetaPuzzleAction.PressNarratorSwitch);
+            SetPrivate(narratorSwitchNode, "systemErrorPuzzle", systemErrorPuzzle);
+
+            GameObject systemSwitch = CreatePrimitive("SYSTEM-02 switch", PrimitiveType.Cube,
+                new Vector3(2.2f, 0.62f, 163f), new Vector3(1.25f, 0.42f, 1.25f), doorMat);
+            MetaPuzzleNode systemSwitchNode = systemSwitch.AddComponent<MetaPuzzleNode>();
+            SetPrivate(systemSwitchNode, "action", MetaPuzzleAction.PressSystemSwitch);
+            SetPrivate(systemSwitchNode, "systemErrorPuzzle", systemErrorPuzzle);
+
+            TextMesh sequenceHint = new GameObject("Corrupted sequence hint").AddComponent<TextMesh>();
+            sequenceHint.transform.position = new Vector3(0, 2.65f, 166f);
+            sequenceHint.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            sequenceHint.text = "RECORDED: LEFT / RIGHT / LEFT";
+            sequenceHint.fontSize = 34;
+            sequenceHint.characterSize = 0.05f;
+            sequenceHint.anchor = TextAnchor.MiddleCenter;
+            sequenceHint.alignment = TextAlignment.Center;
+            sequenceHint.color = new Color(0.22f, 0.25f, 0.32f);
+
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
             BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
@@ -583,6 +666,15 @@ namespace Oddly.Editor
             SetPrivate(dimensionPuzzle, "linkedDoor", chapterThreeExitController);
             SetPrivate(dimensionPuzzle, "dialogue", director);
             SetPrivate(chapterThreeExitController, "dialogue", director);
+            SetPrivate(chapterFourEntryTrigger, "dialogue", director);
+            SetPrivate(chapterFourEntryTrigger, "chapterSign", chapterFourSign);
+            SetPrivate(chapterFourEntryTrigger, "dialogueId", "chapter_four_entry");
+            SetPrivate(chapterFourEntryTrigger, "englishSign", "CHAPTER 04  /  SYSTEM ERROR");
+            SetPrivate(chapterFourEntryTrigger, "turkishSign", "BÖLÜM 04  /  SİSTEM HATASI");
+            SetPrivate(chapterFourEntryTrigger, "fallRecovery", fallRecovery);
+            SetPrivate(chapterFourEntryTrigger, "checkpoint", chapterFourCheckpoint.transform);
+            SetPrivate(systemErrorPuzzle, "dialogue", director);
+            SetPrivate(chapterFourExitController, "dialogue", director);
             PerspectiveBridgePuzzle bridgePuzzle = player.AddComponent<PerspectiveBridgePuzzle>();
             SetPrivate(bridgePuzzle, "bridge", bridgePerspectiveObject);
             SetPrivate(bridgePuzzle, "landingTarget", bridgeTarget.transform);
