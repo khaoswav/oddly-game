@@ -136,6 +136,13 @@ namespace Oddly.Editor
             if (interactionData.FindProperty("playerCamera").objectReferenceValue != playerCamera)
                 throw new System.InvalidOperationException("InteractionController is not wired to the active player camera.");
 
+            GameObject gameUi = GameObject.Find("Game UI");
+            if (gameUi == null || gameUi.GetComponent<WorldPresentationDirector>() == null)
+                throw new System.InvalidOperationException("WorldPresentationDirector is missing from Game UI.");
+
+            if (gameUi.GetComponent<WorldAudioDirector>() == null)
+                throw new System.InvalidOperationException("WorldAudioDirector is missing from Game UI.");
+
             DialogueDirector dialogue = Object.FindObjectOfType<DialogueDirector>();
             if (dialogue == null)
                 throw new System.InvalidOperationException("DialogueDirector is missing from the generated scene.");
