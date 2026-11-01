@@ -13,7 +13,8 @@ namespace Oddly
         [SerializeField] private DialogueDirector dialogue;
         [SerializeField] private TextMesh sign;
         [SerializeField] private string dialogueId = "false_exit";
-        [SerializeField] private string revealedSign = "NOT AN EXIT";
+        [SerializeField] private string revealedSignEnglish = "NOT AN EXIT";
+        [SerializeField] private string revealedSignTurkish = "ÇIKIŞ DEĞİL";
         private bool triggered;
 
         private void Reset()
@@ -28,7 +29,8 @@ namespace Oddly
 
             triggered = true;
             if (sign != null)
-                sign.text = revealedSign;
+                sign.text = dialogue != null && dialogue.IsTurkish
+                    ? revealedSignTurkish : revealedSignEnglish;
             dialogue?.Say(dialogueId);
         }
     }
