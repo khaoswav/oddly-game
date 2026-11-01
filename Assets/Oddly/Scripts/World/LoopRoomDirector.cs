@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Oddly
@@ -17,6 +18,7 @@ namespace Oddly
         [SerializeField] private Light roomLight;
         [SerializeField, Min(1)] private int loopsRequired = 3;
         [SerializeField, Min(0.1f)] private float cooldown = 1.1f;
+        [SerializeField, Min(0.1f)] private float rearrangeDuration = 0.7f;
 
         private Vector3[] propPositions;
         private Quaternion[] propRotations;
@@ -76,17 +78,53 @@ namespace Oddly
                 Transform item = changingProps[i];
                 if (item == null) continue;
                 float direction = (completedLoops + i) % 2 == 0 ? 1f : -1f;
-                item.position = propPositions[i] + new Vector3(direction * (0.45f + 0.25f * completedLoops), 0.1f * completedLoops, 0f);
-                item.rotation = propRotations[i] * Quaternion.Euler(0f, 35f * completedLoops, 8f * direction);
+                Vector3 targetPosition = propPositions[i] + new Vector3(direction * (0.45f + 0.25f * completedLoops), 0.1f * completedLoops, 0f);
+                Quaternion targetRotation = propRotations[i] * Quaternion.Euler(0f, 35f * completedLoops, 8f * direction);
+                StartCoroutine(AnimateProp(item, targetPosition, targetRotation));
             }
 
             if (roomLight != null)
             {
-                roomLight.color = completedLoops % 2 == 0
+                Color targetColor = completedLoops % 2 == 0
                     ? new Color(0.35f, 0.65f, 1f)
                     : new Color(1f, 0.38f, 0.48f);
-                roomLight.intensity = 0.9f + completedLoops * 0.35f;
+                float targetIntensity = 0.9f + completedLoops * 0.35f;
+                StartCoroutine(AnimateLight(targetColor, targetIntensity));
             }
+        }
+
+        private IEnumerator AnimateProp(Transform item, Vector3 targetPosition, Quaternion targetRotation)
+        {
+            Vector3 startPosition = item.position;
+            Quaternion startRotation = item.rotation;
+            float elapsed = 0f;
+            while (elapsed < rearrangeDuration)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / rearrangeDuration));
+                item.position = Vector3.LerpUnclamped(startPosition, targetPosition, t);
+                item.rotation = Quaternion.SlerpUnclamped(startRotation, targetRotation, t);
+                yield return null;
+            }
+            item.position = targetPosition;
+            item.rotation = targetRotation;
+        }
+
+        private IEnumerator AnimateLight(Color targetColor, float targetIntensity)
+        {
+            Color startColor = roomLight.color;
+            float startIntensity = roomLight.intensity;
+            float elapsed = 0f;
+            while (elapsed < rearrangeDuration)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / rearrangeDuration));
+                roomLight.color = Color.Lerp(startColor, targetColor, t);
+                roomLight.intensity = Mathf.Lerp(startIntensity, targetIntensity, t);
+                yield return null;
+            }
+            roomLight.color = targetColor;
+            roomLight.intensity = targetIntensity;
         }
 
         private void UpdateSign()
