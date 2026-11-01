@@ -15,13 +15,13 @@ namespace Oddly
         [SerializeField] private Transform[] prankObjects;
         [SerializeField] private Light roomLight;
         [SerializeField] private Transform movingWall;
-        [SerializeField] private float wallShift = 1.4f;
+        [SerializeField] private float wallShift = 1.4f;\n        [SerializeField, Min(1)] private int reactionsToUnlock = 5;\n        [SerializeField] private DoorController linkedDoor;
 
         private Vector3[] originalPositions;
         private Quaternion[] originalRotations;
         private Vector3 wallOriginalPosition;
         private int reactionCount;
-        private bool active;
+        private bool active;\n        private bool exitUnlocked;
         private Coroutine lightPulse;
 
         private void Start()
@@ -99,7 +99,7 @@ namespace Oddly
             }
 
             if (reactionCount == 1) dialogue?.Say(dropped ? "laughing_room_drop" : "laughing_room_fail");
-            else if (reactionCount % 3 == 0) dialogue?.Say("laughing_room_escalate");
+            else if (reactionCount % 3 == 0) dialogue?.Say("laughing_room_escalate");\n\n            if (!exitUnlocked && reactionCount >= reactionsToUnlock)\n            {\n                exitUnlocked = true;\n                linkedDoor?.Unlock();\n                dialogue?.Say("laughing_room_open");\n            }
         }
 
         private IEnumerator PulseLight()
