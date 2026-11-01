@@ -9,6 +9,14 @@ namespace Oddly
         private int failedInteractions;
         private int doorAttempts;
         private bool idleCommentUsed;
+        private int totalDrops;
+        private int totalFailedInteractions;
+        private int idleEpisodes;
+
+        public int DropCount => totalDrops;
+        public int FailedInteractionCount => totalFailedInteractions;
+        public int DoorAttemptCount => doorAttempts;
+        public int IdleEpisodeCount => idleEpisodes;
 
         private DialogueDirector dialogue;
 
@@ -28,13 +36,14 @@ namespace Oddly
                 if (idleTimer >= idleThreshold && !idleCommentUsed)
                 {
                     idleCommentUsed = true;
+                    idleEpisodes++;
                     dialogue?.Say("idle");
                 }
             }
         }
 
         public void RegisterPickup() { failedInteractions = 0; }
-        public void RegisterDrop() { }
+        public void RegisterDrop() { totalDrops++; }
         public void RegisterDoorAttempt()
         {
             doorAttempts++;
@@ -43,6 +52,7 @@ namespace Oddly
         public void RegisterFailedInteraction()
         {
             failedInteractions++;
+            totalFailedInteractions++;
             if (failedInteractions >= 3)
             {
                 dialogue?.Say("repeat");
