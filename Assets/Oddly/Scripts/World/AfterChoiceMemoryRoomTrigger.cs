@@ -22,16 +22,26 @@ namespace Oddly
             hasEntered = true;
             int count = HiddenChapterArchive.CompletedCount;
             bool turkish = PlayerPrefs.GetInt("oddly.language", 1) == 0;
+            int endingMask = FinalDecisionPuzzle.EndingHistoryMask;
             if (statusSign != null)
                 statusSign.text = turkish
-                    ? "SEÇİMDEN SONRA\nODALAR: " + count + " / 8  •  YANKILAR: " + AfterChoiceEchoPillar.DiscoveredCount + " / 8"
-                    : "AFTER THE CHOICE\nROOMS: " + count + " / 8  •  ECHOES: " + AfterChoiceEchoPillar.DiscoveredCount + " / 8";
+                    ? "SEÇİMDEN SONRA\nODALAR: " + count + " / 8  •  YANKILAR: " + AfterChoiceEchoPillar.DiscoveredCount +
+                      " / 8\nFİNALLER: " + CountBits(endingMask) + " / 3  •  TEKRAR: " + CampaignDirector.ReplayCount
+                    : "AFTER THE CHOICE\nROOMS: " + count + " / 8  •  ECHOES: " + AfterChoiceEchoPillar.DiscoveredCount +
+                      " / 8\nENDINGS: " + CountBits(endingMask) + " / 3  •  REPLAYS: " + CampaignDirector.ReplayCount;
 
-            switch (Mathf.Clamp(PlayerPrefs.GetInt("oddly.ending", 2), 0, 2))
+            if (endingMask == 0x7)
+                DialogueDirector.Instance?.Say("afterchoice_memory_converged");
+            else if (CountBits(endingMask) > 1)
+                DialogueDirector.Instance?.Say("afterchoice_memory_multiple");
+            else
             {
-                case 0: DialogueDirector.Instance?.Say("afterchoice_memory_narrator"); break;
-                case 1: DialogueDirector.Instance?.Say("afterchoice_memory_system"); break;
-                default: DialogueDirector.Instance?.Say("afterchoice_memory_player"); break;
+                switch (Mathf.Clamp(PlayerPrefs.GetInt("oddly.ending", 2), 0, 2))
+                {
+                    case 0: DialogueDirector.Instance?.Say("afterchoice_memory_narrator"); break;
+                    case 1: DialogueDirector.Instance?.Say("afterchoice_memory_system"); break;
+                    default: DialogueDirector.Instance?.Say("afterchoice_memory_player"); break;
+                }
             }
             WorldAudioDirector.Instance?.PlayRevealCue();
         }
@@ -61,12 +71,34 @@ namespace Oddly
 
         private static Color GetEndingColor()
         {
-            switch (Mathf.Clamp(PlayerPrefs.GetInt("oddly.ending", 2), 0, 2))
+            int mask = FinalDecisionPuzzle.EndingHistoryMask;
+            Color result = Color.black;
+            int count = 0;
+            Color[] colors =
             {
-                case 0: return new Color(1f, 0.48f, 0.22f);
-                case 1: return new Color(0.24f, 0.52f, 1f);
-                default: return new Color(0.28f, 0.9f, 0.62f);
+                new Color(1f, 0.48f, 0.22f),
+                new Color(0.24f, 0.52f, 1f),
+                new Color(0.28f, 0.9f, 0.62f)
+            };
+
+            for (int i = 0; i < colors.Length; i++)
+            {
+                if ((mask & (1 << i)) == 0) continue;
+                result += colors[i];
+                count++;
             }
+
+            if (count == 0)
+                return colors[Mathf.Clamp(PlayerPrefs.GetInt("oddly.ending", 2), 0, 2)];
+            return result / count;
+        }
+
+        private static int CountBits(int mask)
+        {
+            int count = 0;
+            for (int i = 0; i < 3; i++)
+                if ((mask & (1 << i)) != 0) count++;
+            return count;
         }
     }
 }
