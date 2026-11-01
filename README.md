@@ -27,6 +27,8 @@ Use the Unity menu:
 
 The macOS and Windows build commands require the corresponding Unity Build Support modules. These commands have been added to the project; actual Editor validation, Play Mode testing and platform builds still need to be run on a machine with Unity installed.
 
+The generated scene now has an adaptive desktop performance profile: it targets 60 FPS and automatically uses shorter shadow distance, medium shadow resolution and fewer per-pixel lights on systems with 8 GB RAM or less. This profile still requires real-device performance verification.
+
 ## First playable prototype
 
 The first vertical slice is intentionally small and playable:
