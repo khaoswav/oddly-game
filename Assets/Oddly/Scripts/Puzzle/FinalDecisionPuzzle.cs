@@ -253,7 +253,13 @@ namespace Oddly
                     if (relic == null) continue;
 
                     float phase = elapsed * (endingIndex == 1 ? 2.4f : 1.35f) + i * 1.7f;
-                    if (i == endingIndex)
+                    if (i != endingIndex)
+                    {
+                        relic.Rotate(Vector3.up, 16f * Time.unscaledDeltaTime, Space.Self);
+                        relic.localPosition = relicBasePositions[i] +
+                            Vector3.up * (-0.18f + Mathf.Sin(phase * 0.8f) * 0.035f);
+                    }
+                    else
                     {
                         if (endingIndex == 0)
                             relic.Rotate(Vector3.up, 85f * Time.unscaledDeltaTime, Space.Self);
