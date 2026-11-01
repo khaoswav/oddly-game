@@ -20,7 +20,8 @@ The first vertical slice is intentionally small and playable:
 - Turkish/English dialogue from two distinct characters, with per-event cooldowns, randomized banter and speaker handoff.
 - Three-beat Turkish/English Chapter 1 opening sequence.
 - A traversable exit corridor with a one-time false-exit reveal, animated hidden passage and waiting room.
-- A second forced-perspective frame puzzle in the waiting room, unlocking its own exit.\n- A new two-object relay chamber: move a cube and sphere through depth to create two different world scales, then place each on its matching pad to unlock the next door.
+- A second forced-perspective frame puzzle in the waiting room, unlocking its own exit.
+- A new two-object relay chamber: move a cube and sphere through depth to create two different world scales, then place each on its matching pad to unlock the next door.
 - Persistent title-screen options for mouse sensitivity and field of view.
 - Runtime-created prototype room, HUD and title screen.
 
