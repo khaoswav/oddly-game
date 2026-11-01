@@ -6,7 +6,9 @@ ODDLY is an original first-person puzzle-comedy game for macOS and Windows. It c
 **Languages:** Turkish and English, including dialogue and subtitles.  
 **Target platforms:** Windows and macOS.  
 **Engine:** Unity 6.3 LTS (URP planned for the visual production pass).  
-**Target playtime:** approximately 2 hours main story, approximately 3 hours with hidden content.\n**Campaign scope:** 12–14 connected story sequences plus 5–8 hidden chapters/rooms.\n**Current milestone:** First playable greybox prototype.
+**Target playtime:** approximately 2 hours main story, approximately 3 hours with hidden content.
+**Campaign scope:** 12–14 connected story sequences plus 5–8 hidden chapters/rooms.
+**Current milestone:** First playable greybox prototype.
 
 ## First playable prototype
 
@@ -43,7 +45,8 @@ The prototype scene is generated automatically by the Unity Editor bootstrap whe
 ## Current playable progression
 
 - Chapter 1 prototype route: opening test room, false exit corridor, waiting-room perspective frame, dual-scale relay and forced-perspective sightline chamber.
-- Chapter 2: a physical platform gap that must be crossed with a depth-resized plank.\n- Chapter 3 opening: transfer a resized object through a player-blocking wall slot and land it beyond the barrier.
+- Chapter 2: a physical platform gap that must be crossed with a depth-resized plank.
+- Chapter 3 opening: transfer a resized object through a player-blocking wall slot and land it beyond the barrier.
 - All current chapter text and puzzle hints are authored in Turkish and English.
 
 ## Controls
