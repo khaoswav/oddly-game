@@ -32,6 +32,7 @@ The first vertical slice is intentionally small and playable:
 - Chapter 6's You Again? chamber remembers the player's run. It counts drops, failed interactions and idle episodes, then asks the player to identify their most common habit.
 - Chapter 7's Room That Laughs reacts to drops and failed interactions: props shift, a wall panel slides, the light pulses, and five reactions open the exit.
 - Chapter 8's Loop returns the player to the corridor entrance three times while subtly rearranging the room. The third traversal breaks the loop and opens the real exit.
+- Chapter 9's Wrong Audience puts the player on a theatre stage. Turning away from the audience and holding still earns an absurd standing ovation and opens the exit.
 - Chapter 2 and Chapter 3 have separate checkpoints, localized entry beats and fall recovery.
 - The full campaign target is approximately 2 hours for the main story and approximately 3 hours including 5–8 hidden chapters/rooms.
 - The dual-scale relay only accepts objects once they have physically settled on their pads.
