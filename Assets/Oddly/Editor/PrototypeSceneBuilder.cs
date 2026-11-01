@@ -1712,6 +1712,34 @@ namespace Oddly.Editor
             SetPrivate(memoryEntry, "memoryPillars", memoryPillars);
             SetPrivate(memoryEntry, "statusSign", memoryRoomSign);
 
+            // Chapter 14.3: each completed hidden chapter leaves an interactive echo.
+            for (int i = 0; i < memoryPillars.Length; i++)
+            {
+                int chapterNumber = i + 1;
+                GameObject echoObject = new GameObject("After-choice echo interaction " + chapterNumber.ToString("00"));
+                echoObject.transform.position = memoryPillars[i].position;
+                BoxCollider echoCollider = echoObject.AddComponent<BoxCollider>();
+                echoCollider.isTrigger = true;
+                echoCollider.size = new Vector3(2.1f, 3.8f, 2.1f);
+                AfterChoiceEchoPillar echo = echoObject.AddComponent<AfterChoiceEchoPillar>();
+                SetPrivate(echo, "chapterNumber", chapterNumber);
+                SetPrivate(echo, "pillarVisual", memoryPillars[i]);
+                SetPrivate(echo, "statusSign", memoryRoomSign);
+            }
+
+            GameObject lastEchoPedestal = CreatePrimitive("The Last Echo reward pedestal",
+                PrimitiveType.Cylinder, new Vector3(-36f, 0.45f, 519f), new Vector3(2.1f, 0.45f, 2.1f), accentMat);
+            GameObject lastEchoCore = CreatePrimitive("The Last Echo reward core",
+                PrimitiveType.Sphere, new Vector3(-36f, 1.8f, 519f), Vector3.one * 0.95f, doorMat);
+            GameObject lastEchoTriggerObject = new GameObject("The Last Echo reward interaction");
+            lastEchoTriggerObject.transform.position = new Vector3(-36f, 1.2f, 519f);
+            BoxCollider lastEchoCollider = lastEchoTriggerObject.AddComponent<BoxCollider>();
+            lastEchoCollider.isTrigger = true;
+            lastEchoCollider.size = new Vector3(3.2f, 2.8f, 3.2f);
+            AfterChoiceLastEchoTrigger lastEcho = lastEchoTriggerObject.AddComponent<AfterChoiceLastEchoTrigger>();
+            SetPrivate(lastEcho, "rewardCore", lastEchoCore.transform);
+            SetPrivate(lastEcho, "statusSign", memoryRoomSign);
+
             // Hidden Chapter 01: a secret side route is revealed by collecting three lost fragments.
             TextMesh hiddenClue = new GameObject("Hidden chapter clue").AddComponent<TextMesh>();
             hiddenClue.transform.position = new Vector3(0, 3.35f, 487.8f);
