@@ -138,6 +138,10 @@ namespace Oddly.Editor
             ImpossibleRoomPortal portalBController = portalB.gameObject.AddComponent<ImpossibleRoomPortal>();
             SetPrivate(portalAController, "destination", portalB);
             SetPrivate(portalBController, "destination", portalA);
+            SetPrivate(portalAController, "pairedPortal", portalBController);
+            SetPrivate(portalBController, "pairedPortal", portalAController);
+            SetPrivate(portalAController, "sign", portalA.GetComponentInChildren<TextMesh>());
+            SetPrivate(portalBController, "sign", portalB.GetComponentInChildren<TextMesh>());
 
             CreateLighting();
             Canvas canvas = CreateCanvas();
