@@ -70,6 +70,7 @@
 - [x] Build Chapter 11 The Patch Notes, with three physical update consoles, non-chronological patch order, world-state changes, rollback on conflicts and bilingual version status.
 - [x] Build Chapter 12 The Last Save, with three restorable snapshots, corrupted-state prop and lighting changes, a discoverable stable-save clue and a bilingual exit unlock.
 - [x] Build Chapter 13 The Control Room, with three cyclic ownership consoles, live channel routing, reactive props and lighting, bilingual character conflict and a stable configuration exit unlock.
+- [x] Add a Chapter 12-to-13 voice conflict corridor with three pulsing signal nodes, bilingual SYSTEM-02 guidance and reactive lighting/audio.
 - [x] Build the 14th main-story sequence and three-way final decision chamber.
 - [ ] Complete pacing and content needed for approximately 2 hours of main-story playtime.
 - [x] Build Hidden Chapter 01, The Room That Forgot You, with three collectible fragments, a concealed side gate and a three-stage backwards-walking challenge.
