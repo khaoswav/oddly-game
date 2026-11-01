@@ -47,6 +47,7 @@ Explore → notice an inconsistency → manipulate an object or viewpoint → te
 - Chapter 6, You Again?, uses run-local behaviour telemetry as puzzle content. The game counts object drops, failed interactions/door attempts and idle episodes. Three physical choices display the player's counts; selecting the most frequent habit unlocks the exit. The answer is computed from the current run with deterministic tie-breaking, so it is not a fixed walkthrough answer.
 - Chapter 7, The Room That Laughs, listens to drops and failed interactions while the player is inside the chamber. Each reaction shifts a prop, rotates it, slides a wall panel and pulses the room light. Five reactions unlock the exit, with escalating bilingual character commentary. The room stops listening when the player leaves.
 - Chapter 8, The Loop, sends the player back to the start of a corridor after each traversal. Three passes rearrange props, rotate their orientation, shift the room-light colour and update the bilingual sign. On the third pass the loop breaks and the far exit unlocks.
+- Chapter 9, The Wrong Audience, stages a deliberately awkward performance. The player enters the spotlight and earns a standing ovation by turning their back on the audience and holding still for 2.2 seconds. The audience turns away, the spotlight cools and the exit unlocks. Progress is shown on a bilingual stage sign.
 - Behavior tracking for local, contextual banter.
 
 ## Campaign structure and playtime
