@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Oddly
 {
@@ -96,6 +97,31 @@ namespace Oddly
                     turkish ? endingsTr[Mathf.Clamp(endingIndex, 0, 2)] : endingsEn[Mathf.Clamp(endingIndex, 0, 2)],
                     turkish ? subtitlesTr[Mathf.Clamp(endingIndex, 0, 2)] : subtitlesEn[Mathf.Clamp(endingIndex, 0, 2)]));
             }
+        }
+
+        /// <summary>
+        /// Starts a fresh story run while preserving the chosen ending and
+        /// completed hidden-room archive for callbacks and the final memory room.
+        /// </summary>
+        public static void BeginReplayPreservingArchive()
+        {
+            PlayerPrefs.DeleteKey("oddly.campaign.started");
+            PlayerPrefs.DeleteKey("oddly.campaign.lastMainChapter");
+            PlayerPrefs.DeleteKey("oddly.campaign.furthestMainChapter");
+            PlayerPrefs.DeleteKey("oddly.campaign.hiddenVisited");
+            PlayerPrefs.DeleteKey("oddly.campaign.complete");
+            PlayerPrefs.DeleteKey("oddly.campaign.finalEnding");
+            PlayerPrefs.DeleteKey("oddly.campaign.checkpoint.saved");
+            for (int i = 0; i < 3; i++)
+            {
+                PlayerPrefs.DeleteKey("oddly.campaign.checkpoint.position." + i);
+                PlayerPrefs.DeleteKey("oddly.campaign.checkpoint.rotation." + i);
+            }
+
+            // Keep oddly.ending, oddly.ending.name and oddly.hidden.completed.*
+            // so Hidden Chapter 08 can still ask the player to remember the finale.
+            PlayerPrefs.Save();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         public static void ClearCampaignProgress()
