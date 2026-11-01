@@ -60,6 +60,7 @@
 - [ ] Complete pacing and content needed for approximately 2 hours of main-story playtime.
 - [x] Build Hidden Chapter 01, The Room That Forgot You, with three collectible fragments, a concealed side gate and a three-stage backwards-walking challenge.
 - [x] Build Hidden Chapter 02, The Room That Holds Its Breath, with a three-pad sequential stillness challenge, movement-sensitive timing, reactive lighting and bilingual feedback.
+- [x] Build Hidden Chapter 03, The Moment Between Blinks, with three pulse-timed sightline stations, varied target angles, reactive lighting and bilingual dialogue.
 - [ ] Build 5–8 hidden chapters/rooms targeting approximately 1 additional hour.
 - [x] Add three distinct ending variations with localized dialogue, reactive finale visuals and a locally saved ending choice.
 - [ ] Add alternate solutions and broader narrative callbacks.
