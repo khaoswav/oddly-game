@@ -7,10 +7,12 @@ namespace Oddly
     {
         [SerializeField] private float minimumScale = 0.35f;
         [SerializeField] private float maximumScale = 3.2f;
-        [SerializeField] private float resizeStep = 0.18f;
 
         private Rigidbody body;
         private Vector3 originalScale;
+        private Transform activeHoldPoint;
+        private float scaleAtGrab;
+        private float cameraDistanceAtGrab;
 
         public bool IsHeld { get; private set; }
         public float CurrentUniformScale => transform.lossyScale.x;
@@ -26,24 +28,42 @@ namespace Oddly
         {
             if (IsHeld || holdPoint == null || viewCamera == null) return;
 
-            // Preserve the object's apparent size as it moves from the world
-            // into the fixed holding distance. This makes pickup distance a
-            // real puzzle variable instead of treating every grab identically.
             float worldDistance = Vector3.Distance(viewCamera.transform.position, transform.position);
-            float holdDistance = Vector3.Distance(viewCamera.transform.position, holdPoint.position);
-            LastPerspectiveScaleFactor = worldDistance > 0.01f
-                ? Mathf.Clamp(holdDistance / worldDistance, 0.35f, 2.8f)
-                : 1f;
-            float heldScale = transform.lossyScale.x * LastPerspectiveScaleFactor;
+            float holdDistance = Mathf.Max(0.1f, holdPoint.localPosition.z);
+            scaleAtGrab = transform.lossyScale.x;
+            cameraDistanceAtGrab = Mathf.Max(0.1f, worldDistance);
+            LastPerspectiveScaleFactor = Mathf.Clamp(holdDistance / cameraDistanceAtGrab, 0.35f, 2.8f);
 
             IsHeld = true;
+            activeHoldPoint = holdPoint;
             body.velocity = Vector3.zero;
             body.angularVelocity = Vector3.zero;
             body.isKinematic = true;
             transform.SetParent(holdPoint, true);
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
-            transform.localScale = Vector3.one * heldScale;
+            ApplyPerspectiveScale(holdDistance);
+        }
+
+        // Moving the held object through depth changes its real-world scale
+        // while keeping its apparent size approximately constant on screen.
+        public void UpdateHeldPerspective(float cameraDistance)
+        {
+            if (!IsHeld || activeHoldPoint == null) return;
+
+            float distance = Mathf.Max(0.1f, cameraDistance);
+            Vector3 holdPosition = activeHoldPoint.localPosition;
+            holdPosition.z = distance;
+            activeHoldPoint.localPosition = holdPosition;
+            transform.localPosition = Vector3.zero;
+            ApplyPerspectiveScale(distance);
+        }
+
+        private void ApplyPerspectiveScale(float cameraDistance)
+        {
+            float perspectiveScale = scaleAtGrab * (cameraDistance / cameraDistanceAtGrab);
+            float clampedScale = Mathf.Clamp(perspectiveScale, minimumScale, maximumScale);
+            transform.localScale = Vector3.one * clampedScale;
         }
 
         public void Drop()
@@ -52,19 +72,12 @@ namespace Oddly
             transform.SetParent(null, true);
             body.isKinematic = false;
             IsHeld = false;
-        }
-
-        public void Resize(float wheelDelta)
-        {
-            if (!IsHeld || Mathf.Abs(wheelDelta) < 0.01f) return;
-            float factor = 1f + Mathf.Sign(wheelDelta) * resizeStep;
-            Vector3 next = transform.localScale * factor;
-            float scale = Mathf.Clamp(next.x, minimumScale, maximumScale);
-            transform.localScale = Vector3.one * scale;
+            activeHoldPoint = null;
         }
 
         public void ResetScale()
         {
+            if (IsHeld) return;
             transform.localScale = originalScale;
         }
     }
