@@ -58,7 +58,8 @@ The prototype scene is generated automatically by the Unity Editor bootstrap whe
 - Chapter 2: a physical platform gap that must be crossed with a depth-resized plank.
 - Chapter 3 opening: transfer a resized object through a player-blocking wall slot and land it beyond the barrier.
 - Chapter 4 opening: resolve a three-step switch sequence while the two characters give conflicting instructions.
-- Chapter 5 opening: stand on the marked spot and turn away from the exit to reveal the route.\n- Chapter 12: choose the last stable save to restore the room and unlock the exit.
+- Chapter 5 opening: stand on the marked spot and turn away from the exit to reveal the route.
+- Chapter 12: choose the last stable save to restore the room and unlock the exit.
 - All current chapter text and puzzle hints are authored in Turkish and English.
 
 ## Controls
