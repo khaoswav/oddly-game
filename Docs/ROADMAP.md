@@ -58,6 +58,7 @@
 - [x] Build Chapter 13 The Control Room, with three cyclic ownership consoles, live channel routing, reactive props and lighting, bilingual character conflict and a stable configuration exit unlock.
 - [x] Build the 14th main-story sequence and three-way final decision chamber.
 - [ ] Complete pacing and content needed for approximately 2 hours of main-story playtime.
+- [x] Build Hidden Chapter 01, The Room That Forgot You, with three collectible fragments, a concealed side gate and a three-stage backwards-walking challenge.
 - [ ] Build 5–8 hidden chapters/rooms targeting approximately 1 additional hour.
 - [x] Add three distinct ending variations with localized dialogue, reactive finale visuals and a locally saved ending choice.
 - [ ] Add alternate solutions and broader narrative callbacks.
