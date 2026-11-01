@@ -29,6 +29,10 @@
 - [x] Add a three-beat bilingual Chapter 1 opening sequence with a deliberate control handoff.
 - [x] Extend the unlocked exit into a traversable corridor with a bilingual false-exit reveal and animated passage into a waiting room.
 - [ ] Add original placeholder music and sound design.
+- [x] Add full-screen bilingual cinematic chapter cards with fade transitions for the main story and all eight hidden chapters.
+- [x] Persist current/furthest campaign chapter, hidden-room visits and the selected ending.
+- [x] Persist chapter-entry checkpoints and restore the latest safe location on relaunch.
+- [x] Add an ending-specific campaign completion card and campaign-progress reset API.
 - [ ] Build distinct room-to-room transitions and surprising set-piece events so progression feels like a continuous surreal comedy adventure, not a row of repeated puzzle rooms.
 
 ## Milestone 2 — Visual identity
