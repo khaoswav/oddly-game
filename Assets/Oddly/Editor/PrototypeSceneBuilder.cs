@@ -843,6 +843,9 @@ namespace Oddly.Editor
                 new Vector3(0f, 1.1f, 322f), new Vector3(0.9f, 2.2f, 0.9f), accentMat);
             GameObject audienceThree = CreatePrimitive("Audience member three", PrimitiveType.Capsule,
                 new Vector3(3f, 1.1f, 322f), new Vector3(0.9f, 2.2f, 0.9f), doorMat);
+            audienceOne.GetComponent<Collider>().enabled = false;
+            audienceTwo.GetComponent<Collider>().enabled = false;
+            audienceThree.GetComponent<Collider>().enabled = false;
 
             GameObject stageLightObject = new GameObject("Audience stage spotlight");
             stageLightObject.transform.position = new Vector3(0, 4.2f, 316f);
