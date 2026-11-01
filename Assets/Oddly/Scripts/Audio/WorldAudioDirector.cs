@@ -20,6 +20,7 @@ namespace Oddly
         [SerializeField, Range(0f, 1f)] private float effectsVolume = 0.9f;
         [SerializeField, Min(0.05f)] private float crossfadeDuration = 1.4f;
 
+        private AudioClip generatedScore;
         private AudioClip generatedAmbient;
         private AudioClip doorCue;
         private AudioClip revealCue;
@@ -39,11 +40,18 @@ namespace Oddly
             musicVolume = PlayerPrefs.GetFloat("oddly.audio.music", musicVolume);
             ambienceVolume = PlayerPrefs.GetFloat("oddly.audio.ambience", ambienceVolume);
             effectsVolume = PlayerPrefs.GetFloat("oddly.audio.effects", effectsVolume);
+            generatedScore = ProceduralAudioPalette.CreateOriginalScoreLoop();
             generatedAmbient = ProceduralAudioPalette.CreateAmbientBed();
             doorCue = ProceduralAudioPalette.CreateDoorCue();
             revealCue = ProceduralAudioPalette.CreateRevealCue();
             surpriseCue = ProceduralAudioPalette.CreateSurpriseCue();
             ApplyVolumes();
+
+            if (musicSource.clip == null)
+                musicSource.clip = generatedScore;
+            musicSource.loop = true;
+            if (!musicSource.isPlaying)
+                musicSource.Play();
 
             if (ambienceSource.clip == null)
                 ambienceSource.clip = generatedAmbient;
@@ -174,6 +182,7 @@ namespace Oddly
         private void OnDestroy()
         {
             if (Instance == this) Instance = null;
+            if (generatedScore != null) Destroy(generatedScore);
             if (generatedAmbient != null) Destroy(generatedAmbient);
             if (doorCue != null) Destroy(doorCue);
             if (revealCue != null) Destroy(revealCue);
