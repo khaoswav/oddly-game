@@ -31,6 +31,11 @@ namespace Oddly
 
         private void Update()
         {
+            // Scene bootstrap assigns references immediately after AddComponent,
+            // so resolve the renderer lazily as well as in Awake.
+            if (objectRenderer == null && puzzleObject != null)
+                objectRenderer = puzzleObject.GetComponentInChildren<Renderer>();
+
             if (completed || playerCamera == null || puzzleObject == null ||
                 target == null || objectRenderer == null || puzzleObject.IsHeld)
             {
