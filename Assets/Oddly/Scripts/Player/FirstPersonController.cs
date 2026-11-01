@@ -17,6 +17,11 @@ namespace Oddly
 
         public Transform CameraTransform => cameraPivot;
 
+        public void SetLookSensitivity(float value)
+        {
+            lookSensitivity = Mathf.Clamp(value, 0.5f, 5f);
+        }
+
         private void Awake()
         {
             controller = GetComponent<CharacterController>();
