@@ -1263,8 +1263,16 @@ namespace Oddly.Editor
                 new Vector3(0, -0.25f, 495), new Vector3(10, 0.5f, 24), floorMat);
             CreatePrimitive("Chapter 14 left wall", PrimitiveType.Cube,
                 new Vector3(-5, 2.5f, 495), new Vector3(0.25f, 5, 24), wallMat);
-            CreatePrimitive("Chapter 14 right wall", PrimitiveType.Cube,
-                new Vector3(5, 2.5f, 495), new Vector3(0.25f, 5, 24), wallMat);
+            // Leave a concealed side opening for optional content; its gate stays closed
+            // until the player discovers all three fragments hidden in the finale.
+            CreatePrimitive("Chapter 14 right wall front segment", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 486.5f), new Vector3(0.25f, 5, 7), wallMat);
+            CreatePrimitive("Chapter 14 right wall rear segment", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 503.5f), new Vector3(0.25f, 5, 7), wallMat);
+            CreatePrimitive("Chapter 14 hidden doorway header", PrimitiveType.Cube,
+                new Vector3(5, 4.55f, 495), new Vector3(0.25f, 0.9f, 3.5f), wallMat);
+            GameObject hiddenGatePanel = CreatePrimitive("Concealed hidden chapter gate",
+                PrimitiveType.Cube, new Vector3(4.82f, 1.8f, 495), new Vector3(0.35f, 3.6f, 3.1f), doorMat);
             CreatePrimitive("Chapter 14 far wall left", PrimitiveType.Cube,
                 new Vector3(-4.15f, 2.5f, 507), new Vector3(1.7f, 5, 0.5f), wallMat);
             CreatePrimitive("Chapter 14 far wall right", PrimitiveType.Cube,
@@ -1346,6 +1354,146 @@ namespace Oddly.Editor
             endingLight.type = LightType.Point;
             endingLight.range = 18f;
             endingLight.intensity = 1.1f;
+
+            // Hidden Chapter 01: a secret side route is revealed by collecting three lost fragments.
+            TextMesh hiddenClue = new GameObject("Hidden chapter clue").AddComponent<TextMesh>();
+            hiddenClue.transform.position = new Vector3(0, 3.35f, 487.8f);
+            hiddenClue.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            hiddenClue.text = "THREE THINGS DON'T BELONG HERE\nÜÇ ŞEY BURAYA AİT DEĞİL";
+            hiddenClue.fontSize = 23;
+            hiddenClue.characterSize = 0.04f;
+            hiddenClue.anchor = TextAnchor.MiddleCenter;
+            hiddenClue.alignment = TextAlignment.Center;
+            hiddenClue.color = new Color(0.55f, 0.38f, 0.82f);
+
+            TextMesh hiddenGateStatus = new GameObject("Hidden gate fragment status").AddComponent<TextMesh>();
+            hiddenGateStatus.transform.position = new Vector3(0, 2.75f, 488.4f);
+            hiddenGateStatus.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            hiddenGateStatus.fontSize = 20;
+            hiddenGateStatus.characterSize = 0.035f;
+            hiddenGateStatus.anchor = TextAnchor.MiddleCenter;
+            hiddenGateStatus.alignment = TextAlignment.Center;
+            hiddenGateStatus.color = new Color(0.55f, 0.38f, 0.82f);
+
+            GameObject hiddenGateObject = new GameObject("Hidden chapter gate controller");
+            HiddenChapterGate hiddenGate = hiddenGateObject.AddComponent<HiddenChapterGate>();
+            SetPrivate(hiddenGate, "gatePanel", hiddenGatePanel.transform);
+            SetPrivate(hiddenGate, "statusSign", hiddenGateStatus);
+
+            Vector3[] hiddenFragmentPositions = {
+                new Vector3(-4.25f, 0.65f, 490f),
+                new Vector3(4.25f, 0.65f, 490f),
+                new Vector3(0f, 0.65f, 504f)
+            };
+            for (int i = 0; i < hiddenFragmentPositions.Length; i++)
+            {
+                GameObject fragmentRoot = new GameObject("Lost fragment " + (i + 1));
+                fragmentRoot.transform.position = hiddenFragmentPositions[i];
+                BoxCollider fragmentCollider = fragmentRoot.AddComponent<BoxCollider>();
+                fragmentCollider.isTrigger = true;
+                fragmentCollider.size = Vector3.one * 1.25f;
+                HiddenFragmentTrigger fragmentTrigger = fragmentRoot.AddComponent<HiddenFragmentTrigger>();
+                SetPrivate(fragmentTrigger, "gate", hiddenGate);
+
+                GameObject fragmentVisual = CreatePrimitive("Fragment glow " + (i + 1),
+                    PrimitiveType.Sphere, hiddenFragmentPositions[i], Vector3.one * 0.42f, cubeMat);
+                fragmentVisual.transform.SetParent(fragmentRoot.transform, true);
+                Collider fragmentVisualCollider = fragmentVisual.GetComponent<Collider>();
+                if (fragmentVisualCollider != null) Object.DestroyImmediate(fragmentVisualCollider);
+            }
+
+            // The optional branch runs perpendicular to the main finale corridor.
+            CreatePrimitive("Hidden route floor", PrimitiveType.Cube,
+                new Vector3(15, -0.25f, 495), new Vector3(20, 0.5f, 6), floorMat);
+            CreatePrimitive("Hidden route near wall", PrimitiveType.Cube,
+                new Vector3(15, 2.5f, 492), new Vector3(20, 5, 0.25f), wallMat);
+            CreatePrimitive("Hidden route far wall", PrimitiveType.Cube,
+                new Vector3(15, 2.5f, 498), new Vector3(20, 5, 0.25f), wallMat);
+
+            CreatePrimitive("Hidden chapter room floor", PrimitiveType.Cube,
+                new Vector3(35, -0.25f, 495), new Vector3(20, 0.5f, 24), floorMat);
+            CreatePrimitive("Hidden chapter room outer wall", PrimitiveType.Cube,
+                new Vector3(45, 2.5f, 495), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Hidden chapter room near wall", PrimitiveType.Cube,
+                new Vector3(35, 2.5f, 483), new Vector3(20, 5, 0.25f), wallMat);
+            CreatePrimitive("Hidden chapter room far wall", PrimitiveType.Cube,
+                new Vector3(35, 2.5f, 507), new Vector3(20, 5, 0.25f), wallMat);
+            CreatePrimitive("Hidden chapter exit wall front", PrimitiveType.Cube,
+                new Vector3(45, 2.5f, 486.5f), new Vector3(0.25f, 5, 7), wallMat);
+            CreatePrimitive("Hidden chapter exit wall rear", PrimitiveType.Cube,
+                new Vector3(45, 2.5f, 503.5f), new Vector3(0.25f, 5, 7), wallMat);
+            CreatePrimitive("Hidden chapter exit header", PrimitiveType.Cube,
+                new Vector3(45, 4.55f, 495), new Vector3(0.25f, 0.9f, 3.5f), wallMat);
+            GameObject hiddenExit = CreatePrimitive("Hidden chapter exit door",
+                PrimitiveType.Cube, new Vector3(44.82f, 2, 495), new Vector3(0.35f, 4, 3.1f), doorMat);
+            DoorController hiddenExitController = hiddenExit.AddComponent<DoorController>();
+
+            GameObject hiddenEntry = new GameObject("Hidden Chapter 01 entry trigger");
+            hiddenEntry.transform.position = new Vector3(27f, 1.2f, 495f);
+            BoxCollider hiddenEntryCollider = hiddenEntry.AddComponent<BoxCollider>();
+            hiddenEntryCollider.isTrigger = true;
+            hiddenEntryCollider.size = new Vector3(1.2f, 2.4f, 5.5f);
+            ChapterEntryTrigger hiddenEntryTrigger = hiddenEntry.AddComponent<ChapterEntryTrigger>();
+            GameObject hiddenCheckpoint = new GameObject("Hidden Chapter 01 checkpoint");
+            hiddenCheckpoint.transform.position = new Vector3(29f, 0.15f, 495f);
+
+            TextMesh hiddenChapterTitle = new GameObject("Hidden Chapter 01 title").AddComponent<TextMesh>();
+            hiddenChapterTitle.transform.position = new Vector3(30.5f, 3.5f, 488f);
+            hiddenChapterTitle.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+            hiddenChapterTitle.text = "HIDDEN 01 / THE ROOM THAT FORGOT YOU";
+            hiddenChapterTitle.fontSize = 27;
+            hiddenChapterTitle.characterSize = 0.04f;
+            hiddenChapterTitle.anchor = TextAnchor.MiddleCenter;
+            hiddenChapterTitle.alignment = TextAlignment.Center;
+            hiddenChapterTitle.color = new Color(0.55f, 0.38f, 0.82f);
+
+            TextMesh backwardsStatus = new GameObject("Backwards room progress").AddComponent<TextMesh>();
+            backwardsStatus.transform.position = new Vector3(35f, 3.35f, 488f);
+            backwardsStatus.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+            backwardsStatus.fontSize = 25;
+            backwardsStatus.characterSize = 0.045f;
+            backwardsStatus.anchor = TextAnchor.MiddleCenter;
+            backwardsStatus.alignment = TextAlignment.Center;
+            backwardsStatus.color = new Color(0.55f, 0.38f, 0.82f);
+
+            float[] backwardsStepXs = { 31f, 35f, 39f };
+            for (int i = 0; i < backwardsStepXs.Length; i++)
+            {
+                GameObject footprint = CreatePrimitive("Backward footprint " + (i + 1),
+                    PrimitiveType.Cylinder, new Vector3(backwardsStepXs[i], 0.08f, 495f),
+                    new Vector3(1.05f, 0.08f, 1.45f), i == 1 ? accentMat : cubeMat);
+                footprint.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+
+                GameObject stepTriggerObject = new GameObject("Backwards step trigger " + (i + 1));
+                stepTriggerObject.transform.position = new Vector3(backwardsStepXs[i], 1f, 495f);
+                BoxCollider stepCollider = stepTriggerObject.AddComponent<BoxCollider>();
+                stepCollider.isTrigger = true;
+                stepCollider.size = new Vector3(2.4f, 2.4f, 4.5f);
+                BackwardsStepTrigger stepTrigger = stepTriggerObject.AddComponent<BackwardsStepTrigger>();
+                SetPrivate(stepTrigger, "stepIndex", i);
+            }
+
+            GameObject hiddenRoomLightObject = new GameObject("Hidden room reactive light");
+            hiddenRoomLightObject.transform.position = new Vector3(35f, 4.1f, 495f);
+            Light hiddenRoomLight = hiddenRoomLightObject.AddComponent<Light>();
+            hiddenRoomLight.type = LightType.Point;
+            hiddenRoomLight.range = 18f;
+            hiddenRoomLight.intensity = 0.8f;
+
+            GameObject backwardsPuzzleObject = new GameObject("Backwards walk puzzle controller");
+            BackwardsWalkPuzzle backwardsPuzzle = backwardsPuzzleObject.AddComponent<BackwardsWalkPuzzle>();
+
+            CreatePrimitive("Hidden ending corridor floor", PrimitiveType.Cube,
+                new Vector3(50, -0.25f, 495), new Vector3(10, 0.5f, 4), floorMat);
+            TextMesh hiddenEndingSign = new GameObject("Hidden ending sign").AddComponent<TextMesh>();
+            hiddenEndingSign.transform.position = new Vector3(54f, 2.8f, 495f);
+            hiddenEndingSign.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+            hiddenEndingSign.text = "YOU WERE NEVER HERE.\nBURADA HİÇ OLMADIN.";
+            hiddenEndingSign.fontSize = 24;
+            hiddenEndingSign.characterSize = 0.045f;
+            hiddenEndingSign.anchor = TextAnchor.MiddleCenter;
+            hiddenEndingSign.alignment = TextAlignment.Center;
+            hiddenEndingSign.color = new Color(0.55f, 0.38f, 0.82f);
 
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
@@ -1659,6 +1807,25 @@ namespace Oddly.Editor
             SetPrivate(finalDecisionPuzzle, "decisionSign", finalDecisionSign);
             SetPrivate(finalDecisionPuzzle, "endingLight", endingLight);
             SetPrivate(finalDecisionPuzzle, "endingRelics", endingRelics);
+            SetPrivate(hiddenGate, "dialogue", director);
+            SetPrivate(hiddenEntryTrigger, "dialogue", director);
+            SetPrivate(hiddenEntryTrigger, "chapterSign", hiddenChapterTitle);
+            SetPrivate(hiddenEntryTrigger, "dialogueId", "hidden_chapter_one_entry");
+            SetPrivate(hiddenEntryTrigger, "englishSign", "HIDDEN 01  /  THE ROOM THAT FORGOT YOU");
+            SetPrivate(hiddenEntryTrigger, "turkishSign", "GİZLİ 01  /  SENİ UNUTAN ODA");
+            SetPrivate(hiddenEntryTrigger, "fallRecovery", fallRecovery);
+            SetPrivate(hiddenEntryTrigger, "checkpoint", hiddenCheckpoint.transform);
+            SetPrivate(backwardsPuzzle, "exitDoor", hiddenExitController);
+            SetPrivate(backwardsPuzzle, "dialogue", director);
+            SetPrivate(backwardsPuzzle, "statusSign", backwardsStatus);
+            SetPrivate(backwardsPuzzle, "roomLight", hiddenRoomLight);
+            SetPrivate(hiddenExitController, "dialogue", director);
+            for (int i = 0; i < backwardsStepXs.Length; i++)
+            {
+                GameObject stepTriggerObject = GameObject.Find("Backwards step trigger " + (i + 1));
+                BackwardsStepTrigger stepTrigger = stepTriggerObject.GetComponent<BackwardsStepTrigger>();
+                SetPrivate(stepTrigger, "puzzle", backwardsPuzzle);
+            }
             SetPrivate(chapterFourteenExitController, "dialogue", director);
             SetPrivate(chapterThirteenExitController, "dialogue", director);
             PerspectiveBridgePuzzle bridgePuzzle = player.AddComponent<PerspectiveBridgePuzzle>();
