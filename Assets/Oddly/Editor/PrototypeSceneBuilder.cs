@@ -3320,13 +3320,57 @@ namespace Oddly.Editor
 
         private static void CreateLighting()
         {
-            GameObject lightObject = new GameObject("Soft Key Light");
+            GameObject lightObject = new GameObject("ODDLY Soft Key Light");
             Light light = lightObject.AddComponent<Light>();
             light.type = LightType.Directional;
-            light.intensity = 1.15f;
-            light.color = new Color(1f, 0.91f, 0.82f);
+            light.intensity = 1.12f;
+            light.color = new Color(1f, 0.91f, 0.84f);
+            light.shadows = LightShadows.Soft;
+            light.shadowStrength = 0.78f;
+            light.shadowBias = 0.045f;
+            light.shadowNormalBias = 0.32f;
             lightObject.transform.rotation = Quaternion.Euler(48f, -28f, 0f);
-            RenderSettings.ambientLight = new Color(0.62f, 0.66f, 0.74f);
+
+            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Trilight;
+            RenderSettings.ambientSkyColor = new Color(0.66f, 0.72f, 0.84f);
+            RenderSettings.ambientEquatorColor = new Color(0.48f, 0.51f, 0.59f);
+            RenderSettings.ambientGroundColor = new Color(0.24f, 0.25f, 0.31f);
+            RenderSettings.ambientLight = new Color(0.58f, 0.62f, 0.72f);
+            RenderSettings.reflectionIntensity = 0.68f;
+
+            RenderSettings.fog = true;
+            RenderSettings.fogMode = FogMode.Linear;
+            RenderSettings.fogColor = new Color(0.48f, 0.52f, 0.61f);
+            RenderSettings.fogStartDistance = 52f;
+            RenderSettings.fogEndDistance = 168f;
+
+            QualitySettings.antiAliasing = 2;
+            QualitySettings.shadows = ShadowQuality.All;
+            QualitySettings.shadowResolution = ShadowResolution.High;
+            QualitySettings.shadowDistance = 62f;
+            QualitySettings.shadowCascades = 2;
+
+            CreateAccentLight("Opening Coral Bounce", new Vector3(0f, 3.2f, 3f),
+                new Color(1f, 0.34f, 0.43f), 1.15f, 11f);
+            CreateAccentLight("Finale Blue Bounce", new Vector3(0f, 3.2f, 498f),
+                new Color(0.34f, 0.56f, 1f), 1.35f, 15f);
+            CreateAccentLight("Ninth Record Warm Bounce", new Vector3(-61f, 3f, 519f),
+                new Color(1f, 0.72f, 0.43f), 1.1f, 12f);
+            CreateAccentLight("Memory Archive Teal Bounce", new Vector3(-36f, 3f, 519f),
+                new Color(0.34f, 0.88f, 0.82f), 0.9f, 11f);
+        }
+
+        private static void CreateAccentLight(string lightName, Vector3 position, Color color,
+            float intensity, float range)
+        {
+            GameObject lightObject = new GameObject(lightName);
+            lightObject.transform.position = position;
+            Light light = lightObject.AddComponent<Light>();
+            light.type = LightType.Point;
+            light.color = color;
+            light.intensity = intensity;
+            light.range = range;
+            light.shadows = LightShadows.None;
         }
 
         private static Canvas CreateCanvas()
@@ -3392,6 +3436,21 @@ namespace Oddly.Editor
             Shader shader = Shader.Find("Universal Render Pipeline/Lit");
             if (shader == null) shader = Shader.Find("Standard");
             Material material = new Material(shader) { name = name, color = color };
+
+            if (material.HasProperty("_Metallic"))
+                material.SetFloat("_Metallic", 0.08f);
+            if (material.HasProperty("_Glossiness"))
+                material.SetFloat("_Glossiness", 0.38f);
+            if (material.HasProperty("_Smoothness"))
+                material.SetFloat("_Smoothness", 0.38f);
+
+            Color emission = color * (Mathf.Max(color.r, Mathf.Max(color.g, color.b)) > 0.72f ? 0.045f : 0.085f);
+            if (material.HasProperty("_EmissionColor"))
+            {
+                material.SetColor("_EmissionColor", emission);
+                material.EnableKeyword("_EMISSION");
+            }
+
             return material;
         }
 
