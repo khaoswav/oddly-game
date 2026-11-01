@@ -26,7 +26,7 @@ The first vertical slice is intentionally small and playable:
 - Persistent title-screen options for mouse sensitivity and field of view.
 - Runtime-created prototype room, HUD and title screen.
 
-The prototype scene is generated automatically by the Unity Editor bootstrap when the project is opened. If it has not appeared, use **Oddly → Create / Repair Prototype Scene**.
+The prototype scene is generated automatically by the Unity Editor bootstrap when the project is opened. If it has not appeared, use **Oddly → Create / Repair Prototype Scene**. To regenerate an already-created scene after pulling gameplay updates, use **Oddly → Rebuild Prototype Scene**.
 
 ## Open the project
 1. Install Unity Hub and Unity **6.3 LTS** with the macOS or Windows build support you need.
