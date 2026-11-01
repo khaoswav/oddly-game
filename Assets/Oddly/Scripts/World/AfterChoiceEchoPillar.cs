@@ -94,12 +94,13 @@ namespace Oddly
 
         private string GetDialogueId()
         {
-            string ending = Mathf.Clamp(PlayerPrefs.GetInt("oddly.ending", 2), 0, 2) switch
+            string ending;
+            switch (Mathf.Clamp(PlayerPrefs.GetInt("oddly.ending", 2), 0, 2))
             {
-                0 => "narrator",
-                1 => "system",
-                _ => "player"
-            };
+                case 0: ending = "narrator"; break;
+                case 1: ending = "system"; break;
+                default: ending = "player"; break;
+            }
             return "afterchoice_echo_" + chapterNumber.ToString("00") + "_" + ending;
         }
 
