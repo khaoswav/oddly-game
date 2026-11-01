@@ -1695,6 +1695,113 @@ namespace Oddly.Editor
             hiddenThreeEnding.alignment = TextAlignment.Center;
             hiddenThreeEnding.color = new Color(0.34f, 0.95f, 0.8f);
 
+            // Hidden Chapter 04: past behaviour determines which bridge exists in the room ahead.
+            CreatePrimitive("Hidden 04 approach corridor", PrimitiveType.Cube,
+                new Vector3(140f, -0.25f, 495f), new Vector3(10f, 0.5f, 4f), floorMat);
+            CreatePrimitive("Hidden 04 near wall", PrimitiveType.Cube,
+                new Vector3(155f, 2.5f, 483f), new Vector3(30f, 5f, 0.25f), wallMat);
+            CreatePrimitive("Hidden 04 far wall", PrimitiveType.Cube,
+                new Vector3(155f, 2.5f, 507f), new Vector3(30f, 5f, 0.25f), wallMat);
+            CreatePrimitive("Hidden 04 entry wall near", PrimitiveType.Cube,
+                new Vector3(140f, 2.5f, 487.5f), new Vector3(0.25f, 5f, 9f), wallMat);
+            CreatePrimitive("Hidden 04 entry wall far", PrimitiveType.Cube,
+                new Vector3(140f, 2.5f, 502.5f), new Vector3(0.25f, 5f, 9f), wallMat);
+            CreatePrimitive("Hidden 04 entry header", PrimitiveType.Cube,
+                new Vector3(140f, 4.55f, 495f), new Vector3(0.25f, 0.9f, 6f), wallMat);
+            CreatePrimitive("Hidden 04 exit wall near", PrimitiveType.Cube,
+                new Vector3(170f, 2.5f, 487.5f), new Vector3(0.25f, 5f, 9f), wallMat);
+            CreatePrimitive("Hidden 04 exit wall far", PrimitiveType.Cube,
+                new Vector3(170f, 2.5f, 502.5f), new Vector3(0.25f, 5f, 9f), wallMat);
+            CreatePrimitive("Hidden 04 exit header", PrimitiveType.Cube,
+                new Vector3(170f, 4.55f, 495f), new Vector3(0.25f, 0.9f, 6f), wallMat);
+            CreatePrimitive("Hidden 04 approach floor", PrimitiveType.Cube,
+                new Vector3(145.5f, -0.25f, 495f), new Vector3(11f, 0.5f, 24f), floorMat);
+            CreatePrimitive("Hidden 04 landing floor", PrimitiveType.Cube,
+                new Vector3(164.5f, -0.25f, 495f), new Vector3(11f, 0.5f, 24f), floorMat);
+
+            GameObject hiddenFourExit = CreatePrimitive("Hidden 04 exit door",
+                PrimitiveType.Cube, new Vector3(169.82f, 2f, 495f),
+                new Vector3(0.35f, 4f, 5.5f), doorMat);
+            DoorController hiddenFourExitController = hiddenFourExit.AddComponent<DoorController>();
+
+            GameObject hiddenFourEntry = new GameObject("Hidden Chapter 04 entry trigger");
+            hiddenFourEntry.transform.position = new Vector3(137f, 1.2f, 495f);
+            BoxCollider hiddenFourEntryCollider = hiddenFourEntry.AddComponent<BoxCollider>();
+            hiddenFourEntryCollider.isTrigger = true;
+            hiddenFourEntryCollider.size = new Vector3(1.2f, 2.4f, 8f);
+            GameObject hiddenFourCheckpoint = new GameObject("Hidden Chapter 04 checkpoint");
+            hiddenFourCheckpoint.transform.position = new Vector3(138.5f, 0.15f, 495f);
+
+            TextMesh hiddenFourTitle = new GameObject("Hidden Chapter 04 title").AddComponent<TextMesh>();
+            hiddenFourTitle.transform.position = new Vector3(143f, 3.8f, 495f);
+            hiddenFourTitle.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+            hiddenFourTitle.text = "HIDDEN 04 / THE ROOM THAT REMEMBERS TOMORROW";
+            hiddenFourTitle.fontSize = 23;
+            hiddenFourTitle.characterSize = 0.04f;
+            hiddenFourTitle.anchor = TextAnchor.MiddleCenter;
+            hiddenFourTitle.alignment = TextAlignment.Center;
+            hiddenFourTitle.color = new Color(0.95f, 0.68f, 0.32f);
+
+            TextMesh tomorrowStatus = new GameObject("Hidden 04 memory route status").AddComponent<TextMesh>();
+            tomorrowStatus.transform.position = new Vector3(155f, 4.1f, 483.35f);
+            tomorrowStatus.transform.rotation = Quaternion.identity;
+            tomorrowStatus.fontSize = 24;
+            tomorrowStatus.characterSize = 0.045f;
+            tomorrowStatus.anchor = TextAnchor.MiddleCenter;
+            tomorrowStatus.alignment = TextAlignment.Center;
+            tomorrowStatus.color = new Color(0.95f, 0.68f, 0.32f);
+
+            float[] memoryLaneZ = { 489f, 495f, 501f };
+            Transform[] memoryBridges = new Transform[3];
+            string[] memoryLaneLabels = { "DROP / DÜŞÜR", "RETRY / TEKRAR", "WAIT / BEKLE" };
+            for (int i = 0; i < memoryLaneZ.Length; i++)
+            {
+                GameObject bridge = CreatePrimitive("Tomorrow memory bridge " + i,
+                    PrimitiveType.Cube, new Vector3(155f, -3.5f, memoryLaneZ[i]),
+                    new Vector3(8f, 0.35f, 4.8f), i == 0 ? accentMat : cubeMat);
+                memoryBridges[i] = bridge.transform;
+
+                TextMesh laneLabel = new GameObject("Tomorrow memory lane label " + i).AddComponent<TextMesh>();
+                laneLabel.transform.position = new Vector3(146f, 1.1f, memoryLaneZ[i]);
+                laneLabel.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+                laneLabel.text = memoryLaneLabels[i];
+                laneLabel.fontSize = 18;
+                laneLabel.characterSize = 0.04f;
+                laneLabel.anchor = TextAnchor.MiddleCenter;
+                laneLabel.alignment = TextAlignment.Center;
+                laneLabel.color = new Color(0.95f, 0.68f, 0.32f);
+            }
+
+            GameObject tomorrowLightObject = new GameObject("Hidden 04 memory light");
+            tomorrowLightObject.transform.position = new Vector3(155f, 4.2f, 495f);
+            Light tomorrowLight = tomorrowLightObject.AddComponent<Light>();
+            tomorrowLight.type = LightType.Point;
+            tomorrowLight.range = 26f;
+            tomorrowLight.intensity = 0.8f;
+
+            GameObject tomorrowPuzzleObject = new GameObject("Hidden 04 tomorrow memory puzzle");
+            TomorrowMemoryPuzzle tomorrowPuzzle = tomorrowPuzzleObject.AddComponent<TomorrowMemoryPuzzle>();
+
+            GameObject tomorrowExitTriggerObject = new GameObject("Hidden 04 exit trigger");
+            tomorrowExitTriggerObject.transform.position = new Vector3(167.5f, 1.2f, 495f);
+            BoxCollider tomorrowExitCollider = tomorrowExitTriggerObject.AddComponent<BoxCollider>();
+            tomorrowExitCollider.isTrigger = true;
+            tomorrowExitCollider.size = new Vector3(1.2f, 2.4f, 18f);
+            TomorrowMemoryExitTrigger tomorrowExitTrigger =
+                tomorrowExitTriggerObject.AddComponent<TomorrowMemoryExitTrigger>();
+
+            CreatePrimitive("Hidden 04 ending corridor floor", PrimitiveType.Cube,
+                new Vector3(175f, -0.25f, 495f), new Vector3(10f, 0.5f, 4f), floorMat);
+            TextMesh hiddenFourEnding = new GameObject("Hidden 04 ending message").AddComponent<TextMesh>();
+            hiddenFourEnding.transform.position = new Vector3(179f, 2.8f, 495f);
+            hiddenFourEnding.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+            hiddenFourEnding.text = "YOUR PAST BUILT THIS.\nBUNU GEÇMİŞİN İNŞA ETTİ.";
+            hiddenFourEnding.fontSize = 22;
+            hiddenFourEnding.characterSize = 0.045f;
+            hiddenFourEnding.anchor = TextAnchor.MiddleCenter;
+            hiddenFourEnding.alignment = TextAlignment.Center;
+            hiddenFourEnding.color = new Color(0.95f, 0.68f, 0.32f);
+
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
             BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
@@ -2007,6 +2114,20 @@ namespace Oddly.Editor
             SetPrivate(finalDecisionPuzzle, "decisionSign", finalDecisionSign);
             SetPrivate(finalDecisionPuzzle, "endingLight", endingLight);
             SetPrivate(finalDecisionPuzzle, "endingRelics", endingRelics);
+            TomorrowMemoryEntryTrigger tomorrowEntryTrigger =
+                hiddenFourEntry.AddComponent<TomorrowMemoryEntryTrigger>();
+            SetPrivate(tomorrowEntryTrigger, "puzzle", tomorrowPuzzle);
+            SetPrivate(tomorrowEntryTrigger, "dialogue", director);
+            SetPrivate(tomorrowEntryTrigger, "chapterSign", hiddenFourTitle);
+            SetPrivate(tomorrowEntryTrigger, "fallRecovery", fallRecovery);
+            SetPrivate(tomorrowEntryTrigger, "checkpoint", hiddenFourCheckpoint.transform);
+            SetPrivate(tomorrowPuzzle, "memoryBridges", memoryBridges);
+            SetPrivate(tomorrowPuzzle, "exitDoor", hiddenFourExitController);
+            SetPrivate(tomorrowPuzzle, "dialogue", director);
+            SetPrivate(tomorrowPuzzle, "statusSign", tomorrowStatus);
+            SetPrivate(tomorrowPuzzle, "roomLight", tomorrowLight);
+            SetPrivate(tomorrowExitTrigger, "puzzle", tomorrowPuzzle);
+            SetPrivate(hiddenFourExitController, "dialogue", director);
             SetPrivate(hiddenThreeEntryTrigger, "dialogue", director);
             SetPrivate(hiddenThreeEntryTrigger, "chapterSign", hiddenThreeTitle);
             SetPrivate(hiddenThreeEntryTrigger, "dialogueId", "hidden_chapter_three_entry");
