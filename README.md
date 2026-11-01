@@ -57,7 +57,7 @@ The first vertical slice is intentionally small and playable:
 - Cinematic bilingual chapter cards, persistent campaign progress, saved ending choice and automatic resume from the latest chapter checkpoint.
 - A corridor environmental gag where a lying exit sign changes its message, props animate into impossible positions and the room lighting reacts.
 - Eased door animations and smoothly animated spatial/lighting changes in the Chapter 8 loop.
-- A persistent music / ambience / effects audio-routing foundation with saved volume levels and music crossfades. Final audio assets are not bundled yet.
+- A persistent music / ambience / effects audio-routing foundation with saved volume levels and music crossfades. The runtime now synthesizes an original 16-second ambient score loop, a looping tonal ambience bed, and original door/reveal/surprise cues. These are procedural prototype assets, not a final composed or mastered soundtrack.
 - Hidden Chapter 08, The Room That Remembers You, recalls the saved finale choice and tracks completed hidden rooms in a persistent archive.
 - Hidden Chapter 07, The Room That Steals Your Shadow, mirrors the player's movement into an independent shadow that must reach three alternating pools of light.
 - Hidden Chapter 06, The Room That Exists When Watched, makes three barriers appear and become solid only while the player looks directly at them.
@@ -114,8 +114,8 @@ The prototype scene is generated automatically by the Unity Editor bootstrap whe
 - All gameplay code in this initial milestone is original project code, not copied from Superliminal or FEVER MEME.
 - No third-party game assets, sounds or music are bundled yet.
 - Temporary prototype visuals use Unity primitives and built-in resources.
-- Final human-quality voice performances and a properly licensed music pack are planned production deliverables. The prototype uses text subtitles and placeholder UI feedback; it does not pretend to contain finished voice acting.
+- Recorded Turkish/English character performances are not included yet; dialogue currently uses subtitles. Final human-quality voice performances, a fully composed/mastered score and a complete sound-design pass remain production deliverables. The prototype uses text subtitles and placeholder UI feedback; it does not pretend to contain finished voice acting.
 - Keep source and license records for every external asset added later.
 
 ## Build status
-This repository is source code, not a prebuilt Mac/Windows application. A Unity Editor installation is required to generate and run the project locally. Automated editor/build validation will be added as the project grows.
+This repository is source code, not a prebuilt Mac/Windows application. A Unity Editor installation is required to generate and run the project locally. A manual GitHub Actions workflow is available under Actions → ODDLY Unity Release Builds. It requires the repository secret `UNITY_LICENSE` and produces macOS and Windows build artifacts when successful.
