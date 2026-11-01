@@ -21,6 +21,8 @@ namespace Oddly
 
         private void Update()
         {
+            if (Cursor.lockState != CursorLockMode.Locked) return;
+
             if (heldObject != null)
             {
                 heldObject.Resize(Input.mouseScrollDelta.y);
@@ -62,6 +64,7 @@ namespace Oddly
 
         public string GetPrompt()
         {
+            if (Cursor.lockState != CursorLockMode.Locked) return "CLICK  RESUME";
             if (heldObject != null) return "SCROLL  RESIZE     CLICK  DROP";
             if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward,
                 out RaycastHit hit, reach, interactionMask))
