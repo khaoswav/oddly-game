@@ -1,8 +1,5 @@
 using UnityEngine;
-using Oddly.Scripts.Dialogue;
-using Oddly.Scripts.World;
-
-namespace Oddly.Scripts.Puzzle
+namespace Oddly
 {
     public class LastSavePuzzle : MonoBehaviour
     {
