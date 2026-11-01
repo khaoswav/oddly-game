@@ -2144,6 +2144,104 @@ namespace Oddly.Editor
             shadowEnding.alignment = TextAlignment.Center;
             shadowEnding.color = new Color(0.38f, 0.78f, 0.96f);
 
+            // Hidden Chapter 08: a persistent archive reconstructs the player's finale choice.
+            Material memoryGlassMat = MakeMaterial("Memory Glass", new Color(0.32f, 0.42f, 0.62f));
+            Material memoryGoldMat = MakeMaterial("Memory Gold", new Color(0.88f, 0.68f, 0.32f));
+            CreatePrimitive("Hidden 08 approach corridor floor", PrimitiveType.Cube, new Vector3(325f, -0.25f, 495f), new Vector3(10f, 0.5f, 4f), floorMat);
+            CreatePrimitive("Hidden 08 chamber floor", PrimitiveType.Cube, new Vector3(340f, -0.25f, 495f), new Vector3(30f, 0.5f, 16f), floorMat);
+            CreatePrimitive("Hidden 08 near wall", PrimitiveType.Cube, new Vector3(340f, 2.5f, 487f), new Vector3(30f, 5f, 0.25f), wallMat);
+            CreatePrimitive("Hidden 08 far wall", PrimitiveType.Cube, new Vector3(340f, 2.5f, 503f), new Vector3(30f, 5f, 0.25f), wallMat);
+            CreatePrimitive("Hidden 08 entry wall near", PrimitiveType.Cube, new Vector3(330f, 2.5f, 489.5f), new Vector3(0.25f, 5f, 5f), wallMat);
+            CreatePrimitive("Hidden 08 entry wall far", PrimitiveType.Cube, new Vector3(330f, 2.5f, 500.5f), new Vector3(0.25f, 5f, 5f), wallMat);
+            CreatePrimitive("Hidden 08 entry header", PrimitiveType.Cube, new Vector3(330f, 4.55f, 495f), new Vector3(0.25f, 0.9f, 6f), wallMat);
+            CreatePrimitive("Hidden 08 exit wall near", PrimitiveType.Cube, new Vector3(355f, 2.5f, 489.5f), new Vector3(0.25f, 5f, 5f), wallMat);
+            CreatePrimitive("Hidden 08 exit wall far", PrimitiveType.Cube, new Vector3(355f, 2.5f, 500.5f), new Vector3(0.25f, 5f, 5f), wallMat);
+            CreatePrimitive("Hidden 08 exit header", PrimitiveType.Cube, new Vector3(355f, 4.55f, 495f), new Vector3(0.25f, 0.9f, 6f), wallMat);
+            GameObject memoryExitObject = CreatePrimitive("Hidden 08 remembered exit door", PrimitiveType.Cube,
+                new Vector3(354.82f, 2f, 495f), new Vector3(0.35f, 4f, 5.5f), doorMat);
+            DoorController memoryExitDoor = memoryExitObject.AddComponent<DoorController>();
+            SetPrivate(memoryExitDoor, "dialogue", director);
+
+            GameObject memoryEntryObject = new GameObject("Hidden Chapter 08 entry trigger");
+            memoryEntryObject.transform.position = new Vector3(332f, 1.2f, 495f);
+            BoxCollider memoryEntryCollider = memoryEntryObject.AddComponent<BoxCollider>();
+            memoryEntryCollider.isTrigger = true;
+            memoryEntryCollider.size = new Vector3(1.2f, 2.4f, 8f);
+            GameObject memoryCheckpoint = new GameObject("Hidden Chapter 08 checkpoint");
+            memoryCheckpoint.transform.position = new Vector3(333.5f, 0.15f, 495f);
+
+            TextMesh memoryTitle = new GameObject("Hidden Chapter 08 title").AddComponent<TextMesh>();
+            memoryTitle.transform.position = new Vector3(334f, 3.8f, 495f);
+            memoryTitle.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+            memoryTitle.text = "HIDDEN 08 / THE ROOM THAT REMEMBERS YOU";
+            memoryTitle.fontSize = 21; memoryTitle.characterSize = 0.04f;
+            memoryTitle.anchor = TextAnchor.MiddleCenter; memoryTitle.alignment = TextAlignment.Center;
+            memoryTitle.color = new Color(0.92f, 0.76f, 0.43f);
+
+            TextMesh memoryStatus = new GameObject("Hidden 08 archive status").AddComponent<TextMesh>();
+            memoryStatus.transform.position = new Vector3(340f, 4.15f, 487.35f);
+            memoryStatus.fontSize = 20; memoryStatus.characterSize = 0.045f;
+            memoryStatus.anchor = TextAnchor.MiddleCenter; memoryStatus.alignment = TextAlignment.Center;
+            memoryStatus.color = new Color(0.92f, 0.76f, 0.43f);
+
+            TextMesh[] memoryLabels = new TextMesh[3];
+            float[] memoryChoiceX = { 337f, 342f, 347f };
+            for (int i = 0; i < memoryChoiceX.Length; i++)
+            {
+                CreatePrimitive("Hidden 08 memory plinth " + (i + 1), PrimitiveType.Cube,
+                    new Vector3(memoryChoiceX[i], 0.65f, 495f), new Vector3(2.5f, 1.3f, 3.2f), memoryGlassMat);
+                CreatePrimitive("Hidden 08 memory panel " + (i + 1), PrimitiveType.Cube,
+                    new Vector3(memoryChoiceX[i], 2.15f, 495f), new Vector3(2.1f, 1.5f, 0.18f), memoryGoldMat);
+                memoryLabels[i] = new GameObject("Hidden 08 memory label " + (i + 1)).AddComponent<TextMesh>();
+                memoryLabels[i].transform.position = new Vector3(memoryChoiceX[i], 2.2f, 492.9f);
+                memoryLabels[i].text = i == 0 ? "THE STORYTELLER" : i == 1 ? "THE SYSTEM" : "THE PLAYER";
+                memoryLabels[i].fontSize = 24; memoryLabels[i].characterSize = 0.045f;
+                memoryLabels[i].anchor = TextAnchor.MiddleCenter; memoryLabels[i].alignment = TextAlignment.Center;
+                memoryLabels[i].color = new Color(0.16f, 0.18f, 0.24f);
+
+                GameObject choiceObject = new GameObject("Hidden 08 ending memory choice " + i);
+                choiceObject.transform.position = new Vector3(memoryChoiceX[i], 1.2f, 495f);
+                BoxCollider choiceCollider = choiceObject.AddComponent<BoxCollider>();
+                choiceCollider.isTrigger = true; choiceCollider.size = new Vector3(2.2f, 2.4f, 4.2f);
+                RememberedEndingChoiceTrigger choice = choiceObject.AddComponent<RememberedEndingChoiceTrigger>();
+                SetPrivate(choice, "endingIndex", i);
+            }
+
+            GameObject memoryLightObject = new GameObject("Hidden 08 archive light");
+            memoryLightObject.transform.position = new Vector3(340f, 4.2f, 495f);
+            Light memoryRoomLight = memoryLightObject.AddComponent<Light>();
+            memoryRoomLight.type = LightType.Point; memoryRoomLight.range = 26f;
+            memoryRoomLight.intensity = 0.8f; memoryRoomLight.color = new Color(0.62f, 0.48f, 0.95f);
+
+            GameObject memoryPuzzleObject = new GameObject("Hidden 08 remembered self puzzle");
+            RememberedSelfPuzzle memoryPuzzle = memoryPuzzleObject.AddComponent<RememberedSelfPuzzle>();
+            SetPrivate(memoryPuzzle, "exitDoor", memoryExitDoor);
+            SetPrivate(memoryPuzzle, "dialogue", director);
+            SetPrivate(memoryPuzzle, "statusSign", memoryStatus);
+            SetPrivate(memoryPuzzle, "memoryLabels", memoryLabels);
+            SetPrivate(memoryPuzzle, "roomLight", memoryRoomLight);
+            for (int i = 0; i < memoryChoiceX.Length; i++)
+            {
+                GameObject choiceObject = GameObject.Find("Hidden 08 ending memory choice " + i);
+                SetPrivate(choiceObject.GetComponent<RememberedEndingChoiceTrigger>(), "puzzle", memoryPuzzle);
+            }
+
+            RememberedRoomEntryTrigger memoryEntry = memoryEntryObject.AddComponent<RememberedRoomEntryTrigger>();
+            SetPrivate(memoryEntry, "puzzle", memoryPuzzle);
+            SetPrivate(memoryEntry, "dialogue", director);
+            SetPrivate(memoryEntry, "chapterSign", memoryTitle);
+            SetPrivate(memoryEntry, "fallRecovery", fallRecovery);
+            SetPrivate(memoryEntry, "checkpoint", memoryCheckpoint.transform);
+
+            CreatePrimitive("Hidden 08 ending corridor floor", PrimitiveType.Cube, new Vector3(360f, -0.25f, 495f), new Vector3(10f, 0.5f, 4f), floorMat);
+            TextMesh memoryEnding = new GameObject("Hidden 08 ending message").AddComponent<TextMesh>();
+            memoryEnding.transform.position = new Vector3(364f, 2.8f, 495f);
+            memoryEnding.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+            memoryEnding.text = "YOU WERE HERE ALL ALONG.\nBAŞINDAN BERİ BURADAYDIN.";
+            memoryEnding.fontSize = 22; memoryEnding.characterSize = 0.045f;
+            memoryEnding.anchor = TextAnchor.MiddleCenter; memoryEnding.alignment = TextAlignment.Center;
+            memoryEnding.color = new Color(0.92f, 0.76f, 0.43f);
+
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
             BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
