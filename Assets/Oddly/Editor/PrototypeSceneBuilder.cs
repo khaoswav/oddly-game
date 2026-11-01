@@ -217,15 +217,16 @@ namespace Oddly.Editor
             Text tagline = MakeText(menu.transform, "Tagline", "A VERY WRONG LITTLE WORLD", 16, TextAnchor.MiddleCenter);
             SetRect(tagline.rectTransform, new Vector2(0.1f, 0.48f), new Vector2(0.9f, 0.58f));
 
+            ChapterIntroDirector chapterIntro = canvas.gameObject.AddComponent<ChapterIntroDirector>();
+            SetPrivate(chapterIntro, "movement", movement);
+            SetPrivate(chapterIntro, "interaction", interaction);
+            SetPrivate(chapterIntro, "behavior", tracker);
+            SetPrivate(chapterIntro, "dialogue", director);
+
             Button start = MakeButton(menu.transform, "START", new Vector2(0.35f, 0.34f), new Vector2(0.65f, 0.43f));
             start.onClick.AddListener(() => {
                 menu.SetActive(false);
-                movement.enabled = true;
-                interaction.enabled = true;
-                tracker.enabled = true;
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                director.Say("intro");
+                chapterIntro.Begin();
             });
 
             Button language = MakeButton(menu.transform, "LANGUAGE: EN / TR", new Vector2(0.35f, 0.22f), new Vector2(0.65f, 0.31f));
