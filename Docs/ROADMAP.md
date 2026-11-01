@@ -87,6 +87,10 @@
 - [x] Chapter 14.2: add a concealed post-choice archive branch requiring a saved ending and at least three completed hidden rooms.
 - [x] Build a discoverable memory chamber with eight visual archive pillars that react to persistent hidden-room completion records.
 - [x] Chapter 14.3: add eight interactable post-finale echoes, one for each hidden chapter, with dialogue selected by the remembered ending.
+- [x] Chapter 14.4: record ending history across replays so the archive can verify that all three distinct finales have been experienced.
+- [x] Build a concealed ninth record chamber that opens only after all three endings, eight hidden-room completions, eight echoes and The Last Echo reward are recorded.
+- [x] Add three converging ending relics and unlock The Unwritten Ending as a persistent alternate finale discovery.
+- [x] Preserve ending history and the ninth-record unlock during replay; clear both only on full campaign reset.
 - [x] Persist discovered echo records across replay while keeping them separate from hidden-room completion records.
 - [x] Add The Last Echo reward, unlocked only after all eight hidden rooms are complete and all eight echoes have been heard.
 - [x] Keep the full campaign reset as the explicit action that clears archive access, echo discoveries and the reward claim.
