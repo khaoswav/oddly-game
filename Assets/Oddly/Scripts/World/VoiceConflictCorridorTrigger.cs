@@ -18,6 +18,7 @@ namespace Oddly
         private Vector3[] baseScales;
         private Quaternion[] baseRotations;
         private Color baseLightColor;
+        private Color baseSignColor;
         private float baseLightIntensity;
         private bool played;
 
@@ -31,6 +32,8 @@ namespace Oddly
                 baseScales[i] = signalNodes[i].localScale;
                 baseRotations[i] = signalNodes[i].localRotation;
             }
+
+            if (sign != null) baseSignColor = sign.color;
             if (eventLight != null)
             {
                 baseLightColor = eventLight.color;
@@ -38,7 +41,10 @@ namespace Oddly
             }
         }
 
-        private void Reset() { GetComponent<BoxCollider>().isTrigger = true; }
+        private void Reset()
+        {
+            GetComponent<BoxCollider>().isTrigger = true;
+        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -68,6 +74,7 @@ namespace Oddly
                         new Color(0.35f, 0.48f, 1f), pulse);
                     eventLight.intensity = baseLightIntensity * (1.1f + pulse * 1.2f);
                 }
+
                 for (int i = 0; i < signalNodes.Length; i++)
                 {
                     Transform node = signalNodes[i];
