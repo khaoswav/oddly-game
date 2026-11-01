@@ -1146,6 +1146,111 @@ namespace Oddly.Editor
                 SetPrivate(slotTrigger, "slotIndex", i);
             }
 
+            // Chapter 13: the two facility voices are fighting over three control channels.
+            // Route them into the stable SYSTEM / NARRATOR / SYSTEM configuration.
+            CreatePrimitive("Chapter 12 to 13 connector floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 441), new Vector3(10, 0.5f, 12), floorMat);
+            CreatePrimitive("Chapter 12 to 13 connector left rail", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 441), new Vector3(0.25f, 5, 12), wallMat);
+            CreatePrimitive("Chapter 12 to 13 connector right rail", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 441), new Vector3(0.25f, 5, 12), wallMat);
+
+            CreatePrimitive("Chapter 13 control floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 459), new Vector3(10, 0.5f, 24), floorMat);
+            CreatePrimitive("Chapter 13 left wall", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 459), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 13 right wall", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 459), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 13 far wall left", PrimitiveType.Cube,
+                new Vector3(-4.15f, 2.5f, 471), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 13 far wall right", PrimitiveType.Cube,
+                new Vector3(4.15f, 2.5f, 471), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 13 far wall header", PrimitiveType.Cube,
+                new Vector3(0, 4.55f, 471), new Vector3(6.6f, 0.9f, 0.5f), wallMat);
+            GameObject chapterThirteenExit = CreatePrimitive("Chapter 13 control exit",
+                PrimitiveType.Cube, new Vector3(0, 2, 470.7f), new Vector3(2.8f, 4, 0.35f), doorMat);
+            DoorController chapterThirteenExitController = chapterThirteenExit.AddComponent<DoorController>();
+
+            GameObject chapterThirteenEntry = new GameObject("Chapter 13 entry trigger");
+            chapterThirteenEntry.transform.position = new Vector3(0, 1.2f, 445.5f);
+            BoxCollider chapterThirteenEntryCollider = chapterThirteenEntry.AddComponent<BoxCollider>();
+            chapterThirteenEntryCollider.isTrigger = true;
+            chapterThirteenEntryCollider.size = new Vector3(8.5f, 2.4f, 1.2f);
+            ChapterEntryTrigger chapterThirteenEntryTrigger = chapterThirteenEntry.AddComponent<ChapterEntryTrigger>();
+            GameObject chapterThirteenCheckpoint = new GameObject("Chapter 13 checkpoint");
+            chapterThirteenCheckpoint.transform.position = new Vector3(0f, 0.15f, 447.5f);
+
+            TextMesh chapterThirteenSign = new GameObject("Chapter 13 title sign").AddComponent<TextMesh>();
+            chapterThirteenSign.transform.position = new Vector3(0, 3.65f, 449f);
+            chapterThirteenSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            chapterThirteenSign.text = "CHAPTER 13 / THE CONTROL ROOM";
+            chapterThirteenSign.fontSize = 38;
+            chapterThirteenSign.characterSize = 0.05f;
+            chapterThirteenSign.anchor = TextAnchor.MiddleCenter;
+            chapterThirteenSign.alignment = TextAlignment.Center;
+            chapterThirteenSign.color = new Color(0.22f, 0.25f, 0.32f);
+
+            TextMesh controlClue = new GameObject("Control routing clue").AddComponent<TextMesh>();
+            controlClue.transform.position = new Vector3(0, 3.15f, 454f);
+            controlClue.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            controlClue.text = "STABLE ROUTE: SYSTEM / NARRATOR / SYSTEM";
+            controlClue.fontSize = 28;
+            controlClue.characterSize = 0.043f;
+            controlClue.anchor = TextAnchor.MiddleCenter;
+            controlClue.alignment = TextAlignment.Center;
+            controlClue.color = new Color(0.45f, 0.72f, 0.95f);
+
+            Transform[] controlChannels = new Transform[3];
+            float[] controlXs = { -3f, 0f, 3f };
+            string[] controlNames = { "CHANNEL A", "CHANNEL B", "CHANNEL C" };
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject console = CreatePrimitive("Control channel " + (i + 1),
+                    PrimitiveType.Cube, new Vector3(controlXs[i], 0.75f, 463f),
+                    new Vector3(1.65f, 1.5f, 1.65f), i == 1 ? accentMat : cubeMat);
+                controlChannels[i] = console.transform;
+
+                TextMesh channelLabel = new GameObject("Control channel label " + (i + 1)).AddComponent<TextMesh>();
+                channelLabel.transform.position = new Vector3(controlXs[i], 2.1f, 463f);
+                channelLabel.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                channelLabel.text = controlNames[i] + "\nSTEP TO CYCLE";
+                channelLabel.fontSize = 25;
+                channelLabel.characterSize = 0.045f;
+                channelLabel.anchor = TextAnchor.MiddleCenter;
+                channelLabel.alignment = TextAlignment.Center;
+                channelLabel.color = new Color(0.28f, 0.72f, 0.95f);
+            }
+
+            TextMesh controlStatus = new GameObject("Control room status").AddComponent<TextMesh>();
+            controlStatus.transform.position = new Vector3(0, 3.3f, 467f);
+            controlStatus.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            controlStatus.fontSize = 25;
+            controlStatus.characterSize = 0.04f;
+            controlStatus.anchor = TextAnchor.MiddleCenter;
+            controlStatus.alignment = TextAlignment.Center;
+            controlStatus.color = new Color(0.85f, 0.85f, 0.9f);
+
+            GameObject controlLightObject = new GameObject("Control room reactive light");
+            controlLightObject.transform.position = new Vector3(0, 4.2f, 463f);
+            Light controlRoomLight = controlLightObject.AddComponent<Light>();
+            controlRoomLight.type = LightType.Point;
+            controlRoomLight.range = 17f;
+            controlRoomLight.intensity = 1.2f;
+
+            GameObject controlPuzzleObject = new GameObject("Control room puzzle controller");
+            ControlRoomPuzzle controlPuzzle = controlPuzzleObject.AddComponent<ControlRoomPuzzle>();
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject consoleTriggerObject = new GameObject("Control channel " + (i + 1) + " trigger");
+                consoleTriggerObject.transform.position = new Vector3(controlXs[i], 1f, 458f);
+                BoxCollider consoleCollider = consoleTriggerObject.AddComponent<BoxCollider>();
+                consoleCollider.isTrigger = true;
+                consoleCollider.size = new Vector3(2.25f, 2.4f, 2.25f);
+                ControlConsoleTrigger consoleTrigger = consoleTriggerObject.AddComponent<ControlConsoleTrigger>();
+                SetPrivate(consoleTrigger, "puzzle", controlPuzzle);
+                SetPrivate(consoleTrigger, "channelIndex", i);
+            }
+
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
             BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
@@ -1434,6 +1539,19 @@ namespace Oddly.Editor
             SetPrivate(lastSavePuzzle, "snapshotProps", saveProps);
             SetPrivate(lastSavePuzzle, "roomLight", saveRoomLight);
             SetPrivate(chapterTwelveExitController, "dialogue", director);
+            SetPrivate(chapterThirteenEntryTrigger, "dialogue", director);
+            SetPrivate(chapterThirteenEntryTrigger, "chapterSign", chapterThirteenSign);
+            SetPrivate(chapterThirteenEntryTrigger, "dialogueId", "chapter_thirteen_entry");
+            SetPrivate(chapterThirteenEntryTrigger, "englishSign", "CHAPTER 13  /  THE CONTROL ROOM");
+            SetPrivate(chapterThirteenEntryTrigger, "turkishSign", "BÖLÜM 13  /  KONTROL ODASI");
+            SetPrivate(chapterThirteenEntryTrigger, "fallRecovery", fallRecovery);
+            SetPrivate(chapterThirteenEntryTrigger, "checkpoint", chapterThirteenCheckpoint.transform);
+            SetPrivate(controlPuzzle, "exitDoor", chapterThirteenExitController);
+            SetPrivate(controlPuzzle, "dialogue", director);
+            SetPrivate(controlPuzzle, "statusSign", controlStatus);
+            SetPrivate(controlPuzzle, "channelProps", controlChannels);
+            SetPrivate(controlPuzzle, "controlLight", controlRoomLight);
+            SetPrivate(chapterThirteenExitController, "dialogue", director);
             PerspectiveBridgePuzzle bridgePuzzle = player.AddComponent<PerspectiveBridgePuzzle>();
             SetPrivate(bridgePuzzle, "bridge", bridgePerspectiveObject);
             SetPrivate(bridgePuzzle, "landingTarget", bridgeTarget.transform);
