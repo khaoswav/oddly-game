@@ -10,6 +10,8 @@ namespace Oddly
     {
         [SerializeField] private DialogueDirector dialogue;
         [SerializeField] private TextMesh chapterSign;
+        [SerializeField] private FallRecovery fallRecovery;
+        [SerializeField] private Transform checkpoint;
         [SerializeField] private string dialogueId = "chapter_two_entry";
         [SerializeField] private string englishSign = "CHAPTER 02  /  SIZE DOES MATTER";
         [SerializeField] private string turkishSign = "BÖLÜM 02  /  BOYUT ÖNEMLİDİR";
@@ -25,6 +27,7 @@ namespace Oddly
         {
             if (triggered || other.GetComponentInParent<CharacterController>() == null) return;
             triggered = true;
+            fallRecovery?.SetCheckpoint(checkpoint);
 
             if (chapterSign != null)
                 chapterSign.text = dialogue != null && dialogue.IsTurkish
