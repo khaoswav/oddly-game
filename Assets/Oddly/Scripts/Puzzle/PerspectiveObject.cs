@@ -13,6 +13,7 @@ namespace Oddly
         private Vector3 originalScale;
 
         public bool IsHeld { get; private set; }
+        public float CurrentUniformScale => transform.lossyScale.x;
 
         private void Awake()
         {
