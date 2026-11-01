@@ -495,6 +495,59 @@ namespace Oddly.Editor
             sequenceHint.alignment = TextAlignment.Center;
             sequenceHint.color = new Color(0.22f, 0.25f, 0.32f);
 
+            // Chapter 5: the exit is behind the player. Looking directly at it
+            // keeps it locked; the player must stand on the floor mark and turn away.
+            CreatePrimitive("Chapter 5 blind spot floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 183), new Vector3(10, 0.5f, 24), floorMat);
+            CreatePrimitive("Chapter 5 left wall", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 183), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 5 right wall", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 183), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 5 far wall left", PrimitiveType.Cube,
+                new Vector3(-4.15f, 2.5f, 195), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 5 far wall right", PrimitiveType.Cube,
+                new Vector3(4.15f, 2.5f, 195), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 5 far wall header", PrimitiveType.Cube,
+                new Vector3(0, 4.55f, 195), new Vector3(6.6f, 0.9f, 0.5f), wallMat);
+
+            GameObject chapterFiveExit = CreatePrimitive("Chapter 5 hidden exit",
+                PrimitiveType.Cube, new Vector3(0, 2, 194.7f), new Vector3(2.8f, 4, 0.35f), doorMat);
+            DoorController chapterFiveExitController = chapterFiveExit.AddComponent<DoorController>();
+
+            GameObject chapterFiveEntry = new GameObject("Chapter 5 entry trigger");
+            chapterFiveEntry.transform.position = new Vector3(0, 1.2f, 172.5f);
+            BoxCollider chapterFiveEntryCollider = chapterFiveEntry.AddComponent<BoxCollider>();
+            chapterFiveEntryCollider.isTrigger = true;
+            chapterFiveEntryCollider.size = new Vector3(8.5f, 2.4f, 1.2f);
+            ChapterEntryTrigger chapterFiveEntryTrigger = chapterFiveEntry.AddComponent<ChapterEntryTrigger>();
+            GameObject chapterFiveCheckpoint = new GameObject("Chapter 5 checkpoint");
+            chapterFiveCheckpoint.transform.position = new Vector3(0f, 0.15f, 174.5f);
+
+            TextMesh chapterFiveSign = new GameObject("Chapter 5 title sign").AddComponent<TextMesh>();
+            chapterFiveSign.transform.position = new Vector3(0, 3.65f, 176f);
+            chapterFiveSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            chapterFiveSign.text = "CHAPTER 05 / DON'T TRUST YOUR EYES";
+            chapterFiveSign.fontSize = 38;
+            chapterFiveSign.characterSize = 0.05f;
+            chapterFiveSign.anchor = TextAnchor.MiddleCenter;
+            chapterFiveSign.alignment = TextAlignment.Center;
+            chapterFiveSign.color = new Color(0.22f, 0.25f, 0.32f);
+
+            TextMesh blindSpotInstruction = new GameObject("Blind spot instruction").AddComponent<TextMesh>();
+            blindSpotInstruction.transform.position = new Vector3(0, 2.8f, 179f);
+            blindSpotInstruction.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            blindSpotInstruction.text = "THE EXIT IS BEHIND YOU / ÇIKIŞ ARKANDA";
+            blindSpotInstruction.fontSize = 34;
+            blindSpotInstruction.characterSize = 0.05f;
+            blindSpotInstruction.anchor = TextAnchor.MiddleCenter;
+            blindSpotInstruction.alignment = TextAlignment.Center;
+            blindSpotInstruction.color = new Color(0.82f, 0.28f, 0.42f);
+
+            GameObject blindSpotMarker = CreatePrimitive("Blind spot floor marker",
+                PrimitiveType.Cylinder, new Vector3(0, 0.015f, 183f), new Vector3(1.35f, 0.025f, 1.35f), accentMat);
+            GameObject blindSpotExitDirection = new GameObject("Blind spot exit direction");
+            blindSpotExitDirection.transform.position = new Vector3(0, 1.5f, 194.7f);
+
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
             BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
@@ -675,6 +728,20 @@ namespace Oddly.Editor
             SetPrivate(chapterFourEntryTrigger, "checkpoint", chapterFourCheckpoint.transform);
             SetPrivate(systemErrorPuzzle, "dialogue", director);
             SetPrivate(chapterFourExitController, "dialogue", director);
+            SetPrivate(chapterFiveEntryTrigger, "dialogue", director);
+            SetPrivate(chapterFiveEntryTrigger, "chapterSign", chapterFiveSign);
+            SetPrivate(chapterFiveEntryTrigger, "dialogueId", "chapter_five_entry");
+            SetPrivate(chapterFiveEntryTrigger, "englishSign", "CHAPTER 05  /  DON'T TRUST YOUR EYES");
+            SetPrivate(chapterFiveEntryTrigger, "turkishSign", "BÖLÜM 05  /  GÖZLERİNE GÜVENME");
+            SetPrivate(chapterFiveEntryTrigger, "fallRecovery", fallRecovery);
+            SetPrivate(chapterFiveEntryTrigger, "checkpoint", chapterFiveCheckpoint.transform);
+            BlindSpotPuzzle blindSpotPuzzle = player.AddComponent<BlindSpotPuzzle>();
+            SetPrivate(blindSpotPuzzle, "viewpoint", blindSpotMarker.transform);
+            SetPrivate(blindSpotPuzzle, "exitDirection", blindSpotExitDirection.transform);
+            SetPrivate(blindSpotPuzzle, "playerCamera", playerCamera);
+            SetPrivate(blindSpotPuzzle, "linkedDoor", chapterFiveExitController);
+            SetPrivate(blindSpotPuzzle, "dialogue", director);
+            SetPrivate(chapterFiveExitController, "dialogue", director);
             PerspectiveBridgePuzzle bridgePuzzle = player.AddComponent<PerspectiveBridgePuzzle>();
             SetPrivate(bridgePuzzle, "bridge", bridgePerspectiveObject);
             SetPrivate(bridgePuzzle, "landingTarget", bridgeTarget.transform);
