@@ -1587,6 +1587,114 @@ namespace Oddly.Editor
             hiddenTwoEnding.alignment = TextAlignment.Center;
             hiddenTwoEnding.color = new Color(0.38f, 0.75f, 0.82f);
 
+            // Hidden Chapter 03: catch a brief light pulse and align each echo from its floor mark.
+            CreatePrimitive("Hidden 03 approach corridor", PrimitiveType.Cube,
+                new Vector3(90f, -0.25f, 495f), new Vector3(10f, 0.5f, 4f), floorMat);
+            CreatePrimitive("Hidden 03 chamber floor", PrimitiveType.Cube,
+                new Vector3(110f, -0.25f, 495f), new Vector3(30f, 0.5f, 16f), floorMat);
+            CreatePrimitive("Hidden 03 near wall", PrimitiveType.Cube,
+                new Vector3(110f, 2.5f, 487f), new Vector3(30f, 5f, 0.25f), wallMat);
+            CreatePrimitive("Hidden 03 far wall", PrimitiveType.Cube,
+                new Vector3(110f, 2.5f, 503f), new Vector3(30f, 5f, 0.25f), wallMat);
+            CreatePrimitive("Hidden 03 exit wall near", PrimitiveType.Cube,
+                new Vector3(125f, 2.5f, 489.25f), new Vector3(0.25f, 5f, 4.5f), wallMat);
+            CreatePrimitive("Hidden 03 exit wall far", PrimitiveType.Cube,
+                new Vector3(125f, 2.5f, 500.75f), new Vector3(0.25f, 5f, 4.5f), wallMat);
+            CreatePrimitive("Hidden 03 exit header", PrimitiveType.Cube,
+                new Vector3(125f, 4.55f, 495f), new Vector3(0.25f, 0.9f, 7f), wallMat);
+            GameObject hiddenThreeExit = CreatePrimitive("Hidden 03 exit door",
+                PrimitiveType.Cube, new Vector3(124.82f, 2f, 495f),
+                new Vector3(0.35f, 4f, 6f), doorMat);
+            DoorController hiddenThreeExitController = hiddenThreeExit.AddComponent<DoorController>();
+
+            GameObject hiddenThreeEntry = new GameObject("Hidden Chapter 03 entry trigger");
+            hiddenThreeEntry.transform.position = new Vector3(96f, 1.2f, 495f);
+            BoxCollider hiddenThreeEntryCollider = hiddenThreeEntry.AddComponent<BoxCollider>();
+            hiddenThreeEntryCollider.isTrigger = true;
+            hiddenThreeEntryCollider.size = new Vector3(1.5f, 2.4f, 10f);
+            ChapterEntryTrigger hiddenThreeEntryTrigger = hiddenThreeEntry.AddComponent<ChapterEntryTrigger>();
+            GameObject hiddenThreeCheckpoint = new GameObject("Hidden Chapter 03 checkpoint");
+            hiddenThreeCheckpoint.transform.position = new Vector3(97.5f, 0.15f, 495f);
+
+            TextMesh hiddenThreeTitle = new GameObject("Hidden Chapter 03 title").AddComponent<TextMesh>();
+            hiddenThreeTitle.transform.position = new Vector3(98.5f, 3.8f, 495f);
+            hiddenThreeTitle.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+            hiddenThreeTitle.text = "HIDDEN 03 / THE MOMENT BETWEEN BLINKS";
+            hiddenThreeTitle.fontSize = 25;
+            hiddenThreeTitle.characterSize = 0.04f;
+            hiddenThreeTitle.anchor = TextAnchor.MiddleCenter;
+            hiddenThreeTitle.alignment = TextAlignment.Center;
+            hiddenThreeTitle.color = new Color(0.34f, 0.95f, 0.8f);
+
+            TextMesh echoStatus = new GameObject("Hidden 03 echo status").AddComponent<TextMesh>();
+            echoStatus.transform.position = new Vector3(110f, 4.05f, 487.35f);
+            echoStatus.transform.rotation = Quaternion.identity;
+            echoStatus.fontSize = 25;
+            echoStatus.characterSize = 0.045f;
+            echoStatus.anchor = TextAnchor.MiddleCenter;
+            echoStatus.alignment = TextAlignment.Center;
+            echoStatus.color = new Color(0.34f, 0.95f, 0.8f);
+
+            Material echoMaterial = MakeMaterial("Hidden 03 Echo Glow", new Color(0.22f, 0.95f, 0.78f));
+            float[] echoStationXs = { 101f, 109f, 117f };
+            Vector3[] echoPositions =
+            {
+                new Vector3(105f, 1.65f, 491f),
+                new Vector3(113f, 2.5f, 499f),
+                new Vector3(121f, 1.65f, 491f)
+            };
+            Transform[] echoTargets = new Transform[3];
+            for (int i = 0; i < echoStationXs.Length; i++)
+            {
+                CreatePrimitive("Echo viewpoint " + (i + 1),
+                    PrimitiveType.Cylinder, new Vector3(echoStationXs[i], 0.06f, 495f),
+                    new Vector3(1.25f, 0.06f, 1.25f), accentMat);
+                TextMesh stationLabel = new GameObject("Echo viewpoint label " + (i + 1)).AddComponent<TextMesh>();
+                stationLabel.transform.position = new Vector3(echoStationXs[i], 1.15f, 493.7f);
+                stationLabel.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                stationLabel.text = "LOOK / BAK";
+                stationLabel.fontSize = 18;
+                stationLabel.characterSize = 0.04f;
+                stationLabel.anchor = TextAnchor.MiddleCenter;
+                stationLabel.alignment = TextAlignment.Center;
+                stationLabel.color = new Color(0.34f, 0.95f, 0.8f);
+
+                GameObject echo = CreatePrimitive("Echo target " + (i + 1),
+                    PrimitiveType.Sphere, echoPositions[i], new Vector3(0.75f, 0.75f, 0.75f), echoMaterial);
+                echoTargets[i] = echo.transform;
+
+                GameObject stationTriggerObject = new GameObject("Echo station trigger " + (i + 1));
+                stationTriggerObject.transform.position = new Vector3(echoStationXs[i], 1f, 495f);
+                BoxCollider stationCollider = stationTriggerObject.AddComponent<BoxCollider>();
+                stationCollider.isTrigger = true;
+                stationCollider.size = new Vector3(2.6f, 2.4f, 2.8f);
+                TimedSightlineTrigger stationTrigger = stationTriggerObject.AddComponent<TimedSightlineTrigger>();
+                SetPrivate(stationTrigger, "stationIndex", i);
+            }
+
+            GameObject echoLightObject = new GameObject("Hidden 03 pulse light");
+            echoLightObject.transform.position = new Vector3(110f, 4.2f, 495f);
+            Light echoPulseLight = echoLightObject.AddComponent<Light>();
+            echoPulseLight.type = LightType.Point;
+            echoPulseLight.range = 24f;
+            echoPulseLight.intensity = 0.55f;
+            echoPulseLight.color = new Color(0.48f, 0.22f, 0.72f);
+
+            GameObject echoPuzzleObject = new GameObject("Hidden 03 timed sightline puzzle");
+            TimedSightlinePuzzle echoPuzzle = echoPuzzleObject.AddComponent<TimedSightlinePuzzle>();
+
+            CreatePrimitive("Hidden 03 ending corridor floor", PrimitiveType.Cube,
+                new Vector3(130f, -0.25f, 495f), new Vector3(10f, 0.5f, 4f), floorMat);
+            TextMesh hiddenThreeEnding = new GameObject("Hidden 03 ending message").AddComponent<TextMesh>();
+            hiddenThreeEnding.transform.position = new Vector3(134f, 2.8f, 495f);
+            hiddenThreeEnding.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+            hiddenThreeEnding.text = "YOU CAUGHT THE MOMENT.\nANI YAKALADIN.";
+            hiddenThreeEnding.fontSize = 23;
+            hiddenThreeEnding.characterSize = 0.045f;
+            hiddenThreeEnding.anchor = TextAnchor.MiddleCenter;
+            hiddenThreeEnding.alignment = TextAlignment.Center;
+            hiddenThreeEnding.color = new Color(0.34f, 0.95f, 0.8f);
+
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
             BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
@@ -1899,6 +2007,25 @@ namespace Oddly.Editor
             SetPrivate(finalDecisionPuzzle, "decisionSign", finalDecisionSign);
             SetPrivate(finalDecisionPuzzle, "endingLight", endingLight);
             SetPrivate(finalDecisionPuzzle, "endingRelics", endingRelics);
+            SetPrivate(hiddenThreeEntryTrigger, "dialogue", director);
+            SetPrivate(hiddenThreeEntryTrigger, "chapterSign", hiddenThreeTitle);
+            SetPrivate(hiddenThreeEntryTrigger, "dialogueId", "hidden_chapter_three_entry");
+            SetPrivate(hiddenThreeEntryTrigger, "englishSign", "HIDDEN 03  /  THE MOMENT BETWEEN BLINKS");
+            SetPrivate(hiddenThreeEntryTrigger, "turkishSign", "GİZLİ 03  /  İKİ KIRPMA ARASINDA");
+            SetPrivate(hiddenThreeEntryTrigger, "fallRecovery", fallRecovery);
+            SetPrivate(hiddenThreeEntryTrigger, "checkpoint", hiddenThreeCheckpoint.transform);
+            SetPrivate(echoPuzzle, "exitDoor", hiddenThreeExitController);
+            SetPrivate(echoPuzzle, "dialogue", director);
+            SetPrivate(echoPuzzle, "statusSign", echoStatus);
+            SetPrivate(echoPuzzle, "pulseLight", echoPulseLight);
+            SetPrivate(echoPuzzle, "echoTargets", echoTargets);
+            SetPrivate(hiddenThreeExitController, "dialogue", director);
+            for (int i = 0; i < echoStationXs.Length; i++)
+            {
+                GameObject stationTriggerObject = GameObject.Find("Echo station trigger " + (i + 1));
+                TimedSightlineTrigger stationTrigger = stationTriggerObject.GetComponent<TimedSightlineTrigger>();
+                SetPrivate(stationTrigger, "puzzle", echoPuzzle);
+            }
             SetPrivate(hiddenTwoEntryTrigger, "dialogue", director);
             SetPrivate(hiddenTwoEntryTrigger, "chapterSign", hiddenTwoTitle);
             SetPrivate(hiddenTwoEntryTrigger, "dialogueId", "hidden_chapter_two_entry");
