@@ -1050,6 +1050,102 @@ namespace Oddly.Editor
             CreatePrimitive("Chapter 10 to 11 connector right rail", PrimitiveType.Cube,
                 new Vector3(5, 2.5f, 369), new Vector3(0.25f, 5, 12), wallMat);
 
+            // Chapter 12: three archived room states can be restored. Save 02
+            // is the only stable snapshot from before the crash.
+            CreatePrimitive("Chapter 11 to 12 connector floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 405), new Vector3(10, 0.5f, 12), floorMat);
+            CreatePrimitive("Chapter 11 to 12 connector left rail", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 405), new Vector3(0.25f, 5, 12), wallMat);
+            CreatePrimitive("Chapter 11 to 12 connector right rail", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 405), new Vector3(0.25f, 5, 12), wallMat);
+
+            CreatePrimitive("Chapter 12 save room floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 423), new Vector3(10, 0.5f, 24), floorMat);
+            CreatePrimitive("Chapter 12 left wall", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 423), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 12 right wall", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 423), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 12 far wall left", PrimitiveType.Cube,
+                new Vector3(-4.15f, 2.5f, 435), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 12 far wall right", PrimitiveType.Cube,
+                new Vector3(4.15f, 2.5f, 435), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 12 far wall header", PrimitiveType.Cube,
+                new Vector3(0, 4.55f, 435), new Vector3(6.6f, 0.9f, 0.5f), wallMat);
+            GameObject chapterTwelveExit = CreatePrimitive("Chapter 12 real exit",
+                PrimitiveType.Cube, new Vector3(0, 2, 434.7f), new Vector3(2.8f, 4, 0.35f), doorMat);
+            DoorController chapterTwelveExitController = chapterTwelveExit.AddComponent<DoorController>();
+
+            GameObject chapterTwelveEntry = new GameObject("Chapter 12 entry trigger");
+            chapterTwelveEntry.transform.position = new Vector3(0, 1.2f, 409.5f);
+            BoxCollider chapterTwelveEntryCollider = chapterTwelveEntry.AddComponent<BoxCollider>();
+            chapterTwelveEntryCollider.isTrigger = true;
+            chapterTwelveEntryCollider.size = new Vector3(8.5f, 2.4f, 1.2f);
+            ChapterEntryTrigger chapterTwelveEntryTrigger = chapterTwelveEntry.AddComponent<ChapterEntryTrigger>();
+            GameObject chapterTwelveCheckpoint = new GameObject("Chapter 12 checkpoint");
+            chapterTwelveCheckpoint.transform.position = new Vector3(0f, 0.15f, 411.5f);
+
+            TextMesh chapterTwelveSign = new GameObject("Chapter 12 title sign").AddComponent<TextMesh>();
+            chapterTwelveSign.transform.position = new Vector3(0, 3.65f, 413f);
+            chapterTwelveSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            chapterTwelveSign.text = "CHAPTER 12 / THE LAST SAVE";
+            chapterTwelveSign.fontSize = 40;
+            chapterTwelveSign.characterSize = 0.05f;
+            chapterTwelveSign.anchor = TextAnchor.MiddleCenter;
+            chapterTwelveSign.alignment = TextAlignment.Center;
+            chapterTwelveSign.color = new Color(0.22f, 0.25f, 0.32f);
+
+            TextMesh saveStatusSign = new GameObject("Last save status sign").AddComponent<TextMesh>();
+            saveStatusSign.transform.position = new Vector3(0, 3.1f, 417f);
+            saveStatusSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            saveStatusSign.text = "THE LAST SAVE BEFORE THE CRASH: SLOT 02";
+            saveStatusSign.fontSize = 28;
+            saveStatusSign.characterSize = 0.045f;
+            saveStatusSign.anchor = TextAnchor.MiddleCenter;
+            saveStatusSign.alignment = TextAlignment.Center;
+            saveStatusSign.color = new Color(0.35f, 0.7f, 1f);
+
+            Transform[] saveProps = new Transform[3];
+            float[] saveXs = { -2.6f, 0f, 2.6f };
+            string[] saveNames = { "SAVE 01 / BEFORE", "SAVE 02 / LAST GOOD", "SAVE 03 / AFTER" };
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject snapshot = CreatePrimitive("Snapshot artifact " + (i + 1),
+                    PrimitiveType.Cube, new Vector3(saveXs[i], 0.85f, 428f),
+                    new Vector3(1.35f, 1.7f, 1.35f), i == 1 ? cubeMat : accentMat);
+                saveProps[i] = snapshot.transform;
+
+                TextMesh slotLabel = new GameObject("Save slot label " + (i + 1)).AddComponent<TextMesh>();
+                slotLabel.transform.position = new Vector3(saveXs[i], 2.25f, 428f);
+                slotLabel.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                slotLabel.text = saveNames[i];
+                slotLabel.fontSize = 25;
+                slotLabel.characterSize = 0.045f;
+                slotLabel.anchor = TextAnchor.MiddleCenter;
+                slotLabel.alignment = TextAlignment.Center;
+                slotLabel.color = new Color(0.28f, 0.72f, 0.95f);
+            }
+
+            GameObject saveLightObject = new GameObject("Last save reactive light");
+            saveLightObject.transform.position = new Vector3(0, 4.2f, 428f);
+            Light saveRoomLight = saveLightObject.AddComponent<Light>();
+            saveRoomLight.type = LightType.Point;
+            saveRoomLight.range = 16f;
+            saveRoomLight.intensity = 0.9f;
+
+            GameObject lastSavePuzzleObject = new GameObject("Last save puzzle controller");
+            LastSavePuzzle lastSavePuzzle = lastSavePuzzleObject.AddComponent<LastSavePuzzle>();
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject slotTriggerObject = new GameObject("Load save slot " + (i + 1) + " trigger");
+                slotTriggerObject.transform.position = new Vector3(saveXs[i], 1f, 423f);
+                BoxCollider slotCollider = slotTriggerObject.AddComponent<BoxCollider>();
+                slotCollider.isTrigger = true;
+                slotCollider.size = new Vector3(2.25f, 2.4f, 2.25f);
+                LastSaveSlotTrigger slotTrigger = slotTriggerObject.AddComponent<LastSaveSlotTrigger>();
+                SetPrivate(slotTrigger, "puzzle", lastSavePuzzle);
+                SetPrivate(slotTrigger, "slotIndex", i);
+            }
+
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
             BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
@@ -1325,6 +1421,19 @@ namespace Oddly.Editor
             SetPrivate(patchPuzzle, "patchProps", patchProps);
             SetPrivate(patchPuzzle, "roomLight", patchRoomLight);
             SetPrivate(chapterElevenExitController, "dialogue", director);
+            SetPrivate(chapterTwelveEntryTrigger, "dialogue", director);
+            SetPrivate(chapterTwelveEntryTrigger, "chapterSign", chapterTwelveSign);
+            SetPrivate(chapterTwelveEntryTrigger, "dialogueId", "chapter_twelve_entry");
+            SetPrivate(chapterTwelveEntryTrigger, "englishSign", "CHAPTER 12  /  THE LAST SAVE");
+            SetPrivate(chapterTwelveEntryTrigger, "turkishSign", "BÖLÜM 12  /  SON KAYIT");
+            SetPrivate(chapterTwelveEntryTrigger, "fallRecovery", fallRecovery);
+            SetPrivate(chapterTwelveEntryTrigger, "checkpoint", chapterTwelveCheckpoint.transform);
+            SetPrivate(lastSavePuzzle, "exitDoor", chapterTwelveExitController);
+            SetPrivate(lastSavePuzzle, "dialogue", director);
+            SetPrivate(lastSavePuzzle, "statusSign", saveStatusSign);
+            SetPrivate(lastSavePuzzle, "snapshotProps", saveProps);
+            SetPrivate(lastSavePuzzle, "roomLight", saveRoomLight);
+            SetPrivate(chapterTwelveExitController, "dialogue", director);
             PerspectiveBridgePuzzle bridgePuzzle = player.AddComponent<PerspectiveBridgePuzzle>();
             SetPrivate(bridgePuzzle, "bridge", bridgePerspectiveObject);
             SetPrivate(bridgePuzzle, "landingTarget", bridgeTarget.transform);
