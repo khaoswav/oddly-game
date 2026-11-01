@@ -54,7 +54,7 @@ All player-facing text and dialogue must exist in Turkish and English. The two l
 Warm, whimsical, playful instrumental score: felt piano, marimba, soft plucked strings and gentle ambient textures. Add comic stings, tactile object sounds and occasional near-silence. Only original or properly licensed commercial-use tracks and effects may ship.
 
 ## Accessibility and comfort
-- Adjustable mouse sensitivity and field of view.
+- Adjustable mouse sensitivity and field of view, saved between sessions.
 - Subtitles always available.
 - Separate music, ambience, dialogue and effects volume.
 - Rebindable controls planned.
