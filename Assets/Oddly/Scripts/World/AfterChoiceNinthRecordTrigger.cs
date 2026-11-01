@@ -32,7 +32,7 @@ namespace Oddly
         private void Awake()
         {
             if (sealedDoor != null)
-                openDoorPosition = sealedDoor.localPosition + Vector3.left * 4.5f;
+                openDoorPosition = sealedDoor.localPosition + Vector3.up * 4.5f;
 
             relicBaseScales = new Vector3[convergenceRelics.Length];
             for (int i = 0; i < convergenceRelics.Length; i++)
