@@ -44,21 +44,28 @@ namespace Oddly
             if (solved || player == null || buildMarks == null || buildMarks.Length == 0)
                 return;
 
-            int expected = buildOrder[Mathf.Clamp(progress, 0, buildOrder.Length - 1)];
-            Transform mark = buildMarks[expected];
-            if (mark == null) return;
+            int nearestIndex = -1;
+            float nearestDistance = float.MaxValue;
+            for (int i = 0; i < buildMarks.Length; i++)
+            {
+                if (buildMarks[i] == null) continue;
+                float distance = Vector3.Distance(
+                    new Vector3(player.position.x, 0f, player.position.z),
+                    new Vector3(buildMarks[i].position.x, 0f, buildMarks[i].position.z));
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearestIndex = i;
+                }
+            }
 
-            float distance = Vector3.Distance(
-                new Vector3(player.position.x, 0f, player.position.z),
-                new Vector3(mark.position.x, 0f, mark.position.z));
-
-            if (distance > markRadius * 1.35f)
+            if (nearestDistance > markRadius * 1.35f)
                 armed = true;
 
-            if (armed && distance <= markRadius)
+            if (armed && nearestIndex >= 0 && nearestDistance <= markRadius)
             {
                 armed = false;
-                RegisterBuildStep(expected);
+                RegisterBuildStep(nearestIndex);
             }
         }
 
