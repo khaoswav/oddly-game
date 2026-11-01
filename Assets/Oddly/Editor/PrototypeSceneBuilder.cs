@@ -2372,6 +2372,37 @@ namespace Oddly.Editor
             Text subtitle = MakeText(canvas.transform, "Subtitle", "Welcome. This test is easy.", 21, TextAnchor.UpperLeft);
             SetRect(subtitle.rectTransform, new Vector2(0.06f, 0.06f), new Vector2(0.94f, 0.17f));
 
+            GameObject campaignCardObject = new GameObject("Campaign Chapter Card", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
+            campaignCardObject.transform.SetParent(canvas.transform, false);
+            SetRect(campaignCardObject.GetComponent<RectTransform>(), Vector2.zero, Vector2.one);
+            Image campaignCardBackground = campaignCardObject.GetComponent<Image>();
+            campaignCardBackground.color = new Color(0.035f, 0.045f, 0.075f, 1f);
+            campaignCardBackground.raycastTarget = false;
+            CanvasGroup campaignCardGroup = campaignCardObject.GetComponent<CanvasGroup>();
+
+            Text campaignChapterLabel = MakeText(campaignCardObject.transform, "Campaign Chapter Label", "CHAPTER 02", 18, TextAnchor.MiddleCenter);
+            SetRect(campaignChapterLabel.rectTransform, new Vector2(0.12f, 0.63f), new Vector2(0.88f, 0.72f));
+            campaignChapterLabel.color = new Color(0.96f, 0.42f, 0.54f);
+            campaignChapterLabel.raycastTarget = false;
+
+            Text campaignTitle = MakeText(campaignCardObject.transform, "Campaign Chapter Title", "SIZE DOES MATTER", 42, TextAnchor.MiddleCenter);
+            SetRect(campaignTitle.rectTransform, new Vector2(0.08f, 0.42f), new Vector2(0.92f, 0.62f));
+            campaignTitle.color = new Color(0.96f, 0.95f, 0.91f);
+            campaignTitle.raycastTarget = false;
+
+            Text campaignSubtitle = MakeText(campaignCardObject.transform, "Campaign Chapter Subtitle", "THE TEST CONTINUES. UNFORTUNATELY.", 16, TextAnchor.MiddleCenter);
+            SetRect(campaignSubtitle.rectTransform, new Vector2(0.12f, 0.30f), new Vector2(0.88f, 0.40f));
+            campaignSubtitle.color = new Color(0.62f, 0.68f, 0.78f);
+            campaignSubtitle.raycastTarget = false;
+
+            CampaignDirector campaignDirector = canvas.gameObject.AddComponent<CampaignDirector>();
+            SetPrivate(campaignDirector, "cardGroup", campaignCardGroup);
+            SetPrivate(campaignDirector, "cardBackground", campaignCardBackground);
+            SetPrivate(campaignDirector, "chapterLabel", campaignChapterLabel);
+            SetPrivate(campaignDirector, "titleLabel", campaignTitle);
+            SetPrivate(campaignDirector, "subtitleLabel", campaignSubtitle);
+            campaignCardObject.transform.SetAsLastSibling();
+
             DialogueDirector director = canvas.gameObject.AddComponent<DialogueDirector>();
             SetPrivate(director, "speakerLabel", speaker);
             SetPrivate(director, "subtitleLabel", subtitle);
