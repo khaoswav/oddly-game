@@ -55,6 +55,8 @@ namespace Oddly
 
         private void Move()
         {
+            if (Cursor.lockState != CursorLockMode.Locked) return;
+
             float x = Input.GetAxisRaw("Horizontal");
             float z = Input.GetAxisRaw("Vertical");
             Vector3 planar = (transform.right * x + transform.forward * z).normalized;
