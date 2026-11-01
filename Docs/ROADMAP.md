@@ -88,7 +88,7 @@
 - [x] Build Hidden Chapter 08, The Room That Remembers You, with a persistent completion archive, saved-finale recall puzzle, three interactive memory panels and bilingual feedback.
 - [ ] Add alternate solutions and broader narrative callbacks.
 - [ ] Add optional replay challenges and achievements.
-- [ ] Add a post-ending epilogue route with callbacks to hidden-room discoveries and a replay flow that preserves the ending archive until the player explicitly resets campaign progress.
+- [x] Add a post-ending epilogue route with callbacks to hidden-room discoveries and a replay flow that preserves the ending archive until the player explicitly resets campaign progress.
 - [ ] Add persistent campaign saves and chapter checkpoints.
 
 ## Milestone 5 — Release
