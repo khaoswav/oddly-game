@@ -6,7 +6,7 @@
 - [x] Add first-person controller and interaction prototype.
 - [x] Add editor-generated greybox scene.
 - [ ] Verify import and play mode in Unity 6.3 LTS.
-- [ ] Add automated editor build validation.
+- [x] Add automated editor build validation.
 
 ## Milestone 1 — First playable vertical slice
 - [x] Prevent movement and object interaction while the mouse cursor is released; support click-to-resume.
@@ -111,9 +111,6 @@
 - [ ] Add persistent campaign saves and chapter checkpoints.
 
 ## Milestone 5 — Release
-- [ ] macOS Intel/Apple Silicon compatibility testing.
-- [ ] Windows build and controller testing.
-- [ ] Performance, accessibility and localization QA.
 - [x] Add reproducible Unity Editor validation and macOS/Windows build entry points.
 - [ ] Run Unity Editor validation, Play Mode regression and platform builds on supported hardware.
 - [ ] macOS Intel/Apple Silicon compatibility testing.
