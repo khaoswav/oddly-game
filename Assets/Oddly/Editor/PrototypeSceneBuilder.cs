@@ -92,6 +92,7 @@ namespace Oddly.Editor
                 frameCenter + Vector3.right * 0.78f, new Vector3(0.14f, 1.42f, 0.18f), accentMat);
             GameObject target = new GameObject("Perspective target");
             target.transform.position = new Vector3(-1.5f, 1.1f, 0.37f);
+            target.transform.localScale = Vector3.one * 0.72f;
             GameObject targetVisual = CreatePrimitive("Target marker", PrimitiveType.Cube,
                 target.transform.position, Vector3.one * 0.72f, cubeMat);
             targetVisual.GetComponent<Collider>().enabled = false;
