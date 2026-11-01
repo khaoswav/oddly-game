@@ -952,6 +952,52 @@ namespace Oddly.Editor
             CreatePrimitive("Chapter 8 to 9 connector right rail", PrimitiveType.Cube,
                 new Vector3(5, 2.5f, 297), new Vector3(0.25f, 5, 12), wallMat);
 
+            // The theatre audience refuses to stay for the next act.
+            // Three silhouettes make a hurried, synchronized exit as the
+            // corridor sign changes its mind about who the show was for.
+            GameObject applauseEscapeOne = CreatePrimitive("Escaping audience silhouette A",
+                PrimitiveType.Capsule, new Vector3(-3.2f, 1.05f, 331.4f),
+                new Vector3(0.55f, 1.7f, 0.55f), cubeMat);
+            GameObject applauseEscapeTwo = CreatePrimitive("Escaping audience silhouette B",
+                PrimitiveType.Capsule, new Vector3(0f, 1.05f, 331.4f),
+                new Vector3(0.55f, 1.7f, 0.55f), accentMat);
+            GameObject applauseEscapeThree = CreatePrimitive("Escaping audience silhouette C",
+                PrimitiveType.Capsule, new Vector3(3.2f, 1.05f, 331.4f),
+                new Vector3(0.55f, 1.7f, 0.55f), doorMat);
+            applauseEscapeOne.GetComponent<Collider>().enabled = false;
+            applauseEscapeTwo.GetComponent<Collider>().enabled = false;
+            applauseEscapeThree.GetComponent<Collider>().enabled = false;
+
+            TextMesh applauseEscapeSign = new GameObject("Audience escape corridor sign").AddComponent<TextMesh>();
+            applauseEscapeSign.transform.position = new Vector3(0f, 3.35f, 334.1f);
+            applauseEscapeSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            applauseEscapeSign.text = "PLEASE EXIT IN AN ORDERLY FASHION";
+            applauseEscapeSign.fontSize = 30;
+            applauseEscapeSign.characterSize = 0.05f;
+            applauseEscapeSign.anchor = TextAnchor.MiddleCenter;
+            applauseEscapeSign.alignment = TextAlignment.Center;
+            applauseEscapeSign.color = new Color(0.22f, 0.25f, 0.32f);
+
+            GameObject applauseEscapeLightObject = new GameObject("Audience escape corridor light");
+            applauseEscapeLightObject.transform.position = new Vector3(0f, 3.7f, 332.5f);
+            Light applauseEscapeLight = applauseEscapeLightObject.AddComponent<Light>();
+            applauseEscapeLight.type = LightType.Point;
+            applauseEscapeLight.range = 10f;
+            applauseEscapeLight.intensity = 0.8f;
+
+            GameObject applauseEscapeTriggerObject = new GameObject("Audience escape corridor trigger");
+            applauseEscapeTriggerObject.transform.position = new Vector3(0f, 1.5f, 332.5f);
+            BoxCollider applauseEscapeCollider = applauseEscapeTriggerObject.AddComponent<BoxCollider>();
+            applauseEscapeCollider.isTrigger = true;
+            applauseEscapeCollider.size = new Vector3(9f, 3f, 1.1f);
+            AudienceEscapeCorridorTrigger applauseEscapeTrigger =
+                applauseEscapeTriggerObject.AddComponent<AudienceEscapeCorridorTrigger>();
+            SetPrivate(applauseEscapeTrigger, "props", new Transform[] {
+                applauseEscapeOne.transform, applauseEscapeTwo.transform, applauseEscapeThree.transform
+            });
+            SetPrivate(applauseEscapeTrigger, "sign", applauseEscapeSign);
+            SetPrivate(applauseEscapeTrigger, "eventLight", applauseEscapeLight);
+
             // Chapter 10: the room is an unfinished build. Complete the
             // three TODO markers in the production board's deliberately odd order.
             CreatePrimitive("Chapter 10 unfinished floor", PrimitiveType.Cube,
