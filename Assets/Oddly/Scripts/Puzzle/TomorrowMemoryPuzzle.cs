@@ -9,12 +9,15 @@ namespace Oddly
         [SerializeField] private DialogueDirector dialogue;
         [SerializeField] private TextMesh statusSign;
         [SerializeField] private Light roomLight;
-        [SerializeField] private float activeBridgeHeight = 0.18f;
+        [SerializeField] private float activeBridgeHeight = 0.12f;
         [SerializeField] private float hiddenBridgeHeight = -3.5f;
 
         private readonly string[] routeNames = { "DROP", "RETRY", "WAIT" };
         private readonly string[] routeNamesTurkish = { "DÜŞÜR", "TEKRAR DENE", "BEKLE" };
         private int selectedRoute = -1;
+        private int recordedDrops;
+        private int recordedRetries;
+        private int recordedWaits;
         private bool initialized;
         private bool completed;
 
@@ -27,6 +30,9 @@ namespace Oddly
             int retries = history != null
                 ? history.FailedInteractionCount + history.DoorAttemptCount : 0;
             int waits = history != null ? history.IdleEpisodeCount : 0;
+            recordedDrops = drops;
+            recordedRetries = retries;
+            recordedWaits = waits;
 
             // A clean run defaults to WAIT. Ties resolve deterministically: DROP, then RETRY, then WAIT.
             selectedRoute = drops > 0 && drops >= retries && drops >= waits ? 0
@@ -74,8 +80,8 @@ namespace Oddly
             bool turkish = dialogue != null && dialogue.IsTurkish;
             string route = turkish ? routeNamesTurkish[selectedRoute] : routeNames[selectedRoute];
             statusSign.text = turkish
-                ? $"YARININ YOLU: {route}\nGEÇMİŞİNİ TAKİP ET"
-                : $"TOMORROW'S ROUTE: {route}\nFOLLOW YOUR PAST";
+                ? $"YARININ YOLU: {route}\nDÜŞÜR {recordedDrops} / DENE {recordedRetries} / BEKLE {recordedWaits}"
+                : $"TOMORROW'S ROUTE: {route}\nDROP {recordedDrops} / RETRY {recordedRetries} / WAIT {recordedWaits}";
         }
     }
 }
