@@ -34,6 +34,7 @@ The first vertical slice is intentionally small and playable:
 - Chapter 8's Loop returns the player to the corridor entrance three times while subtly rearranging the room. The third traversal breaks the loop and opens the real exit.
 - Chapter 9's Wrong Audience puts the player on a theatre stage. Turning away from the audience and holding still earns an absurd standing ovation and opens the exit.
 - Chapter 10's Unfinished Game turns a half-built level into a production checklist. Complete three TODO markers in order, avoid the wrong one, and finish the build to unlock the exit.
+- Chapter 11's Patch Notes turns updates into physical world changes. Apply three patches in the right release order or trigger a rollback that resets the room.
 - Chapter 2 and Chapter 3 have separate checkpoints, localized entry beats and fall recovery.
 - The full campaign target is approximately 2 hours for the main story and approximately 3 hours including 5–8 hidden chapters/rooms.
 - The dual-scale relay only accepts objects once they have physically settled on their pads.
