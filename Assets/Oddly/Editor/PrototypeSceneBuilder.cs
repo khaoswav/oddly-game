@@ -156,8 +156,8 @@ namespace Oddly.Editor
             TextMesh noticeText = new GameObject("Notice text").AddComponent<TextMesh>();
             noticeText.transform.SetParent(notice.transform, false);
             noticeText.transform.localPosition = new Vector3(0f, 0f, -0.56f);
-            noticeText.transform.localRotation = Quaternion.identity;
-            noticeText.text = "DO NOT\\nPRESS RED";
+            noticeText.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
+            noticeText.text = "BASMA / DO NOT\\nKIRMIZI / RED";
             noticeText.fontSize = 44;
             noticeText.characterSize = 0.035f;
             noticeText.anchor = TextAnchor.MiddleCenter;
