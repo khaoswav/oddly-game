@@ -41,7 +41,7 @@ namespace Oddly
                 0.055f,
                 mirrorAxisZ - (playerPosition.z - mirrorAxisZ));
             shadowVisual.rotation = Quaternion.Euler(
-                0f, -player.transform.eulerAngles.y, 0f);
+                0f, 180f - player.transform.eulerAngles.y, 0f);
 
             if (shadowTargets == null || nextTarget >= shadowTargets.Length) return;
             Transform target = shadowTargets[nextTarget];
@@ -82,8 +82,8 @@ namespace Oddly
             if (statusSign == null) return;
             bool turkish = dialogue != null && dialogue.IsTurkish;
             statusSign.text = turkish
-                ? $"GÖLGENİ IŞIĞA TAŞI\n{nextTarget} / {shadowTargets.Length}"
-                : $"GUIDE YOUR SHADOW INTO LIGHT\n{nextTarget} / {shadowTargets.Length}";
+                ? $"GÖLGENİ IŞIĞA TAŞI\nKARŞI TARAFA GİT  {nextTarget} / {shadowTargets.Length}"
+                : $"GUIDE YOUR SHADOW INTO LIGHT\nMOVE TO THE OPPOSITE SIDE  {nextTarget} / {shadowTargets.Length}";
         }
     }
 }
