@@ -65,7 +65,10 @@ namespace Oddly
         {
             float perspectiveScale = scaleAtGrab * (cameraDistance / cameraDistanceAtGrab);
             float clampedScale = Mathf.Clamp(perspectiveScale, minimumScale, maximumScale);
-            transform.localScale = Vector3.one * clampedScale;
+            // Scale the object's original dimensions uniformly instead of
+            // flattening every non-cubic prop into a cube.
+            float baseWidth = Mathf.Max(0.0001f, originalScale.x);
+            transform.localScale = originalScale * (clampedScale / baseWidth);
         }
 
         public void Drop()
