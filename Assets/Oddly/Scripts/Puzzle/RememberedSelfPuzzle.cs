@@ -48,8 +48,8 @@ namespace Oddly
                 }
                 if (statusSign != null)
                     statusSign.text = dialogue != null && dialogue.IsTurkish
-                        ? $"HAFIZA DOĞRULANDI\n{completedRooms + 1}/8 ODA HATIRLANDI\nÇIKIŞ AÇIK"
-                        : $"MEMORY VERIFIED\n{completedRooms + 1}/8 ROOMS REMEMBERED\nEXIT OPEN";
+                        ? $"HAFIZA DOĞRULANDI\n{completedRooms + 1}/8 ODA\nKAYIT: {HiddenChapterArchive.GetCompletedRoomCodes()}\nÇIKIŞ AÇIK"
+                        : $"MEMORY VERIFIED\n{completedRooms + 1}/8 ROOMS\nARCHIVE: {HiddenChapterArchive.GetCompletedRoomCodes()}\nEXIT OPEN";
                 dialogue?.Say("hidden_memory_complete");
                 exitDoor?.Unlock();
             }
@@ -75,8 +75,8 @@ namespace Oddly
             }
             if (statusSign != null)
                 statusSign.text = dialogue != null && dialogue.IsTurkish
-                    ? $"ODA SENİ HATIRLIYOR\n{completedRooms}/8 GİZLİ ODA TAMAMLANDI\nSON KARARINI BUL"
-                    : $"THE ROOM REMEMBERS YOU\n{completedRooms}/8 HIDDEN ROOMS CLEARED\nFIND YOUR LAST CHOICE";
+                    ? $"ODA SENİ HATIRLIYOR\n{completedRooms}/8 GİZLİ ODA\nKAYIT: {HiddenChapterArchive.GetCompletedRoomCodes()}\nSON KARARINI BUL"
+                    : $"THE ROOM REMEMBERS YOU\n{completedRooms}/8 HIDDEN ROOMS\nARCHIVE: {HiddenChapterArchive.GetCompletedRoomCodes()}\nFIND YOUR LAST CHOICE";
         }
     }
 }
