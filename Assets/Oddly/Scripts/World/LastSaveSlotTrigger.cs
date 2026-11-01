@@ -1,7 +1,5 @@
 using UnityEngine;
-using Oddly.Scripts.Puzzle;
-
-namespace Oddly.Scripts.World
+namespace Oddly
 {
     public class LastSaveSlotTrigger : MonoBehaviour
     {
