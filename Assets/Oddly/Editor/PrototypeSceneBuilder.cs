@@ -2859,6 +2859,7 @@ namespace Oddly.Editor
 
             CreateLighting();
             Canvas canvas = CreateCanvas();
+            canvas.gameObject.AddComponent<WorldPresentationDirector>();
             canvas.gameObject.AddComponent<WorldAudioDirector>();
 
             // UI buttons require an EventSystem to receive pointer input.
