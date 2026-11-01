@@ -21,8 +21,7 @@ namespace Oddly
 
         private void Start()
         {
-            string ending = PlayerPrefs.GetString("oddly.ending", "NEITHER");
-            rememberedEnding = ending == "NARRATOR" ? 0 : ending == "SYSTEM" ? 1 : 2;
+            rememberedEnding = Mathf.Clamp(PlayerPrefs.GetInt("oddly.ending", 2), 0, 2);
             completedRooms = HiddenChapterArchive.CompletedCount;
             RefreshStatus();
         }
@@ -41,6 +40,7 @@ namespace Oddly
             if (endingIndex == rememberedEnding)
             {
                 solved = true;
+                HiddenChapterArchive.MarkCompleted(8);
                 if (roomLight != null)
                 {
                     roomLight.color = new Color(0.35f, 1f, 0.72f);
@@ -71,7 +71,7 @@ namespace Oddly
             for (int i = 0; i < memoryLabels.Length; i++)
             {
                 if (memoryLabels[i] == null) continue;
-                memoryLabels[i].text = dialogue != null && dialogue.IsTurkish ? tr[i] : en[i];
+                memoryLabels[i].text = dialogue != null && dialogue.IsTurkish ? tr[i] + "\\n[E]" : en[i] + "\\n[ E ]";
             }
             if (statusSign != null)
                 statusSign.text = dialogue != null && dialogue.IsTurkish
