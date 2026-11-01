@@ -25,6 +25,16 @@ namespace Oddly
             movement = GetComponent<FirstPersonController>();
             checkpointPosition = transform.position;
             checkpointRotation = transform.rotation;
+            if (PlayerPrefs.GetInt("oddly.campaign.checkpoint.saved", 0) == 1)
+            {
+                checkpointPosition = new Vector3(
+                    PlayerPrefs.GetFloat("oddly.campaign.checkpoint.position.0", transform.position.x),
+                    PlayerPrefs.GetFloat("oddly.campaign.checkpoint.position.1", transform.position.y),
+                    PlayerPrefs.GetFloat("oddly.campaign.checkpoint.position.2", transform.position.z));
+                checkpointRotation = Quaternion.Euler(0f,
+                    PlayerPrefs.GetFloat("oddly.campaign.checkpoint.rotation.1", transform.eulerAngles.y), 0f);
+                transform.SetPositionAndRotation(checkpointPosition, checkpointRotation);
+            }
         }
 
         public void SetCheckpoint(Transform checkpoint)
@@ -32,6 +42,12 @@ namespace Oddly
             if (checkpoint == null) return;
             checkpointPosition = checkpoint.position;
             checkpointRotation = checkpoint.rotation;
+            PlayerPrefs.SetFloat("oddly.campaign.checkpoint.position.0", checkpointPosition.x);
+            PlayerPrefs.SetFloat("oddly.campaign.checkpoint.position.1", checkpointPosition.y);
+            PlayerPrefs.SetFloat("oddly.campaign.checkpoint.position.2", checkpointPosition.z);
+            PlayerPrefs.SetFloat("oddly.campaign.checkpoint.rotation.1", checkpointRotation.eulerAngles.y);
+            PlayerPrefs.SetInt("oddly.campaign.checkpoint.saved", 1);
+            PlayerPrefs.Save();
         }
 
         public void SetDialogue(DialogueDirector director)
