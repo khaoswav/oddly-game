@@ -80,6 +80,7 @@ namespace Oddly
             Add("dual_scale_large_shrink", "ANLATICI", "Büyük platforma geldin ama nesne henüz yeterince büyük değil. Biraz uzaklaştır.", "You found the big pad, but the object isn't big enough yet. Move it farther away.");
             Add("dual_scale_large_grow", "SYSTEM-02", "Bu nesne fazla büyük. Büyük platformun da bir sınırı var.", "That object is too large. The large pad has limits too.");
             Add("dual_scale_solved", "ANLATICI", "İki nesne, iki boyut, tek kapı. Matematik sonunda bir işe yaradı.", "Two objects, two sizes, one door. Mathematics finally did something useful.");
+            Add("sightline_solved", "SYSTEM-02", "Doğru noktadan baktınız. Mimari artık sizi tanıyor. Lütfen bunu kişisel algılamayın.", "You looked from the correct point. The architecture recognises you now. Please do not take that personally.");
             Add("impossible_room", "ANLATICI", "Bir dakika... Az önce nereden geldin? Boş ver. Ben de artık takip etmiyorum.", "Wait... where did you just come from? Never mind. I've stopped keeping track too.");
             Add("meta_notice", "SYSTEM-02", "UYARI: KIRMIZI DÜĞMEYE BASMAYIN. Bu uyarıyı okuduğunuz kaydedildi.", "NOTICE: DO NOT PRESS THE RED BUTTON. Your reading of this notice has been recorded.");
             Add("meta_wrong", "ANLATICI", "Önce bir şeyi fark etmen gerekiyordu. Tabela süs olsun diye burada değil.", "You were supposed to notice something first. The sign isn't here for decoration.");
