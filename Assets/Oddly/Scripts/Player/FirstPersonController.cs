@@ -14,8 +14,11 @@ namespace Oddly
         private CharacterController controller;
         private float pitch;
         private float verticalVelocity;
+        private bool controlsInverted;
 
         public Transform CameraTransform => cameraPivot;
+
+        public void SetControlsInverted(bool inverted) => controlsInverted = inverted;
 
         public void SetLookSensitivity(float value)
         {
@@ -72,6 +75,7 @@ namespace Oddly
 
             float x = Input.GetAxisRaw("Horizontal");
             float z = Input.GetAxisRaw("Vertical");
+            if (controlsInverted) { x = -x; z = -z; }
             Vector3 planar = (transform.right * x + transform.forward * z).normalized;
             controller.Move(planar * moveSpeed * Time.deltaTime);
 
