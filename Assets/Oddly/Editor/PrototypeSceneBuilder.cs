@@ -312,6 +312,77 @@ namespace Oddly.Editor
             sightlineInstruction.alignment = TextAlignment.Center;
             sightlineInstruction.color = new Color(0.22f, 0.25f, 0.32f);
 
+            // Chapter 2 begins immediately beyond the forced-perspective exit.
+            // A real floor gap makes the resized plank a physical bridge, not a
+            // decorative alignment check.
+            CreatePrimitive("Chapter 2 near platform", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 83.5f), new Vector3(10, 0.5f, 13), floorMat);
+            CreatePrimitive("Chapter 2 far platform", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 101.5f), new Vector3(10, 0.5f, 15), floorMat);
+            CreatePrimitive("Chapter 2 left wall", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 93), new Vector3(0.25f, 5, 32), wallMat);
+            CreatePrimitive("Chapter 2 right wall", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 93), new Vector3(0.25f, 5, 32), wallMat);
+            CreatePrimitive("Chapter 2 far wall left", PrimitiveType.Cube,
+                new Vector3(-4.2f, 2.5f, 109), new Vector3(1.6f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 2 far wall right", PrimitiveType.Cube,
+                new Vector3(4.2f, 2.5f, 109), new Vector3(1.6f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 2 far wall header", PrimitiveType.Cube,
+                new Vector3(0, 4.65f, 109), new Vector3(6.8f, 0.7f, 0.5f), wallMat);
+            GameObject chapterTwoExit = CreatePrimitive("Chapter 2 bridge exit",
+                PrimitiveType.Cube, new Vector3(0, 2, 108.7f), new Vector3(2.8f, 4, 0.35f), doorMat);
+            DoorController chapterTwoExitController = chapterTwoExit.AddComponent<DoorController>();
+
+            // A short reveal bay beyond the bridge keeps the unlocked door from
+            // opening into unfinished space and previews the next impossible test.
+            CreatePrimitive("Chapter 2 reveal bay floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 115), new Vector3(10, 0.5f, 12), floorMat);
+            CreatePrimitive("Chapter 2 reveal bay left", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 115), new Vector3(0.25f, 5, 12), wallMat);
+            CreatePrimitive("Chapter 2 reveal bay right", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 115), new Vector3(0.25f, 5, 12), wallMat);
+            CreatePrimitive("Chapter 2 reveal bay end wall", PrimitiveType.Cube,
+                new Vector3(0, 2.5f, 121), new Vector3(10, 5, 0.5f), wallMat);
+
+            GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
+            chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
+            BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
+            chapterTwoEntryCollider.isTrigger = true;
+            chapterTwoEntryCollider.size = new Vector3(8.5f, 2.4f, 1.2f);
+            ChapterEntryTrigger chapterTwoEntryTrigger = chapterTwoEntry.AddComponent<ChapterEntryTrigger>();
+
+            TextMesh chapterTwoSign = new GameObject("Chapter 2 title sign").AddComponent<TextMesh>();
+            chapterTwoSign.transform.position = new Vector3(0, 3.65f, 82f);
+            chapterTwoSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            chapterTwoSign.text = "CHAPTER 02 / SIZE DOES MATTER";
+            chapterTwoSign.fontSize = 42;
+            chapterTwoSign.characterSize = 0.055f;
+            chapterTwoSign.anchor = TextAnchor.MiddleCenter;
+            chapterTwoSign.alignment = TextAlignment.Center;
+            chapterTwoSign.color = new Color(0.22f, 0.25f, 0.32f);
+
+            GameObject bridgePedestal = CreatePrimitive("Bridge plank pedestal",
+                PrimitiveType.Cube, new Vector3(0, 0.25f, 85f), new Vector3(2.8f, 0.5f, 2.6f), accentMat);
+            GameObject bridgePlank = CreatePrimitive("Perspective bridge plank",
+                PrimitiveType.Cube, new Vector3(0, 0.62f, 85f), new Vector3(2.2f, 0.1f, 1.8f), cubeMat);
+            Rigidbody bridgeBody = bridgePlank.AddComponent<Rigidbody>();
+            bridgeBody.mass = 2.4f;
+            bridgeBody.interpolation = RigidbodyInterpolation.Interpolate;
+            PerspectiveObject bridgePerspectiveObject = bridgePlank.AddComponent<PerspectiveObject>();
+
+            GameObject bridgeTarget = new GameObject("Bridge landing target");
+            bridgeTarget.transform.position = new Vector3(0, 0.1275f, 92f);
+
+            TextMesh bridgeInstruction = new GameObject("Bridge instruction").AddComponent<TextMesh>();
+            bridgeInstruction.transform.position = new Vector3(0, 3.2f, 86.8f);
+            bridgeInstruction.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            bridgeInstruction.text = "MAKE IT LONG ENOUGH / YETERİNCE UZAT";
+            bridgeInstruction.fontSize = 42;
+            bridgeInstruction.characterSize = 0.05f;
+            bridgeInstruction.anchor = TextAnchor.MiddleCenter;
+            bridgeInstruction.alignment = TextAlignment.Center;
+            bridgeInstruction.color = new Color(0.22f, 0.25f, 0.32f);
+
             SetPrivate(movement, "cameraPivot", cameraPivot.transform);
 
             GameObject holdPoint = new GameObject("Hold Point");
