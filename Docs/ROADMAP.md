@@ -18,6 +18,8 @@
 - [x] Add a two-object, two-scale relay chamber with independent placement pads and a linked exit.
 - [x] Add a marked-viewpoint sightline chamber where separated architectural fragments resolve into a single visual symbol, with screen-space alignment checks and contextual bilingual hints.
 - [x] Require both relay objects to settle physically on their pads before the exit unlocks.
+- [x] Add Chapter 2's physical perspective bridge: a depth-resized plank must span a real platform gap, settle on both ledges and unlock the far exit.
+- [x] Add a localized Chapter 2 entry beat, title sign and reactive bilingual bridge hints.
 - [ ] Expand perspective-dependent placement into larger multi-step forced-perspective room tricks, object combinations and linked follow-on rooms.
 - [x] Add a paired impossible-room doorway loop with reactive bilingual dialogue and changing signs.
 - [x] Add a bilingual notice-and-forbidden-button meta puzzle that unlocks the exit.
