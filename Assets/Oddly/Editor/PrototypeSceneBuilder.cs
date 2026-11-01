@@ -127,6 +127,18 @@ namespace Oddly.Editor
             SetPrivate(perspectivePuzzle, "target", target.transform);
             SetPrivate(perspectivePuzzle, "linkedDoor", doorController);
 
+            // Two matching freestanding doors create an impossible loop:
+            // crossing one relocates the player to the other, which faces back
+            // into the same room from a different side.
+            Transform portalA = BuildImpossiblePortal("Doorway A", new Vector3(-6.4f, 0f, 2.5f),
+                Quaternion.Euler(0f, 90f, 0f), accentMat, doorMat);
+            Transform portalB = BuildImpossiblePortal("Doorway B", new Vector3(6.4f, 0f, 2.5f),
+                Quaternion.Euler(0f, 270f, 0f), accentMat, doorMat);
+            ImpossibleRoomPortal portalAController = portalA.gameObject.AddComponent<ImpossibleRoomPortal>();
+            ImpossibleRoomPortal portalBController = portalB.gameObject.AddComponent<ImpossibleRoomPortal>();
+            SetPrivate(portalAController, "destination", portalB);
+            SetPrivate(portalBController, "destination", portalA);
+
             CreateLighting();
             Canvas canvas = CreateCanvas();
 
@@ -155,6 +167,8 @@ namespace Oddly.Editor
             SetPrivate(goalZone, "dialogue", director);
             SetPrivate(doorController, "dialogue", director);
             SetPrivate(perspectivePuzzle, "dialogue", director);
+            SetPrivate(portalAController, "dialogue", director);
+            SetPrivate(portalBController, "dialogue", director);
 
             movement.enabled = false;
             interaction.enabled = false;
@@ -188,6 +202,51 @@ namespace Oddly.Editor
                 director.SetLanguage(currentlyEnglish ? SystemLanguage.Turkish : SystemLanguage.English);
                 language.GetComponentInChildren<Text>().text = currentlyEnglish ? "DİL: TÜRKÇE" : "LANGUAGE: ENGLISH";
             });
+        }
+
+        private static Transform BuildImpossiblePortal(string portalName, Vector3 position,
+            Quaternion rotation, Material frameMaterial, Material panelMaterial)
+        {
+            GameObject root = new GameObject(portalName);
+            root.transform.SetPositionAndRotation(position, rotation);
+
+            CreatePortalPart(root.transform, "Left post", new Vector3(-0.78f, 1.15f, 0f),
+                new Vector3(0.16f, 2.3f, 0.22f), frameMaterial);
+            CreatePortalPart(root.transform, "Right post", new Vector3(0.78f, 1.15f, 0f),
+                new Vector3(0.16f, 2.3f, 0.22f), frameMaterial);
+            CreatePortalPart(root.transform, "Header", new Vector3(0f, 2.28f, 0f),
+                new Vector3(1.72f, 0.16f, 0.22f), frameMaterial);
+            CreatePortalPart(root.transform, "Threshold", new Vector3(0f, 0.06f, 0f),
+                new Vector3(1.58f, 0.12f, 0.32f), panelMaterial);
+
+            BoxCollider trigger = root.AddComponent<BoxCollider>();
+            trigger.isTrigger = true;
+            trigger.size = new Vector3(1.35f, 2.05f, 0.55f);
+            trigger.center = new Vector3(0f, 1.08f, 0f);
+
+            TextMesh sign = new GameObject("Unhelpful sign").AddComponent<TextMesh>();
+            sign.transform.SetParent(root.transform, false);
+            sign.transform.localPosition = new Vector3(0f, 2.62f, 0f);
+            sign.transform.localRotation = Quaternion.identity;
+            sign.text = portalName == "Doorway A" ? "THIS WAY OUT" : "YOU WERE HERE";
+            sign.fontSize = 48;
+            sign.characterSize = 0.045f;
+            sign.anchor = TextAnchor.MiddleCenter;
+            sign.alignment = TextAlignment.Center;
+            sign.color = new Color(0.22f, 0.25f, 0.32f);
+            return root.transform;
+        }
+
+        private static void CreatePortalPart(Transform parent, string name, Vector3 localPosition,
+            Vector3 localScale, Material material)
+        {
+            GameObject part = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            part.name = name;
+            part.transform.SetParent(parent, false);
+            part.transform.localPosition = localPosition;
+            part.transform.localRotation = Quaternion.identity;
+            part.transform.localScale = localScale;
+            part.GetComponent<Renderer>().sharedMaterial = material;
         }
 
         private static void CreateLighting()
