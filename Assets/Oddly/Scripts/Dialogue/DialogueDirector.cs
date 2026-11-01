@@ -12,8 +12,12 @@ namespace Oddly
         [SerializeField] private Text speakerLabel;
         [SerializeField] private Text subtitleLabel;
         [SerializeField] private SystemLanguage language = SystemLanguage.English;
+        [SerializeField, Min(0f)] private float repeatedLineCooldown = 3f;
 
-        private readonly Dictionary<string, DialogueLine> lines = new Dictionary<string, DialogueLine>();
+        private readonly Dictionary<string, List<DialogueLine>> lines =
+            new Dictionary<string, List<DialogueLine>>();
+        private readonly Dictionary<string, float> lastSpokenAt = new Dictionary<string, float>();
+        private readonly Dictionary<string, int> lastVariant = new Dictionary<string, int>();
 
         private void Awake()
         {
@@ -32,7 +36,21 @@ namespace Oddly
 
         public void Say(string id)
         {
-            if (!lines.TryGetValue(id, out DialogueLine line)) return;
+            if (!lines.TryGetValue(id, out List<DialogueLine> variants) || variants.Count == 0)
+                return;
+
+            if (lastSpokenAt.TryGetValue(id, out float previousTime) &&
+                Time.unscaledTime - previousTime < repeatedLineCooldown)
+                return;
+
+            int selected = variants.Count == 1 ? 0 : Random.Range(0, variants.Count);
+            if (variants.Count > 1 && lastVariant.TryGetValue(id, out int previousVariant) &&
+                selected == previousVariant)
+                selected = (selected + 1) % variants.Count;
+
+            lastSpokenAt[id] = Time.unscaledTime;
+            lastVariant[id] = selected;
+            DialogueLine line = variants[selected];
             if (speakerLabel != null) speakerLabel.text = line.speaker;
             if (subtitleLabel != null) subtitleLabel.text = line.Resolve(language);
         }
@@ -55,13 +73,35 @@ namespace Oddly
             Add("meta_wrong", "ANLATICI", "Önce bir şeyi fark etmen gerekiyordu. Tabela süs olsun diye burada değil.", "You were supposed to notice something first. The sign isn't here for decoration.");
             Add("meta_solved", "SYSTEM-02", "Talimat ihlali doğrulandı. Kapı açılabilir. Kurallarımızı okuduğunuz için teşekkürler.", "Instruction violation confirmed. Door access granted. Thank you for reading our rules.");
             Add("idle", "SYSTEM-02", "Kullanıcı hareketsiz. Düşünme işlemi devam ediyor olabilir.", "User is stationary. A thinking process may be occurring.");
+            AddVariant("idle", "ANLATICI", "Düşünüyorsan acele etme. Benim de yapacak daha iyi bir işim yok.", "If you're thinking, take your time. I don't have anything better to do.");
+            AddVariant("idle", "SYSTEM-02", "Hareketsizlik süresi uzadı. Kullanıcı dekorun parçası olmuş olabilir.", "Inactivity prolonged. The user may have become part of the decor.");
             Add("repeat", "ANLATICI", "Aynı şeyi tekrar denemek cesur bir strateji. Yanlış, ama cesur.", "Repeating the same thing is a bold strategy. Wrong, but bold.");
+            AddVariant("repeat", "SYSTEM-02", "Tekrar algılandı. Sonuç değişmedi. Şaşırtıcı değil.", "Repetition detected. Result unchanged. Not surprising.");
+            AddVariant("repeat", "ANLATICI", "Bir kez daha yaparsan bu sefer kesin farklı olacak. Muhtemelen.", "Do it one more time and it'll definitely work. Probably.");
             Add("failed", "SYSTEM-02", "Etkileşim algılanmadı. Parmağınızdan şüpheleniyorum.", "No interaction detected. I am beginning to suspect your finger.");
+            AddVariant("failed", "ANLATICI", "Orada bir şey yok. Ama kararlılığını takdir ediyorum.", "There's nothing there. But I admire the commitment.");
         }
 
         private void Add(string id, string speaker, string tr, string en)
         {
-            lines[id] = new DialogueLine { id = id, speaker = speaker, turkish = tr, english = en };
+            AddVariant(id, speaker, tr, en);
+        }
+
+        private void AddVariant(string id, string speaker, string tr, string en)
+        {
+            if (!lines.TryGetValue(id, out List<DialogueLine> variants))
+            {
+                variants = new List<DialogueLine>();
+                lines.Add(id, variants);
+            }
+
+            variants.Add(new DialogueLine
+            {
+                id = id,
+                speaker = speaker,
+                turkish = tr,
+                english = en
+            });
         }
     }
 }
