@@ -1495,6 +1495,100 @@ namespace Oddly.Editor
             hiddenEndingSign.alignment = TextAlignment.Center;
             hiddenEndingSign.color = new Color(0.55f, 0.38f, 0.82f);
 
+            // Hidden Chapter 02: the room only advances when the player truly becomes still.
+            CreatePrimitive("Hidden 02 chamber floor", PrimitiveType.Cube,
+                new Vector3(65, -0.25f, 495), new Vector3(20, 0.5f, 12), floorMat);
+            CreatePrimitive("Hidden 02 near wall", PrimitiveType.Cube,
+                new Vector3(65, 2.5f, 489), new Vector3(20, 5, 0.25f), wallMat);
+            CreatePrimitive("Hidden 02 far wall", PrimitiveType.Cube,
+                new Vector3(65, 2.5f, 501), new Vector3(20, 5, 0.25f), wallMat);
+            CreatePrimitive("Hidden 02 entrance header", PrimitiveType.Cube,
+                new Vector3(55, 4.55f, 495), new Vector3(0.25f, 0.9f, 12), wallMat);
+            CreatePrimitive("Hidden 02 outer wall front", PrimitiveType.Cube,
+                new Vector3(75, 2.5f, 491), new Vector3(0.25f, 5, 4), wallMat);
+            CreatePrimitive("Hidden 02 outer wall rear", PrimitiveType.Cube,
+                new Vector3(75, 2.5f, 499), new Vector3(0.25f, 5, 4), wallMat);
+            CreatePrimitive("Hidden 02 exit header", PrimitiveType.Cube,
+                new Vector3(75, 4.55f, 495), new Vector3(0.25f, 0.9f, 4), wallMat);
+            GameObject hiddenTwoExit = CreatePrimitive("Hidden 02 exit door",
+                PrimitiveType.Cube, new Vector3(74.82f, 2f, 495), new Vector3(0.35f, 4f, 3.5f), doorMat);
+            DoorController hiddenTwoExitController = hiddenTwoExit.AddComponent<DoorController>();
+
+            GameObject hiddenTwoEntry = new GameObject("Hidden Chapter 02 entry trigger");
+            hiddenTwoEntry.transform.position = new Vector3(56.5f, 1.2f, 495f);
+            BoxCollider hiddenTwoEntryCollider = hiddenTwoEntry.AddComponent<BoxCollider>();
+            hiddenTwoEntryCollider.isTrigger = true;
+            hiddenTwoEntryCollider.size = new Vector3(1.2f, 2.4f, 10f);
+            ChapterEntryTrigger hiddenTwoEntryTrigger = hiddenTwoEntry.AddComponent<ChapterEntryTrigger>();
+            GameObject hiddenTwoCheckpoint = new GameObject("Hidden Chapter 02 checkpoint");
+            hiddenTwoCheckpoint.transform.position = new Vector3(58f, 0.15f, 495f);
+
+            TextMesh hiddenTwoTitle = new GameObject("Hidden Chapter 02 title").AddComponent<TextMesh>();
+            hiddenTwoTitle.transform.position = new Vector3(59.5f, 3.7f, 495f);
+            hiddenTwoTitle.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+            hiddenTwoTitle.text = "HIDDEN 02 / THE ROOM THAT HOLDS ITS BREATH";
+            hiddenTwoTitle.fontSize = 25;
+            hiddenTwoTitle.characterSize = 0.04f;
+            hiddenTwoTitle.anchor = TextAnchor.MiddleCenter;
+            hiddenTwoTitle.alignment = TextAlignment.Center;
+            hiddenTwoTitle.color = new Color(0.38f, 0.75f, 0.82f);
+
+            TextMesh stillnessStatus = new GameObject("Hidden 02 stillness status").AddComponent<TextMesh>();
+            stillnessStatus.transform.position = new Vector3(65f, 3.4f, 489.35f);
+            stillnessStatus.transform.rotation = Quaternion.identity;
+            stillnessStatus.fontSize = 28;
+            stillnessStatus.characterSize = 0.045f;
+            stillnessStatus.anchor = TextAnchor.MiddleCenter;
+            stillnessStatus.alignment = TextAlignment.Center;
+            stillnessStatus.color = new Color(0.38f, 0.75f, 0.82f);
+
+            float[] stillnessPadXs = { 61f, 65f, 69f };
+            for (int i = 0; i < stillnessPadXs.Length; i++)
+            {
+                GameObject pad = CreatePrimitive("Breath pad " + (i + 1),
+                    PrimitiveType.Cylinder, new Vector3(stillnessPadXs[i], 0.08f, 495f),
+                    new Vector3(1.5f, 0.08f, 2f), i == 0 ? accentMat : cubeMat);
+                TextMesh padLabel = new GameObject("Breath pad label " + (i + 1)).AddComponent<TextMesh>();
+                padLabel.transform.position = new Vector3(stillnessPadXs[i], 1.25f, 493.2f);
+                padLabel.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                padLabel.text = i == 0 ? "1 / STOP" : i == 1 ? "2 / STAY" : "3 / STILL";
+                padLabel.fontSize = 21;
+                padLabel.characterSize = 0.04f;
+                padLabel.anchor = TextAnchor.MiddleCenter;
+                padLabel.alignment = TextAlignment.Center;
+                padLabel.color = new Color(0.38f, 0.75f, 0.82f);
+
+                GameObject padTriggerObject = new GameObject("Stillness pad trigger " + (i + 1));
+                padTriggerObject.transform.position = new Vector3(stillnessPadXs[i], 1f, 495f);
+                BoxCollider padCollider = padTriggerObject.AddComponent<BoxCollider>();
+                padCollider.isTrigger = true;
+                padCollider.size = new Vector3(2.5f, 2.4f, 3.2f);
+                StillnessPadTrigger padTrigger = padTriggerObject.AddComponent<StillnessPadTrigger>();
+                SetPrivate(padTrigger, "padIndex", i);
+            }
+
+            GameObject stillnessLightObject = new GameObject("Hidden 02 reactive light");
+            stillnessLightObject.transform.position = new Vector3(65f, 4.1f, 495f);
+            Light stillnessLight = stillnessLightObject.AddComponent<Light>();
+            stillnessLight.type = LightType.Point;
+            stillnessLight.range = 18f;
+            stillnessLight.intensity = 0.9f;
+
+            GameObject stillnessPuzzleObject = new GameObject("Hidden 02 stillness puzzle controller");
+            StillnessSequencePuzzle stillnessPuzzle = stillnessPuzzleObject.AddComponent<StillnessSequencePuzzle>();
+
+            CreatePrimitive("Hidden 02 ending corridor floor", PrimitiveType.Cube,
+                new Vector3(80f, -0.25f, 495f), new Vector3(10f, 0.5f, 4f), floorMat);
+            TextMesh hiddenTwoEnding = new GameObject("Hidden 02 ending message").AddComponent<TextMesh>();
+            hiddenTwoEnding.transform.position = new Vector3(84f, 2.8f, 495f);
+            hiddenTwoEnding.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+            hiddenTwoEnding.text = "THE ROOM CAN BREATHE AGAIN.\nODA YENİDEN NEFES ALABİLİYOR.";
+            hiddenTwoEnding.fontSize = 22;
+            hiddenTwoEnding.characterSize = 0.045f;
+            hiddenTwoEnding.anchor = TextAnchor.MiddleCenter;
+            hiddenTwoEnding.alignment = TextAlignment.Center;
+            hiddenTwoEnding.color = new Color(0.38f, 0.75f, 0.82f);
+
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
             BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
@@ -1807,6 +1901,24 @@ namespace Oddly.Editor
             SetPrivate(finalDecisionPuzzle, "decisionSign", finalDecisionSign);
             SetPrivate(finalDecisionPuzzle, "endingLight", endingLight);
             SetPrivate(finalDecisionPuzzle, "endingRelics", endingRelics);
+            SetPrivate(hiddenTwoEntryTrigger, "dialogue", director);
+            SetPrivate(hiddenTwoEntryTrigger, "chapterSign", hiddenTwoTitle);
+            SetPrivate(hiddenTwoEntryTrigger, "dialogueId", "hidden_chapter_two_entry");
+            SetPrivate(hiddenTwoEntryTrigger, "englishSign", "HIDDEN 02  /  THE ROOM THAT HOLDS ITS BREATH");
+            SetPrivate(hiddenTwoEntryTrigger, "turkishSign", "GİZLİ 02  /  NEFESİNİ TUTAN ODA");
+            SetPrivate(hiddenTwoEntryTrigger, "fallRecovery", fallRecovery);
+            SetPrivate(hiddenTwoEntryTrigger, "checkpoint", hiddenTwoCheckpoint.transform);
+            SetPrivate(stillnessPuzzle, "exitDoor", hiddenTwoExitController);
+            SetPrivate(stillnessPuzzle, "dialogue", director);
+            SetPrivate(stillnessPuzzle, "statusSign", stillnessStatus);
+            SetPrivate(stillnessPuzzle, "roomLight", stillnessLight);
+            SetPrivate(hiddenTwoExitController, "dialogue", director);
+            for (int i = 0; i < stillnessPadXs.Length; i++)
+            {
+                GameObject padTriggerObject = GameObject.Find("Stillness pad trigger " + (i + 1));
+                StillnessPadTrigger padTrigger = padTriggerObject.GetComponent<StillnessPadTrigger>();
+                SetPrivate(padTrigger, "puzzle", stillnessPuzzle);
+            }
             SetPrivate(hiddenGate, "dialogue", director);
             SetPrivate(hiddenEntryTrigger, "dialogue", director);
             SetPrivate(hiddenEntryTrigger, "chapterSign", hiddenChapterTitle);
