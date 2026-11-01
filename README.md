@@ -6,7 +6,7 @@ ODDLY is an original first-person puzzle-comedy game for macOS and Windows. It c
 **Languages:** Turkish and English, including dialogue and subtitles.  
 **Target platforms:** Windows and macOS.  
 **Engine:** Unity 6.3 LTS (URP planned for the visual production pass).  
-**Current milestone:** First playable greybox prototype.
+**Target playtime:** approximately 2 hours main story, approximately 3 hours with hidden content.\n**Campaign scope:** 12–14 connected story sequences plus 5–8 hidden chapters/rooms.\n**Current milestone:** First playable greybox prototype.
 
 ## First playable prototype
 
@@ -24,7 +24,9 @@ The first vertical slice is intentionally small and playable:
 - A new two-object relay chamber: move a cube and sphere through depth to create two different world scales, then place each on its matching pad to unlock the next door.
 - A forced-perspective sightline chamber: stand on a marked viewpoint and align the camera with separated architectural fragments to reveal the next exit. The puzzle checks real viewport alignment and gives bilingual correction hints.
 - Chapter 2 opens with a real gap between platforms. Enlarge a proportion-preserving plank through depth, place it across the gap and let its physics settle before the exit unlocks.
-- A Chapter 2 checkpoint recovers the player after a fall, while dropped perspective props that fall out of the world return to their original positions.
+- Chapter 3's Wrong Dimension chamber blocks the player with a wall but lets a correctly resized object pass through a narrow slot to a landing platform on the other side.
+- Chapter 2 and Chapter 3 have separate checkpoints, localized entry beats and fall recovery.
+- The full campaign target is approximately 2 hours for the main story and approximately 3 hours including 5–8 hidden chapters/rooms.
 - The dual-scale relay only accepts objects once they have physically settled on their pads.
 - Persistent title-screen options for mouse sensitivity and field of view.
 - Runtime-created prototype room, HUD and title screen.
@@ -41,7 +43,7 @@ The prototype scene is generated automatically by the Unity Editor bootstrap whe
 ## Current playable progression
 
 - Chapter 1 prototype route: opening test room, false exit corridor, waiting-room perspective frame, dual-scale relay and forced-perspective sightline chamber.
-- Chapter 2 opening: a physical platform gap that must be crossed with a depth-resized plank. The far exit leads into a small reveal bay for the next spatial test.
+- Chapter 2: a physical platform gap that must be crossed with a depth-resized plank.\n- Chapter 3 opening: transfer a resized object through a player-blocking wall slot and land it beyond the barrier.
 - All current chapter text and puzzle hints are authored in Turkish and English.
 
 ## Controls
