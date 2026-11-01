@@ -62,7 +62,7 @@ namespace Oddly
 
         private void Update()
         {
-            if (seen && finalCore != null)
+            if (seen && finale == null && finalCore != null)
             {
                 float pulse = 1f + Mathf.Sin(Time.unscaledTime * 1.25f) * 0.045f;
                 finalCore.localScale = coreBaseScale * pulse;
