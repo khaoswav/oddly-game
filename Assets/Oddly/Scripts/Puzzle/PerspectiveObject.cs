@@ -15,6 +15,8 @@ namespace Oddly
         private float cameraDistanceAtGrab;
 
         public bool IsHeld { get; private set; }
+        public bool IsSettled => !IsHeld && body != null && !body.isKinematic &&
+            (body.IsSleeping() || (body.velocity.sqrMagnitude < 0.04f && body.angularVelocity.sqrMagnitude < 0.04f));
         public float CurrentUniformScale => transform.lossyScale.x;
         public float LastPerspectiveScaleFactor { get; private set; } = 1f;
 
