@@ -2407,6 +2407,7 @@ namespace Oddly.Editor
             SetPrivate(director, "speakerLabel", speaker);
             SetPrivate(director, "subtitleLabel", subtitle);
             BehaviorTracker tracker = player.AddComponent<BehaviorTracker>();
+            player.AddComponent<CharacterReactionDirector>();
             PrototypeHUD hud = canvas.gameObject.AddComponent<PrototypeHUD>();
             SetPrivate(hud, "interaction", interaction);
             SetPrivate(hud, "prompt", prompt);
