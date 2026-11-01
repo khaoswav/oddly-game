@@ -1502,8 +1502,6 @@ namespace Oddly.Editor
                 new Vector3(65, 2.5f, 489), new Vector3(20, 5, 0.25f), wallMat);
             CreatePrimitive("Hidden 02 far wall", PrimitiveType.Cube,
                 new Vector3(65, 2.5f, 501), new Vector3(20, 5, 0.25f), wallMat);
-            CreatePrimitive("Hidden 02 entrance header", PrimitiveType.Cube,
-                new Vector3(55, 4.55f, 495), new Vector3(0.25f, 0.9f, 12), wallMat);
             CreatePrimitive("Hidden 02 outer wall front", PrimitiveType.Cube,
                 new Vector3(75, 2.5f, 491), new Vector3(0.25f, 5, 4), wallMat);
             CreatePrimitive("Hidden 02 outer wall rear", PrimitiveType.Cube,
