@@ -1802,6 +1802,112 @@ namespace Oddly.Editor
             hiddenFourEnding.alignment = TextAlignment.Center;
             hiddenFourEnding.color = new Color(0.95f, 0.68f, 0.32f);
 
+            // Hidden Chapter 05: the controls are mirrored while the player crosses a deliberately readable slalom.
+            CreatePrimitive("Hidden 05 approach floor", PrimitiveType.Cube,
+                new Vector3(185f, -0.25f, 495f), new Vector3(10f, 0.5f, 4f), floorMat);
+            CreatePrimitive("Hidden 05 floor", PrimitiveType.Cube,
+                new Vector3(195f, -0.25f, 495f), new Vector3(30f, 0.5f, 16f), floorMat);
+            CreatePrimitive("Hidden 05 near wall", PrimitiveType.Cube,
+                new Vector3(195f, 2.5f, 487f), new Vector3(30f, 5f, 0.25f), wallMat);
+            CreatePrimitive("Hidden 05 far wall", PrimitiveType.Cube,
+                new Vector3(195f, 2.5f, 503f), new Vector3(30f, 5f, 0.25f), wallMat);
+
+            // Alternating openings make the inverted movement learnable rather than arbitrary.
+            float[] slalomX = { 188f, 195f, 202f };
+            float[] openZ = { 499f, 491f, 499f };
+            for (int i = 0; i < slalomX.Length; i++)
+            {
+                float gap = openZ[i];
+                float nearLength = gap - 2f - 487f;
+                float farStart = gap + 2f;
+                float farLength = 503f - farStart;
+                if (nearLength > 0.2f)
+                    CreatePrimitive("Hidden 05 slalom wall near " + i, PrimitiveType.Cube,
+                        new Vector3(slalomX[i], 1.65f, 487f + nearLength * 0.5f),
+                        new Vector3(0.55f, 3.3f, nearLength), wallMat);
+                if (farLength > 0.2f)
+                    CreatePrimitive("Hidden 05 slalom wall far " + i, PrimitiveType.Cube,
+                        new Vector3(slalomX[i], 1.65f, farStart + farLength * 0.5f),
+                        new Vector3(0.55f, 3.3f, farLength), wallMat);
+                GameObject marker = CreatePrimitive("Hidden 05 route marker " + i,
+                    PrimitiveType.Cylinder, new Vector3(slalomX[i] - 1.3f, 0.06f, gap),
+                    new Vector3(1.1f, 0.06f, 1.1f), accentMat);
+            }
+
+            CreatePrimitive("Hidden 05 exit wall near", PrimitiveType.Cube,
+                new Vector3(210f, 2.5f, 487.5f), new Vector3(0.25f, 5f, 9f), wallMat);
+            CreatePrimitive("Hidden 05 exit wall far", PrimitiveType.Cube,
+                new Vector3(210f, 2.5f, 502.5f), new Vector3(0.25f, 5f, 9f), wallMat);
+            CreatePrimitive("Hidden 05 exit header", PrimitiveType.Cube,
+                new Vector3(210f, 4.55f, 495f), new Vector3(0.25f, 0.9f, 6f), wallMat);
+
+            GameObject borrowedExitObject = CreatePrimitive("Hidden 05 exit door",
+                PrimitiveType.Cube, new Vector3(209.82f, 2f, 495f),
+                new Vector3(0.35f, 4f, 5.5f), doorMat);
+            DoorController borrowedExitDoor = borrowedExitObject.AddComponent<DoorController>();
+
+            GameObject borrowedEntryObject = new GameObject("Hidden Chapter 05 entry trigger");
+            borrowedEntryObject.transform.position = new Vector3(182f, 1.2f, 495f);
+            BoxCollider borrowedEntryCollider = borrowedEntryObject.AddComponent<BoxCollider>();
+            borrowedEntryCollider.isTrigger = true;
+            borrowedEntryCollider.size = new Vector3(1.2f, 2.4f, 8f);
+            GameObject borrowedCheckpoint = new GameObject("Hidden Chapter 05 checkpoint");
+            borrowedCheckpoint.transform.position = new Vector3(183.5f, 0.15f, 495f);
+
+            TextMesh borrowedTitle = new GameObject("Hidden Chapter 05 title").AddComponent<TextMesh>();
+            borrowedTitle.transform.position = new Vector3(186f, 3.8f, 495f);
+            borrowedTitle.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+            borrowedTitle.text = "HIDDEN 05 / THE ROOM THAT BORROWS YOUR HANDS";
+            borrowedTitle.fontSize = 22;
+            borrowedTitle.characterSize = 0.04f;
+            borrowedTitle.anchor = TextAnchor.MiddleCenter;
+            borrowedTitle.alignment = TextAlignment.Center;
+            borrowedTitle.color = new Color(0.65f, 0.82f, 1f);
+
+            TextMesh borrowedStatus = new GameObject("Hidden 05 control status").AddComponent<TextMesh>();
+            borrowedStatus.transform.position = new Vector3(195f, 4.1f, 487.35f);
+            borrowedStatus.fontSize = 22;
+            borrowedStatus.characterSize = 0.045f;
+            borrowedStatus.anchor = TextAnchor.MiddleCenter;
+            borrowedStatus.alignment = TextAlignment.Center;
+            borrowedStatus.color = new Color(0.65f, 0.82f, 1f);
+
+            GameObject borrowedPuzzleObject = new GameObject("Hidden 05 borrowed controls puzzle");
+            BorrowedControlsPuzzle borrowedPuzzle = borrowedPuzzleObject.AddComponent<BorrowedControlsPuzzle>();
+            SetPrivate(borrowedPuzzle, "exitDoor", borrowedExitDoor);
+            SetPrivate(borrowedPuzzle, "dialogue", director);
+            SetPrivate(borrowedPuzzle, "statusSign", borrowedStatus);
+            SetPrivate(borrowedExitDoor, "dialogue", director);
+
+            BorrowedControlsEntryTrigger borrowedEntry =
+                borrowedEntryObject.AddComponent<BorrowedControlsEntryTrigger>();
+            SetPrivate(borrowedEntry, "puzzle", borrowedPuzzle);
+            SetPrivate(borrowedEntry, "dialogue", director);
+            SetPrivate(borrowedEntry, "chapterSign", borrowedTitle);
+            SetPrivate(borrowedEntry, "fallRecovery", fallRecovery);
+            SetPrivate(borrowedEntry, "checkpoint", borrowedCheckpoint.transform);
+
+            GameObject borrowedFinishObject = new GameObject("Hidden 05 finish trigger");
+            borrowedFinishObject.transform.position = new Vector3(207f, 1.2f, 495f);
+            BoxCollider borrowedFinishCollider = borrowedFinishObject.AddComponent<BoxCollider>();
+            borrowedFinishCollider.isTrigger = true;
+            borrowedFinishCollider.size = new Vector3(1.2f, 2.4f, 10f);
+            BorrowedControlsExitTrigger borrowedFinish =
+                borrowedFinishObject.AddComponent<BorrowedControlsExitTrigger>();
+            SetPrivate(borrowedFinish, "puzzle", borrowedPuzzle);
+
+            CreatePrimitive("Hidden 05 ending corridor floor", PrimitiveType.Cube,
+                new Vector3(215f, -0.25f, 495f), new Vector3(10f, 0.5f, 4f), floorMat);
+            TextMesh borrowedEnding = new GameObject("Hidden 05 ending message").AddComponent<TextMesh>();
+            borrowedEnding.transform.position = new Vector3(219f, 2.8f, 495f);
+            borrowedEnding.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+            borrowedEnding.text = "THANKS FOR GIVING THEM BACK.\nİADE ETTİĞİN İÇİN SAĞ OL.";
+            borrowedEnding.fontSize = 22;
+            borrowedEnding.characterSize = 0.045f;
+            borrowedEnding.anchor = TextAnchor.MiddleCenter;
+            borrowedEnding.alignment = TextAlignment.Center;
+            borrowedEnding.color = new Color(0.65f, 0.82f, 1f);
+
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
             BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
