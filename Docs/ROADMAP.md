@@ -9,6 +9,7 @@
 - [ ] Add automated editor build validation.
 
 ## Milestone 1 — First playable vertical slice
+- [x] Prevent movement and object interaction while the mouse cursor is released; support click-to-resume.
 - [ ] Fix and validate all prototype interactions.
 - [x] Add scale-sensitive object placement with readable too-large / too-small feedback.
 - [ ] Add proper perspective-dependent object placement and forced-perspective room tricks.
