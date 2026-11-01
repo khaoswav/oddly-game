@@ -36,6 +36,19 @@ namespace Oddly.Editor
             Debug.Log("ODDLY: Prototype scene created. Open Assets/Scenes/Prototype.unity and press Play.");
         }
 
+        [MenuItem("Oddly/Rebuild Prototype Scene")]
+        public static void RebuildPrototypeScene()
+        {
+            if (EditorApplication.isCompiling || EditorApplication.isUpdating) return;
+
+            Directory.CreateDirectory("Assets/Scenes");
+            Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            BuildScene();
+            EditorSceneManager.SaveScene(scene, ScenePath);
+            AddSceneToBuild();
+            Debug.Log("ODDLY: Prototype scene rebuilt from the latest gameplay scripts.");
+        }
+
         private static void AddSceneToBuild()
         {
             EditorBuildSettingsScene[] current = EditorBuildSettings.scenes;
