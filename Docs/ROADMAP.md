@@ -13,7 +13,7 @@
 - [ ] Fix and validate all prototype interactions.
 - [x] Add scale-sensitive object placement with readable too-large / too-small feedback.
 - [x] Add a camera-projected, apparent-size perspective frame puzzle to the generated prototype room.\n- [ ] Expand perspective-dependent placement into multi-step forced-perspective room tricks.
-- [ ] Add one memorable meta puzzle.
+- [x] Add a paired impossible-room doorway loop with reactive bilingual dialogue and changing signs.\n- [ ] Add one memorable meta puzzle.
 - [ ] Add dialogue cooldowns, variation and speaker handoff.
 - [ ] Add options menu and persistent language selection.
 - [ ] Add original placeholder music and sound design.
