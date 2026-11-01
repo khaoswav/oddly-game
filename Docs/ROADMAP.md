@@ -47,6 +47,7 @@
 - [x] Build the Chapter 2 physical perspective bridge and recovery checkpoint.
 - [x] Build the first Chapter 3 Wrong Dimension slot-transfer puzzle with a separate checkpoint and bilingual feedback.
 - [x] Build the Chapter 4 System Error sequence puzzle with contradictory character instructions, physical switches, bilingual reactions and a separate checkpoint.
+- [x] Build the Chapter 5 Don't Trust Your Eyes gaze-reversal puzzle with a marked viewpoint, hidden-exit unlock condition, bilingual hints and a separate checkpoint.
 - [ ] Build 12–14 connected story sequences targeting approximately 2 hours of main-story playtime.
 - [ ] Build 5–8 hidden chapters/rooms targeting approximately 1 additional hour.
 - [ ] Add at least three ending variations, alternate solutions and narrative callbacks.
