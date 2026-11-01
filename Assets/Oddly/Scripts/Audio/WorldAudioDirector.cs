@@ -93,7 +93,6 @@ namespace Oddly
             if (effectsSource == null || clip == null) return;
             effectsSource.pitch = Mathf.Clamp(pitch, 0.5f, 2f);
             effectsSource.PlayOneShot(clip, effectsVolume);
-            effectsSource.pitch = 1f;
         }
 
         public void PlayDoorCue() { PlayEffect(doorCue); }
