@@ -21,7 +21,13 @@ namespace Oddly
         private void Update()
         {
             if (!opening) return;
-            movingPanel.localPosition = Vector3.Lerp(movingPanel.localPosition, openPosition, Time.deltaTime * 2.2f);
+            movingPanel.localPosition = Vector3.MoveTowards(
+                movingPanel.localPosition, openPosition, 3.2f * Time.deltaTime);
+            if (Vector3.SqrMagnitude(movingPanel.localPosition - openPosition) < 0.0001f)
+            {
+                movingPanel.localPosition = openPosition;
+                opening = false;
+            }
         }
 
         public void Unlock()
@@ -32,6 +38,8 @@ namespace Oddly
 
         public void TryOpen()
         {
+            if (opening || movingPanel.localPosition == openPosition) return;
+
             if (!unlocked)
             {
                 dialogue?.Say("door_locked");
