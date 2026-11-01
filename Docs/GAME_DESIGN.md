@@ -40,6 +40,7 @@ Explore → notice an inconsistency → manipulate an object or viewpoint → te
 - The waiting room introduces a second camera-projected frame puzzle and a separate exit, requiring the player to use depth movement, persistent world scale, apparent size and viewpoint together.
 - Beyond it, a dual-scale relay chamber requires two separate objects to be resized through perspective and placed on distinct small and large pads at the same time. The player must plan the two scale states independently before the next exit unlocks.
 - The next chamber uses forced perspective as architecture: two fragments at different depths must overlap in the camera view from a marked floor position. The game checks the actual screen-space alignment and viewing angle, then gives a restrained bilingual hint if the player is close but not aligned. The relay puzzle also waits for both dropped objects to physically settle before accepting their placements.
+- Chapter 2 begins beyond that exit with a physical gap between two platforms. A broad plank starts at ordinary scale on a pedestal; the player must use depth-based scaling to enlarge it, place it across the gap, and let its Rigidbody settle before the far exit unlocks. The puzzle checks real placement and scale rather than granting a solution from proximity alone. Its chapter sign and character reactions are localized in Turkish and English.
 - Behavior tracking for local, contextual banter.
 
 ## Planned chapter arc
