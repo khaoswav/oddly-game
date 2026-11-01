@@ -70,6 +70,7 @@ namespace Oddly.Editor
 
             TextMesh falseExitSign = new GameObject("False exit sign").AddComponent<TextMesh>();
             falseExitSign.transform.position = new Vector3(0, 3.15f, 23.8f);
+            falseExitSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
             falseExitSign.text = "EXIT";
             falseExitSign.fontSize = 64;
             falseExitSign.characterSize = 0.075f;
