@@ -42,6 +42,7 @@ namespace Oddly
                 return;
 
             triggered = true;
+            WorldAudioDirector.Instance?.PlaySurpriseCue();
             if (sign != null)
                 sign.text = dialogue != null && dialogue.IsTurkish
                     ? revealedSignTurkish : revealedSignEnglish;
@@ -69,6 +70,7 @@ namespace Oddly
             {
                 revealPanel.localPosition = panelOpenPosition;
                 opening = false;
+                WorldAudioDirector.Instance?.PlayRevealCue();
                 dialogue?.Say("chapter_reveal");
             }
         }
