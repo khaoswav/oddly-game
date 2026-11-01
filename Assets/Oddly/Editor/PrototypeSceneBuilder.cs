@@ -1369,6 +1369,47 @@ namespace Oddly.Editor
                 SetPrivate(slotTrigger, "slotIndex", i);
             }
 
+            // The two facility voices bleed into the connector as competing signal
+            // pulses. Three floating nodes alternate between narrator and SYSTEM-02.
+            Transform[] voiceSignalNodes = new Transform[3];
+            float[] voiceSignalXs = { -2.4f, 0f, 2.4f };
+            for (int i = 0; i < voiceSignalNodes.Length; i++)
+            {
+                GameObject signalNode = CreatePrimitive("Chapter 12 to 13 voice signal node " + (i + 1),
+                    PrimitiveType.Sphere, new Vector3(voiceSignalXs[i], 2.1f, 441f),
+                    new Vector3(0.48f, 0.48f, 0.48f), i == 1 ? accentMat : cubeMat);
+                signalNode.GetComponent<Collider>().enabled = false;
+                voiceSignalNodes[i] = signalNode.transform;
+            }
+
+            TextMesh voiceConflictSign = new GameObject("Voice conflict corridor sign").AddComponent<TextMesh>();
+            voiceConflictSign.transform.position = new Vector3(0f, 3.65f, 443.2f);
+            voiceConflictSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            voiceConflictSign.text = "TWO VOICES / ONE CONTROL";
+            voiceConflictSign.fontSize = 28;
+            voiceConflictSign.characterSize = 0.05f;
+            voiceConflictSign.anchor = TextAnchor.MiddleCenter;
+            voiceConflictSign.alignment = TextAlignment.Center;
+            voiceConflictSign.color = new Color(0.72f, 0.58f, 1f);
+
+            GameObject voiceConflictLightObject = new GameObject("Voice conflict corridor light");
+            voiceConflictLightObject.transform.position = new Vector3(0f, 4f, 441f);
+            Light voiceConflictLight = voiceConflictLightObject.AddComponent<Light>();
+            voiceConflictLight.type = LightType.Point;
+            voiceConflictLight.range = 12f;
+            voiceConflictLight.intensity = 0.9f;
+
+            GameObject voiceConflictTriggerObject = new GameObject("Voice conflict corridor trigger");
+            voiceConflictTriggerObject.transform.position = new Vector3(0f, 1.5f, 441f);
+            BoxCollider voiceConflictCollider = voiceConflictTriggerObject.AddComponent<BoxCollider>();
+            voiceConflictCollider.isTrigger = true;
+            voiceConflictCollider.size = new Vector3(9f, 3f, 1.25f);
+            VoiceConflictCorridorTrigger voiceConflictTrigger =
+                voiceConflictTriggerObject.AddComponent<VoiceConflictCorridorTrigger>();
+            SetPrivate(voiceConflictTrigger, "signalNodes", voiceSignalNodes);
+            SetPrivate(voiceConflictTrigger, "sign", voiceConflictSign);
+            SetPrivate(voiceConflictTrigger, "eventLight", voiceConflictLight);
+
             // Chapter 13: the two facility voices are fighting over three control channels.
             // Route them into the stable SYSTEM / NARRATOR / SYSTEM configuration.
             CreatePrimitive("Chapter 12 to 13 connector floor", PrimitiveType.Cube,
