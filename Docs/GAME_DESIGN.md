@@ -31,7 +31,7 @@ Explore → notice an inconsistency → manipulate an object or viewpoint → te
 - First-person movement and inspection.
 - Pick up, carry, resize and place selected objects.
 - Perspective-dependent spatial puzzles.
-- Impossible-room transitions and environmental changes.
+- Impossible-room transitions and environmental changes.\n- Paired doorway loops that relocate the player within a continuous room, with signage that changes in response to traversal.
 - Meta puzzles involving signs, instructions and in-world interfaces.
 - Behavior tracking for local, contextual banter.
 
