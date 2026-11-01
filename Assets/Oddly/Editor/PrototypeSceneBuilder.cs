@@ -1651,7 +1651,7 @@ namespace Oddly.Editor
                     new Vector3(1.25f, 0.06f, 1.25f), accentMat);
                 TextMesh stationLabel = new GameObject("Echo viewpoint label " + (i + 1)).AddComponent<TextMesh>();
                 stationLabel.transform.position = new Vector3(echoStationXs[i], 1.15f, 493.7f);
-                stationLabel.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                stationLabel.transform.rotation = Quaternion.identity;
                 stationLabel.text = "LOOK / BAK";
                 stationLabel.fontSize = 18;
                 stationLabel.characterSize = 0.04f;
