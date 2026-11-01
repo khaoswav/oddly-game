@@ -13,9 +13,12 @@ ODDLY is an original first-person puzzle-comedy game for macOS and Windows. It c
 The first vertical slice is intentionally small and playable:
 - First-person movement and mouse look.
 - Pick up, resize and place a perspective object.
-- Scale-sensitive object placement with bilingual size feedback.\n- A camera-projected perspective frame puzzle.\n- Paired impossible doorways that loop through the same room and react with changing signs.\n- A bilingual meta puzzle built around a forbidden red button and a misleading instruction.\n- Per-event dialogue cooldowns, randomized banter and narrator/system speaker handoff.
-- Two-character dialogue system with Turkish and English lines.
-- Contextual reactions to repeated attempts and idle time.
+- Scale-sensitive object placement with bilingual size feedback.
+- A camera-projected perspective frame puzzle.
+- Paired impossible doorways that loop through the same room and react with changing signs.
+- A bilingual meta puzzle built around a forbidden red button and a misleading instruction.
+- Per-event dialogue cooldowns, randomized banter and narrator/system speaker handoff.
+- Two-character dialogue system with Turkish and English lines, contextual reactions and varied banter.
 - Runtime-created prototype room, HUD and title screen.
 
 The prototype scene is generated automatically by the Unity Editor bootstrap when the project is opened. If it has not appeared, use **Oddly → Create / Repair Prototype Scene**.
