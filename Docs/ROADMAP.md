@@ -19,7 +19,7 @@
 - [x] Add per-event dialogue cooldowns and varied bilingual character banter with speaker handoff.
 - [x] Add a persistent options menu for mouse sensitivity and field of view, alongside saved language selection.
 - [x] Add a three-beat bilingual Chapter 1 opening sequence with a deliberate control handoff.
-- [x] Extend the unlocked exit into a traversable corridor with a one-time bilingual false-exit reveal.
+- [x] Extend the unlocked exit into a traversable corridor with a bilingual false-exit reveal and animated passage into a waiting room.
 - [ ] Add original placeholder music and sound design.
 
 ## Milestone 2 — Visual identity
