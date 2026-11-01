@@ -13,12 +13,13 @@
 - [ ] Fix and validate all prototype interactions.
 - [x] Add scale-sensitive object placement with readable too-large / too-small feedback.
 - [x] Add a camera-projected, apparent-size perspective frame puzzle to the generated prototype room.
-- [ ] Expand perspective-dependent placement into multi-step forced-perspective room tricks.
+- [ ] Expand perspective-dependent placement into multi-step forced-perspective room tricks and linked follow-on rooms.
 - [x] Add a paired impossible-room doorway loop with reactive bilingual dialogue and changing signs.
 - [x] Add a bilingual notice-and-forbidden-button meta puzzle that unlocks the exit.
 - [x] Add per-event dialogue cooldowns and varied bilingual character banter with speaker handoff.
 - [x] Add a persistent options menu for mouse sensitivity and field of view, alongside saved language selection.
 - [x] Add a three-beat bilingual Chapter 1 opening sequence with a deliberate control handoff.
+- [x] Extend the unlocked exit into a traversable corridor with a one-time bilingual false-exit reveal.
 - [ ] Add original placeholder music and sound design.
 
 ## Milestone 2 — Visual identity
