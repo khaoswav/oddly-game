@@ -51,7 +51,7 @@ namespace Oddly
                         if (target != null)
                         {
                             heldObject = target;
-                            heldObject.PickUp(holdPoint);
+                            heldObject.PickUp(holdPoint, playerCamera);
                             behavior?.RegisterPickup();
                             dialogue?.Say("picked_up");
                         }
