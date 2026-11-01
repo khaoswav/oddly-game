@@ -1,0 +1,59 @@
+name: ODDLY Unity Release Builds
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    name: Check Unity license configuration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require Unity Personal or Pro license
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        run: |
+          if [ -z "$UNITY_LICENSE" ]; then
+            echo "::error::Add the UNITY_LICENSE repository secret before running Unity builds."
+            echo "Export the activated Unity license file contents and save them as the UNITY_LICENSE secret."
+            exit 1
+          fi
+          echo "Unity license secret is configured."
+
+  build:
+    name: Build ${{ matrix.target }}
+    needs: preflight
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: StandaloneOSX
+            artifact: ODDLY-macOS
+          - target: StandaloneWindows64
+            artifact: ODDLY-Windows
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build with Unity 6.3
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          projectPath: .
+          unityVersion: 6000.3.0f1
+          targetPlatform: ${{ matrix.target }}
+          buildName: ODDLY
+          buildsPath: build
+          versioning: None
+
+      - name: Upload player build
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: build/
+          if-no-files-found: error
+          retention-days: 14

@@ -1,1 +1,123 @@
-# oddly-game
+# ODDLY
+### A Very Wrong Little World
+
+ODDLY is an original first-person puzzle-comedy game for macOS and Windows. It combines perspective-based spatial puzzles, impossible architecture, fourth-wall jokes and a reactive two-voice cast.
+
+**Languages:** Turkish and English, including dialogue and subtitles.  
+**Target platforms:** Windows and macOS.  
+**Engine:** Unity 6.3 LTS (URP planned for the visual production pass).  
+**Target playtime:** approximately 2 hours main story, approximately 3 hours with hidden content.
+**Campaign scope:** 12–14 connected story sequences plus 5–8 hidden chapters/rooms.
+**Current milestone:** First playable greybox prototype.
+
+## Current integrated finale
+
+The generated prototype now includes the three original endings, the persistent post-choice archive, eight hidden-room memory echoes, The Last Echo reward, the ninth-record convergence chamber, The Unwritten Ending and its separate closing epilogue, The Last Page. Ending history and replay count persist across normal replay and are cleared only by the explicit full campaign reset.
+
+The final memory chamber responds to the player's recorded endings and replay history. Its three original ending relics remain visually connected during the finale, and the ninth chamber provides the alternate ending coda.
+
+## Unity validation and standalone builds
+
+Open the project in Unity 6.3 and wait for script compilation to finish. The editor-generated scene is Assets/Scenes/Prototype.unity.
+
+Use the Unity menu:
+- Oddly/Release/Validate Generated Prototype to rebuild the greybox scene and check required player, dialogue, ending, archive and echo wiring.
+- Oddly/Release/Build macOS to create Builds/macOS/ODDLY.app.
+- Oddly/Release/Build Windows to create Builds/Windows/ODDLY.exe.
+
+The macOS and Windows build commands require the corresponding Unity Build Support modules. These commands have been added to the project; actual Editor validation, Play Mode testing and platform builds still need to be run on a machine with Unity installed.
+
+The generated scene now has an adaptive desktop performance profile: it targets 60 FPS and automatically uses shorter shadow distance, medium shadow resolution and fewer per-pixel lights on systems with 8 GB RAM or less. This profile still requires real-device performance verification.
+
+## First playable prototype
+
+The first vertical slice is intentionally small and playable:
+- First-person movement and mouse look.
+- Pick up and move perspective objects through depth; their world scale changes with camera distance while apparent size stays approximately constant in hand. Drop them to keep their new scale for spatial puzzles.
+- Scale-sensitive object placement with bilingual size feedback.
+- A camera-projected perspective frame puzzle.
+- Paired impossible doorways that loop through the same room and react with changing signs.
+- A bilingual meta puzzle built around a forbidden red button and a misleading instruction.
+- Turkish/English dialogue from two distinct characters, with per-event cooldowns, randomized banter and speaker handoff.
+- Three-beat Turkish/English Chapter 1 opening sequence.
+- A traversable exit corridor with a one-time false-exit reveal, animated hidden passage and waiting room.
+- A second forced-perspective frame puzzle in the waiting room, unlocking its own exit.
+- A new two-object relay chamber: move a cube and sphere through depth to create two different world scales, then place each on its matching pad to unlock the next door.
+- A forced-perspective sightline chamber: stand on a marked viewpoint and align the camera with separated architectural fragments to reveal the next exit. The puzzle checks real viewport alignment and gives bilingual correction hints.
+- Chapter 2 opens with a real gap between platforms. Enlarge a proportion-preserving plank through depth, place it across the gap and let its physics settle before the exit unlocks.
+- Chapter 3's Wrong Dimension chamber blocks the player with a wall but lets a correctly resized object pass through a narrow slot to a landing platform on the other side.
+- Chapter 4's System Error chamber turns the Narrator and SYSTEM-02's argument into a playable sequence puzzle: their instructions conflict, and the player must identify the reliable recorded order to unlock the exit.
+- Chapter 5's Don't Trust Your Eyes chamber turns the obvious route into a trick: stand on the floor marker, look away from the exit, and wait for the hidden unlock.
+- Chapter 6's You Again? chamber remembers the player's run. It counts drops, failed interactions and idle episodes, then asks the player to identify their most common habit.
+- Chapter 7's Room That Laughs reacts to drops and failed interactions: props shift, a wall panel slides, the light pulses, and five reactions open the exit.
+- Chapter 8's Loop returns the player to the corridor entrance three times while subtly rearranging the room. The third traversal breaks the loop and opens the real exit.
+- Chapter 9's Wrong Audience puts the player on a theatre stage. Turning away from the audience and holding still earns an absurd standing ovation and opens the exit.
+- Chapter 10's Unfinished Game turns a half-built level into a production checklist. Complete three TODO markers in order, avoid the wrong one, and finish the build to unlock the exit.
+- Chapter 11's Patch Notes turns updates into physical world changes. Apply three patches in the right release order or trigger a rollback that resets the room.
+- Chapter 12's Last Save lets you restore one of three archived room states. Two snapshots are corrupted; restoring the last stable save changes the room back and opens the real exit.
+- Chapter 13's Control Room makes the player settle a power struggle between the Narrator and SYSTEM-02 by routing three live channels into a stable ownership pattern.
+- Cinematic bilingual chapter cards, persistent campaign progress, saved ending choice and automatic resume from the latest chapter checkpoint.
+- A corridor environmental gag where a lying exit sign changes its message, props animate into impossible positions and the room lighting reacts.
+- Eased door animations and smoothly animated spatial/lighting changes in the Chapter 8 loop.
+- A persistent music / ambience / effects audio-routing foundation with saved volume levels and music crossfades. The runtime now synthesizes an original 16-second ambient score loop, a looping tonal ambience bed, and original door/reveal/surprise cues. These are procedural prototype assets, not a final composed or mastered soundtrack.
+- Hidden Chapter 08, The Room That Remembers You, recalls the saved finale choice and tracks completed hidden rooms in a persistent archive.
+- Hidden Chapter 07, The Room That Steals Your Shadow, mirrors the player's movement into an independent shadow that must reach three alternating pools of light.
+- Hidden Chapter 06, The Room That Exists When Watched, makes three barriers appear and become solid only while the player looks directly at them.
+- Hidden Chapter 05, The Room That Borrows Your Hands, temporarily reverses movement controls for a three-barrier slalom before returning them at the exit.
+- Hidden Chapter 04, The Room That Remembers Tomorrow, reshapes its bridge route according to the player's run-local behaviour history.
+- Hidden Chapter 03, The Moment Between Blinks, asks players to align three displaced echo targets from marked viewpoints during short recurring light pulses.
+- Hidden Chapter 02, The Room That Holds Its Breath, continues beyond the first hidden room. Stop moving on three sequential pads and remain still for 1.8 seconds on each; movement resets the current pause.
+- Hidden Chapter 01, The Room That Forgot You, branches off the finale chamber. Find three lost fragments to open a concealed side gate, then face away and walk backwards across three marks to unlock the hidden exit.
+- Chapter 14's Final Decision closes the main arc with three physical choices: trust the Narrator, trust SYSTEM-02, or reject both. Each choice changes the final chamber, plays its own bilingual ending dialogue, unlocks the exit and saves the selected ending locally.
+- Chapter 2 and Chapter 3 have separate checkpoints, localized entry beats and fall recovery.
+- The full campaign target is approximately 2 hours for the main story and approximately 3 hours including 5–8 hidden chapters/rooms.
+- The dual-scale relay only accepts objects once they have physically settled on their pads.
+- Persistent title-screen options for mouse sensitivity and field of view.
+- Runtime-created prototype room, HUD and title screen.
+
+The prototype scene is generated automatically by the Unity Editor bootstrap when the project is opened. If it has not appeared, use **Oddly → Create / Repair Prototype Scene**. To regenerate an already-created scene after pulling gameplay updates, use **Oddly → Rebuild Prototype Scene**.
+
+## Open the project
+1. Install Unity Hub and Unity **6.3 LTS** with the macOS or Windows build support you need.
+2. Clone or download this repository.
+3. In Unity Hub, choose **Add project from disk** and select this folder.
+4. Wait for scripts to compile. The editor bootstrap creates `Assets/Scenes/Prototype.unity`.
+5. Open the Prototype scene and press Play.
+
+## Current playable progression
+
+- Chapter 1 prototype route: opening test room, false exit corridor, waiting-room perspective frame, dual-scale relay and forced-perspective sightline chamber.
+- Chapter 2: a physical platform gap that must be crossed with a depth-resized plank.
+- Chapter 3 opening: transfer a resized object through a player-blocking wall slot and land it beyond the barrier.
+- Chapter 4 opening: resolve a three-step switch sequence while the two characters give conflicting instructions.
+- Chapter 5 opening: stand on the marked spot and turn away from the exit to reveal the route.
+- Chapter 12: choose the last stable save to restore the room and unlock the exit.
+- All current chapter text and puzzle hints are authored in Turkish and English.
+
+## Controls
+| Input | Action |
+|---|---|
+| WASD | Move |
+| Mouse | Look |
+| E | Pick up / interact |
+| Mouse wheel | Move held object closer / farther; world scale changes with perspective |
+| Left click | Drop held object |
+| Escape | Release cursor / pause gameplay input |
+| Left click (cursor released) | Resume and capture mouse |
+
+## Repository layout
+- `Assets/Oddly/Scripts`: gameplay systems.
+- `Assets/Oddly/Editor`: prototype scene generator.
+- `Assets/Oddly/Localization`: bilingual dialogue source.
+- `Docs`: design and production notes.
+- `ThirdPartyNotices.md`: third-party asset and license register.
+
+## Important production notes
+- All gameplay code in this initial milestone is original project code, not copied from Superliminal or FEVER MEME.
+- No third-party game assets, sounds or music are bundled yet.
+- Temporary prototype visuals use Unity primitives and built-in resources.
+- Recorded Turkish/English character performances are not included yet; dialogue currently uses subtitles. Final human-quality voice performances, a fully composed/mastered score and a complete sound-design pass remain production deliverables. The prototype uses text subtitles and placeholder UI feedback; it does not pretend to contain finished voice acting.
+- Keep source and license records for every external asset added later.
+
+## Build status
+This repository is source code, not a prebuilt Mac/Windows application. A Unity Editor installation is required to generate and run the project locally. A manual GitHub Actions workflow is available under Actions → ODDLY Unity Release Builds. It requires the repository secret `UNITY_LICENSE` and produces macOS and Windows build artifacts when successful.

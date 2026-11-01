@@ -1,0 +1,73 @@
+using System;
+using UnityEngine;
+
+namespace Oddly
+{
+    public sealed class BehaviorTracker : MonoBehaviour
+    {
+        [SerializeField] private float idleThreshold = 22f;
+        private float idleTimer;
+        private int failedInteractions;
+        private int doorAttempts;
+        private bool idleCommentUsed;
+        private int totalDrops;
+        private int totalFailedInteractions;
+        private int idleEpisodes;
+
+        public int DropCount => totalDrops;
+        public int FailedInteractionCount => totalFailedInteractions;
+        public int DoorAttemptCount => doorAttempts;
+        public int IdleEpisodeCount => idleEpisodes;
+        public event Action FailedInteractionRegistered;
+        public event Action ObjectDropped;
+        public event Action ObjectPickedUp;
+        public event Action DoorAttemptRegistered;
+        public event Action IdleEpisodeRegistered;
+
+        private DialogueDirector dialogue;
+
+        private void Start() => dialogue = FindObjectOfType<DialogueDirector>();
+
+        private void Update()
+        {
+            if (Input.anyKey || Mathf.Abs(Input.GetAxisRaw("Mouse X")) > 0.1f ||
+                Mathf.Abs(Input.GetAxisRaw("Mouse Y")) > 0.1f)
+            {
+                idleTimer = 0f;
+                idleCommentUsed = false;
+            }
+            else
+            {
+                idleTimer += Time.deltaTime;
+                if (idleTimer >= idleThreshold && !idleCommentUsed)
+                {
+                    idleCommentUsed = true;
+                    idleEpisodes++;
+                    IdleEpisodeRegistered?.Invoke();
+                    dialogue?.Say("idle");
+                }
+            }
+        }
+
+        public void RegisterPickup() { failedInteractions = 0; ObjectPickedUp?.Invoke(); }
+        public void RegisterDrop() { totalDrops++; ObjectDropped?.Invoke(); }
+        public void RegisterDoorAttempt()
+        {
+            doorAttempts++;
+            DoorAttemptRegistered?.Invoke();
+            if (doorAttempts >= 2) dialogue?.Say("repeat");
+        }
+        public void RegisterFailedInteraction()
+        {
+            failedInteractions++;
+            totalFailedInteractions++;
+            FailedInteractionRegistered?.Invoke();
+            if (failedInteractions >= 3)
+            {
+                dialogue?.Say("repeat");
+                failedInteractions = 0;
+            }
+            else if (failedInteractions == 1) dialogue?.Say("failed");
+        }
+    }
+}
