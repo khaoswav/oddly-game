@@ -192,6 +192,54 @@ namespace Oddly.Editor
             GameObject waitingTargetVisual = CreatePrimitive("Waiting room target marker",
                 PrimitiveType.Cube, waitingFrameCenter, Vector3.one * 0.72f, cubeMat);
             waitingTargetVisual.GetComponent<Collider>().enabled = false;
+
+            // The next chamber teaches a two-object scale relay: one object
+            // must remain small while the other becomes oversized.
+            CreatePrimitive("Scale relay chamber floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 47), new Vector3(10, 0.5f, 20), floorMat);
+            CreatePrimitive("Scale relay chamber left wall", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 47), new Vector3(0.25f, 5, 20), wallMat);
+            CreatePrimitive("Scale relay chamber right wall", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 47), new Vector3(0.25f, 5, 20), wallMat);
+            CreatePrimitive("Scale relay far wall left", PrimitiveType.Cube,
+                new Vector3(-4.2f, 2.5f, 57), new Vector3(1.6f, 5, 0.5f), wallMat);
+            CreatePrimitive("Scale relay far wall right", PrimitiveType.Cube,
+                new Vector3(4.2f, 2.5f, 57), new Vector3(1.6f, 5, 0.5f), wallMat);
+            CreatePrimitive("Scale relay far wall header", PrimitiveType.Cube,
+                new Vector3(0, 4.65f, 57), new Vector3(6.8f, 0.7f, 0.5f), wallMat);
+            GameObject relayExit = CreatePrimitive("Dual scale relay exit",
+                PrimitiveType.Cube, new Vector3(0, 2, 56.7f), new Vector3(2.8f, 4, 0.35f), doorMat);
+            DoorController relayExitController = relayExit.AddComponent<DoorController>();
+
+            Vector3 smallPadPosition = new Vector3(-2.25f, 0.08f, 52.2f);
+            Vector3 largePadPosition = new Vector3(2.25f, 0.08f, 52.2f);
+            CreatePrimitive("Small scale relay pad", PrimitiveType.Cylinder,
+                smallPadPosition, new Vector3(1.8f, 0.16f, 1.8f), accentMat);
+            CreatePrimitive("Large scale relay pad", PrimitiveType.Cylinder,
+                largePadPosition, new Vector3(1.8f, 0.16f, 1.8f), accentMat);
+            GameObject smallRelayTarget = new GameObject("Small relay target");
+            smallRelayTarget.transform.position = new Vector3(smallPadPosition.x, 0.55f, smallPadPosition.z);
+            GameObject largeRelayTarget = new GameObject("Large relay target");
+            largeRelayTarget.transform.position = new Vector3(largePadPosition.x, 0.9f, largePadPosition.z);
+
+            GameObject smallRelayCube = CreatePrimitive("Small relay cube",
+                PrimitiveType.Cube, new Vector3(-2.25f, 0.6f, 40.5f), Vector3.one, cubeMat);
+            smallRelayCube.AddComponent<Rigidbody>().mass = 1.2f;
+            PerspectiveObject smallRelayObject = smallRelayCube.AddComponent<PerspectiveObject>();
+            GameObject largeRelaySphere = CreatePrimitive("Large relay sphere",
+                PrimitiveType.Sphere, new Vector3(2.25f, 0.6f, 40.5f), Vector3.one, doorMat);
+            largeRelaySphere.AddComponent<Rigidbody>().mass = 1.2f;
+            PerspectiveObject largeRelayObject = largeRelaySphere.AddComponent<PerspectiveObject>();
+
+            TextMesh relayInstruction = new GameObject("Scale relay instruction").AddComponent<TextMesh>();
+            relayInstruction.transform.position = new Vector3(0, 3.2f, 41.5f);
+            relayInstruction.text = "TWO SIZES. TWO PLACES.";
+            relayInstruction.fontSize = 48;
+            relayInstruction.characterSize = 0.055f;
+            relayInstruction.anchor = TextAnchor.MiddleCenter;
+            relayInstruction.alignment = TextAlignment.Center;
+            relayInstruction.color = new Color(0.22f, 0.25f, 0.32f);
+
             SetPrivate(movement, "cameraPivot", cameraPivot.transform);
 
             GameObject holdPoint = new GameObject("Hold Point");
@@ -212,6 +260,13 @@ namespace Oddly.Editor
             SetPrivate(waitingRoomPuzzle, "puzzleObject", waitingPerspectiveObject);
             SetPrivate(waitingRoomPuzzle, "target", waitingTarget.transform);
             SetPrivate(waitingRoomPuzzle, "linkedDoor", waitingRoomDoorController);
+
+            DualScaleRelayPuzzle relayPuzzle = player.AddComponent<DualScaleRelayPuzzle>();
+            SetPrivate(relayPuzzle, "smallObject", smallRelayObject);
+            SetPrivate(relayPuzzle, "smallTarget", smallRelayTarget.transform);
+            SetPrivate(relayPuzzle, "largeObject", largeRelayObject);
+            SetPrivate(relayPuzzle, "largeTarget", largeRelayTarget.transform);
+            SetPrivate(relayPuzzle, "linkedDoor", relayExitController);
 
             // Two matching freestanding doors create an impossible loop:
             // crossing one relocates the player to the other, which faces back
@@ -286,6 +341,8 @@ namespace Oddly.Editor
             SetPrivate(goalZone, "dialogue", director);
             SetPrivate(doorController, "dialogue", director);
             SetPrivate(waitingRoomDoorController, "dialogue", director);
+            SetPrivate(relayExitController, "dialogue", director);
+            SetPrivate(relayPuzzle, "dialogue", director);
             SetPrivate(waitingRoomPuzzle, "dialogue", director);
             SetPrivate(perspectivePuzzle, "dialogue", director);
             SetPrivate(portalAController, "dialogue", director);
