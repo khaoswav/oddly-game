@@ -37,7 +37,8 @@ Explore → notice an inconsistency → manipulate an object or viewpoint → te
 - The first meta puzzle teaches players to inspect a warning before deliberately disobeying it to unlock the exit.
 - Chapter 1 begins with a short three-beat bilingual welcome sequence before control is handed to the player.
 - The first unlocked exit opens into a narrow corridor. A seemingly helpful EXIT sign changes after the player approaches, triggering a bilingual character reaction, then the end wall lifts to reveal a larger waiting room.
-- The waiting room introduces a second camera-projected frame puzzle and a separate exit, requiring the player to use depth movement, persistent world scale, apparent size and viewpoint together.\n- Beyond it, a dual-scale relay chamber requires two separate objects to be resized through perspective and placed on distinct small and large pads at the same time. The player must plan the two scale states independently before the next exit unlocks.
+- The waiting room introduces a second camera-projected frame puzzle and a separate exit, requiring the player to use depth movement, persistent world scale, apparent size and viewpoint together.
+- Beyond it, a dual-scale relay chamber requires two separate objects to be resized through perspective and placed on distinct small and large pads at the same time. The player must plan the two scale states independently before the next exit unlocks.
 - Behavior tracking for local, contextual banter.
 
 ## Planned chapter arc
