@@ -35,6 +35,7 @@ namespace Oddly
         public static int FurthestMainChapter => PlayerPrefs.GetInt("oddly.campaign.furthestMainChapter", 1);
         public static bool HasCampaignSave => PlayerPrefs.GetInt("oddly.campaign.started", 0) == 1;
         public static bool IsCampaignComplete => PlayerPrefs.GetInt("oddly.campaign.complete", 0) == 1;
+        public static int ReplayCount => PlayerPrefs.GetInt("oddly.campaign.replayCount", 0);
 
         private void Awake()
         {
@@ -105,6 +106,7 @@ namespace Oddly
         /// </summary>
         public static void BeginReplayPreservingArchive()
         {
+            PlayerPrefs.SetInt("oddly.campaign.replayCount", ReplayCount + 1);
             PlayerPrefs.DeleteKey("oddly.campaign.started");
             PlayerPrefs.DeleteKey("oddly.campaign.lastMainChapter");
             PlayerPrefs.DeleteKey("oddly.campaign.furthestMainChapter");
@@ -147,6 +149,8 @@ namespace Oddly
             PlayerPrefs.DeleteKey("oddly.afterchoice.alternateEndingUnlocked");
             PlayerPrefs.DeleteKey("oddly.afterchoice.alternateEndingSeen");
             PlayerPrefs.DeleteKey("oddly.campaign.endingHistoryMask");
+            PlayerPrefs.DeleteKey("oddly.campaign.replayCount");
+            PlayerPrefs.DeleteKey("oddly.afterchoice.unwrittenEpilogueSeen");
             PlayerPrefs.DeleteKey("oddly.ending");
             PlayerPrefs.DeleteKey("oddly.ending.name");
             PlayerPrefs.Save();
