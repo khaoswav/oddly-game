@@ -12,7 +12,7 @@
 - [x] Prevent movement and object interaction while the mouse cursor is released; support click-to-resume.
 - [ ] Fix and validate all prototype interactions.
 - [x] Add scale-sensitive object placement with readable too-large / too-small feedback.
-- [ ] Add proper perspective-dependent object placement and forced-perspective room tricks.
+- [x] Add a camera-projected, apparent-size perspective frame puzzle to the generated prototype room.\n- [ ] Expand perspective-dependent placement into multi-step forced-perspective room tricks.
 - [ ] Add one memorable meta puzzle.
 - [ ] Add dialogue cooldowns, variation and speaker handoff.
 - [ ] Add options menu and persistent language selection.
