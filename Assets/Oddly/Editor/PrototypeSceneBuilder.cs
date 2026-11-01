@@ -1622,8 +1622,11 @@ namespace Oddly.Editor
             // A short post-ending coda continues beyond the unlocked final door.
             CreatePrimitive("Final epilogue corridor floor", PrimitiveType.Cube,
                 new Vector3(0f, -0.25f, 519f), new Vector3(8f, 0.5f, 24f), floorMat);
-            CreatePrimitive("Final epilogue corridor left wall", PrimitiveType.Cube,
-                new Vector3(-4f, 2.25f, 519f), new Vector3(0.25f, 4.5f, 24f), wallMat);
+            // Concealed side opening for the post-choice archive branch.
+            CreatePrimitive("Final epilogue corridor left wall front", PrimitiveType.Cube,
+                new Vector3(-4f, 2.25f, 511f), new Vector3(0.25f, 4.5f, 8f), wallMat);
+            CreatePrimitive("Final epilogue corridor left wall rear", PrimitiveType.Cube,
+                new Vector3(-4f, 2.25f, 527f), new Vector3(0.25f, 4.5f, 8f), wallMat);
             CreatePrimitive("Final epilogue corridor right wall", PrimitiveType.Cube,
                 new Vector3(4f, 2.25f, 519f), new Vector3(0.25f, 4.5f, 24f), wallMat);
             TextMesh epilogueSign = new GameObject("Final epilogue archive sign").AddComponent<TextMesh>();
@@ -1644,6 +1647,70 @@ namespace Oddly.Editor
             FinalEpilogueTrigger epilogueTrigger =
                 epilogueTriggerObject.AddComponent<FinalEpilogueTrigger>();
             SetPrivate(epilogueTrigger, "statusSign", epilogueSign);
+
+            // Chapter 14.2: a concealed archive branch powered by remembered choices.
+            CreatePrimitive("After-choice archive branch floor", PrimitiveType.Cube,
+                new Vector3(-15f, -0.25f, 519f), new Vector3(22f, 0.5f, 4f), floorMat);
+            CreatePrimitive("After-choice archive branch near wall", PrimitiveType.Cube,
+                new Vector3(-15f, 2.25f, 516.9f), new Vector3(22f, 4.5f, 0.2f), wallMat);
+            CreatePrimitive("After-choice archive branch far wall", PrimitiveType.Cube,
+                new Vector3(-15f, 2.25f, 521.1f), new Vector3(22f, 4.5f, 0.2f), wallMat);
+            CreatePrimitive("After-choice memory room floor", PrimitiveType.Cube,
+                new Vector3(-36f, -0.25f, 519f), new Vector3(20f, 0.5f, 16f), floorMat);
+            CreatePrimitive("After-choice memory room far wall", PrimitiveType.Cube,
+                new Vector3(-46f, 2.25f, 519f), new Vector3(0.25f, 4.5f, 16f), wallMat);
+            CreatePrimitive("After-choice memory room near wall", PrimitiveType.Cube,
+                new Vector3(-36f, 2.25f, 511f), new Vector3(20f, 4.5f, 0.25f), wallMat);
+            CreatePrimitive("After-choice memory room far side wall", PrimitiveType.Cube,
+                new Vector3(-36f, 2.25f, 527f), new Vector3(20f, 4.5f, 0.25f), wallMat);
+            CreatePrimitive("After-choice memory room entrance header", PrimitiveType.Cube,
+                new Vector3(-26f, 4.15f, 519f), new Vector3(0.25f, 0.7f, 4f), wallMat);
+            CreatePrimitive("After-choice memory room entrance left", PrimitiveType.Cube,
+                new Vector3(-26f, 2.25f, 515.5f), new Vector3(0.25f, 4.5f, 3f), wallMat);
+            CreatePrimitive("After-choice memory room entrance right", PrimitiveType.Cube,
+                new Vector3(-26f, 2.25f, 522.5f), new Vector3(0.25f, 4.5f, 3f), wallMat);
+
+            GameObject archiveDoor = CreatePrimitive("After-choice archive sealed memory door",
+                PrimitiveType.Cube, new Vector3(-26f, 2f, 519f), new Vector3(0.3f, 4f, 3.8f), accentMat);
+            GameObject archivePromptObject = new GameObject("After-choice archive discovery trigger");
+            archivePromptObject.transform.position = new Vector3(-7.5f, 1.2f, 519f);
+            BoxCollider archivePromptCollider = archivePromptObject.AddComponent<BoxCollider>();
+            archivePromptCollider.isTrigger = true;
+            archivePromptCollider.size = new Vector3(2f, 2.4f, 3.8f);
+            AfterChoiceArchiveTrigger archivePrompt = archivePromptObject.AddComponent<AfterChoiceArchiveTrigger>();
+            SetPrivate(archivePrompt, "archiveDoor", archiveDoor.transform);
+            SetPrivate(archivePrompt, "statusSign", epilogueSign);
+
+            TextMesh memoryRoomSign = new GameObject("After-choice memory room sign").AddComponent<TextMesh>();
+            memoryRoomSign.transform.position = new Vector3(-36f, 3.8f, 526.45f);
+            memoryRoomSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            memoryRoomSign.text = "THE WORLD AFTER THE CHOICE";
+            memoryRoomSign.fontSize = 24;
+            memoryRoomSign.characterSize = 0.045f;
+            memoryRoomSign.anchor = TextAnchor.MiddleCenter;
+            memoryRoomSign.alignment = TextAlignment.Center;
+            memoryRoomSign.color = new Color(0.78f, 0.82f, 0.9f);
+
+            Transform[] memoryPillars = new Transform[8];
+            for (int i = 0; i < memoryPillars.Length; i++)
+            {
+                int row = i / 4;
+                int column = i % 4;
+                Vector3 pillarPosition = new Vector3(-31f - column * 3.2f, 1.35f,
+                    row == 0 ? 515f : 523f);
+                GameObject pillar = CreatePrimitive("Archive memory pillar " + (i + 1).ToString("00"),
+                    PrimitiveType.Cube, pillarPosition, new Vector3(0.72f, 2.7f, 0.72f), cubeMat);
+                memoryPillars[i] = pillar.transform;
+            }
+
+            GameObject memoryRoomEntry = new GameObject("After-choice memory room entry trigger");
+            memoryRoomEntry.transform.position = new Vector3(-28.2f, 1.2f, 519f);
+            BoxCollider memoryEntryCollider = memoryRoomEntry.AddComponent<BoxCollider>();
+            memoryEntryCollider.isTrigger = true;
+            memoryEntryCollider.size = new Vector3(1.4f, 2.4f, 3.8f);
+            AfterChoiceMemoryRoomTrigger memoryEntry = memoryRoomEntry.AddComponent<AfterChoiceMemoryRoomTrigger>();
+            SetPrivate(memoryEntry, "memoryPillars", memoryPillars);
+            SetPrivate(memoryEntry, "statusSign", memoryRoomSign);
 
             // Hidden Chapter 01: a secret side route is revealed by collecting three lost fragments.
             TextMesh hiddenClue = new GameObject("Hidden chapter clue").AddComponent<TextMesh>();
