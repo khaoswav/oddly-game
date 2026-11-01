@@ -50,6 +50,7 @@
 - [x] Build the Chapter 5 Don't Trust Your Eyes gaze-reversal puzzle with a marked viewpoint, hidden-exit unlock condition, bilingual hints and a separate checkpoint.
 - [x] Build the Chapter 6 You Again? adaptive habit puzzle, recording drops, retries and idle episodes and deriving the correct choice from the player's current run.
 - [x] Build the Chapter 7 Room That Laughs reaction chamber, with player-action listeners, moving props, a shifting wall panel, light pulses, escalating dialogue and a reaction-based exit unlock.
+- [x] Build Chapter 8 The Loop, a three-pass spatial reset that changes room props, lighting and signage before breaking the loop and unlocking the exit.
 - [ ] Build 12–14 connected story sequences targeting approximately 2 hours of main-story playtime.
 - [ ] Build 5–8 hidden chapters/rooms targeting approximately 1 additional hour.
 - [ ] Add at least three ending variations, alternate solutions and narrative callbacks.
