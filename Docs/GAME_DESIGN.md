@@ -36,8 +36,7 @@ Explore → notice an inconsistency → manipulate an object or viewpoint → te
 - Meta puzzles involving signs, instructions and in-world interfaces.
 - The first meta puzzle teaches players to inspect a warning before deliberately disobeying it to unlock the exit.
 - Chapter 1 begins with a short three-beat bilingual welcome sequence before control is handed to the player.
-- The first unlocked exit opens into a narrow corridor. A seemingly helpful EXIT sign changes after the player approaches, triggering a bilingual character reaction.
-- The first unlocked exit opens into a narrow corridor. A seemingly helpful EXIT sign changes after the player approaches, triggering a bilingual character reaction.
+- The first unlocked exit opens into a narrow corridor. A seemingly helpful EXIT sign changes after the player approaches, triggering a bilingual character reaction, then the end wall lifts to reveal a larger waiting room.
 - Behavior tracking for local, contextual banter.
 
 ## Planned chapter arc
