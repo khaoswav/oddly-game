@@ -63,7 +63,7 @@ namespace Oddly
             }
             PlayerPrefs.Save();
 
-            string title = turkish ? turkishTitle : englishTitle;
+            string title = ExtractCardTitle(turkish ? turkishTitle : englishTitle);
             string chapter = hiddenChapter
                 ? (turkish ? $"GİZLİ BÖLÜM {chapterIndex:00}" : $"HIDDEN CHAPTER {chapterIndex:00}")
                 : (turkish ? $"BÖLÜM {chapterIndex:00}" : $"CHAPTER {chapterIndex:00}");
@@ -116,6 +116,13 @@ namespace Oddly
             PlayerPrefs.DeleteKey("oddly.ending");
             PlayerPrefs.DeleteKey("oddly.ending.name");
             PlayerPrefs.Save();
+        }
+
+        private static string ExtractCardTitle(string source)
+        {
+            if (string.IsNullOrEmpty(source)) return string.Empty;
+            int separator = source.IndexOf('/');
+            return separator >= 0 ? source.Substring(separator + 1).Trim() : source.Trim();
         }
 
         private IEnumerator PlayCard(string chapter, string title, string subtitle)
