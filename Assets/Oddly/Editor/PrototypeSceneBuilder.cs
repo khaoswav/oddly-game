@@ -790,6 +790,83 @@ namespace Oddly.Editor
             loopTriggerCollider.size = new Vector3(8.8f, 3f, 0.8f);
             LoopRoomDirector loopRoomDirector = loopTrigger.AddComponent<LoopRoomDirector>();
 
+            // Chapter 9: a stage that rewards the player for refusing the audience.
+            CreatePrimitive("Chapter 9 theatre floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 315), new Vector3(12, 0.5f, 24), floorMat);
+            CreatePrimitive("Chapter 9 left wall", PrimitiveType.Cube,
+                new Vector3(-6, 2.5f, 315), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 9 right wall", PrimitiveType.Cube,
+                new Vector3(6, 2.5f, 315), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 9 far wall left", PrimitiveType.Cube,
+                new Vector3(-4.15f, 2.5f, 327), new Vector3(3.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 9 far wall right", PrimitiveType.Cube,
+                new Vector3(4.15f, 2.5f, 327), new Vector3(3.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 9 far wall header", PrimitiveType.Cube,
+                new Vector3(0, 4.55f, 327), new Vector3(4.6f, 0.9f, 0.5f), wallMat);
+            GameObject chapterNineExit = CreatePrimitive("Chapter 9 theatre exit",
+                PrimitiveType.Cube, new Vector3(0, 2, 326.7f), new Vector3(2.8f, 4, 0.35f), doorMat);
+            DoorController chapterNineExitController = chapterNineExit.AddComponent<DoorController>();
+
+            GameObject chapterNineEntry = new GameObject("Chapter 9 entry trigger");
+            chapterNineEntry.transform.position = new Vector3(0, 1.2f, 303.5f);
+            BoxCollider chapterNineEntryCollider = chapterNineEntry.AddComponent<BoxCollider>();
+            chapterNineEntryCollider.isTrigger = true;
+            chapterNineEntryCollider.size = new Vector3(10f, 2.4f, 1.2f);
+            ChapterEntryTrigger chapterNineEntryTrigger = chapterNineEntry.AddComponent<ChapterEntryTrigger>();
+            GameObject chapterNineCheckpoint = new GameObject("Chapter 9 checkpoint");
+            chapterNineCheckpoint.transform.position = new Vector3(0f, 0.15f, 305.5f);
+
+            TextMesh chapterNineSign = new GameObject("Chapter 9 title sign").AddComponent<TextMesh>();
+            chapterNineSign.transform.position = new Vector3(0, 3.65f, 307f);
+            chapterNineSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            chapterNineSign.text = "CHAPTER 09 / THE WRONG AUDIENCE";
+            chapterNineSign.fontSize = 38;
+            chapterNineSign.characterSize = 0.05f;
+            chapterNineSign.anchor = TextAnchor.MiddleCenter;
+            chapterNineSign.alignment = TextAlignment.Center;
+            chapterNineSign.color = new Color(0.22f, 0.25f, 0.32f);
+
+            CreatePrimitive("Theatre stage platform", PrimitiveType.Cube,
+                new Vector3(0, 0.12f, 316f), new Vector3(5.5f, 0.24f, 3.5f), accentMat);
+            TextMesh audienceStageSign = new GameObject("Audience stage instruction").AddComponent<TextMesh>();
+            audienceStageSign.transform.position = new Vector3(0, 2.7f, 312.5f);
+            audienceStageSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            audienceStageSign.fontSize = 30;
+            audienceStageSign.characterSize = 0.05f;
+            audienceStageSign.anchor = TextAnchor.MiddleCenter;
+            audienceStageSign.alignment = TextAlignment.Center;
+            audienceStageSign.color = new Color(0.82f, 0.28f, 0.42f);
+
+            GameObject audienceOne = CreatePrimitive("Audience member one", PrimitiveType.Capsule,
+                new Vector3(-3f, 1.1f, 322f), new Vector3(0.9f, 2.2f, 0.9f), cubeMat);
+            GameObject audienceTwo = CreatePrimitive("Audience member two", PrimitiveType.Capsule,
+                new Vector3(0f, 1.1f, 322f), new Vector3(0.9f, 2.2f, 0.9f), accentMat);
+            GameObject audienceThree = CreatePrimitive("Audience member three", PrimitiveType.Capsule,
+                new Vector3(3f, 1.1f, 322f), new Vector3(0.9f, 2.2f, 0.9f), doorMat);
+
+            GameObject stageLightObject = new GameObject("Audience stage spotlight");
+            stageLightObject.transform.position = new Vector3(0, 4.2f, 316f);
+            Light stageLight = stageLightObject.AddComponent<Light>();
+            stageLight.type = LightType.Spot;
+            stageLight.range = 13f;
+            stageLight.spotAngle = 62f;
+            stageLight.intensity = 2f;
+
+            GameObject audienceStageTrigger = new GameObject("Wrong audience stage trigger");
+            audienceStageTrigger.transform.position = new Vector3(0f, 1.5f, 316f);
+            BoxCollider audienceStageCollider = audienceStageTrigger.AddComponent<BoxCollider>();
+            audienceStageCollider.isTrigger = true;
+            audienceStageCollider.size = new Vector3(5.5f, 3f, 4f);
+            WrongAudiencePuzzle audiencePuzzle = audienceStageTrigger.AddComponent<WrongAudiencePuzzle>();
+
+            // Connector from the loop corridor into the theatre.
+            CreatePrimitive("Chapter 8 to 9 connector floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 297), new Vector3(10, 0.5f, 12), floorMat);
+            CreatePrimitive("Chapter 8 to 9 connector left rail", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 297), new Vector3(0.25f, 5, 12), wallMat);
+            CreatePrimitive("Chapter 8 to 9 connector right rail", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 297), new Vector3(0.25f, 5, 12), wallMat);
+
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
             BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
@@ -1026,6 +1103,19 @@ namespace Oddly.Editor
             SetPrivate(loopRoomDirector, "changingProps", new Transform[] { loopPropOne.transform, loopPropTwo.transform, loopPropThree.transform });
             SetPrivate(loopRoomDirector, "roomLight", loopLight);
             SetPrivate(chapterEightExitController, "dialogue", director);
+            SetPrivate(chapterNineEntryTrigger, "dialogue", director);
+            SetPrivate(chapterNineEntryTrigger, "chapterSign", chapterNineSign);
+            SetPrivate(chapterNineEntryTrigger, "dialogueId", "chapter_nine_entry");
+            SetPrivate(chapterNineEntryTrigger, "englishSign", "CHAPTER 09  /  THE WRONG AUDIENCE");
+            SetPrivate(chapterNineEntryTrigger, "turkishSign", "BÖLÜM 09  /  YANLIŞ SEYİRCİ");
+            SetPrivate(chapterNineEntryTrigger, "fallRecovery", fallRecovery);
+            SetPrivate(chapterNineEntryTrigger, "checkpoint", chapterNineCheckpoint.transform);
+            SetPrivate(audiencePuzzle, "exitDoor", chapterNineExitController);
+            SetPrivate(audiencePuzzle, "dialogue", director);
+            SetPrivate(audiencePuzzle, "stageSign", audienceStageSign);
+            SetPrivate(audiencePuzzle, "audienceMembers", new Transform[] { audienceOne.transform, audienceTwo.transform, audienceThree.transform });
+            SetPrivate(audiencePuzzle, "stageLight", stageLight);
+            SetPrivate(chapterNineExitController, "dialogue", director);
             PerspectiveBridgePuzzle bridgePuzzle = player.AddComponent<PerspectiveBridgePuzzle>();
             SetPrivate(bridgePuzzle, "bridge", bridgePerspectiveObject);
             SetPrivate(bridgePuzzle, "landingTarget", bridgeTarget.transform);
