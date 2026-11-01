@@ -28,6 +28,18 @@ namespace Oddly
             }
         }
 
+        public static string GetCompletedRoomCodes()
+        {
+            string result = string.Empty;
+            for (int i = 1; i <= 8; i++)
+            {
+                if (!IsCompleted(i)) continue;
+                if (result.Length > 0) result += "  ";
+                result += i.ToString("00");
+            }
+            return result.Length == 0 ? "--" : result;
+        }
+
         public static int CompletionMask
         {
             get
