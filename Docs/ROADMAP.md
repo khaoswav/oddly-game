@@ -82,7 +82,8 @@
 - [x] Build Hidden Chapter 06, The Room That Exists When Watched, with three gaze-reactive barriers that appear and collide only while observed, plus checkpoint, bilingual hints and exit progression.
 - [x] Add three distinct ending variations with localized dialogue and a locally saved ending choice.
 - [x] Make each ending transform the world atmosphere: distinct ambient colour, fog density, global light response, relic motion and ending-specific audio pitch; restore the selected presentation after relaunch.
-- [ ] Add a post-ending epilogue route with callbacks to hidden-room discoveries and a replay flow that preserves the ending archive until the player explicitly resets campaign progress.
+- [x] Add a post-ending epilogue corridor with ending-specific callbacks and a hidden-room completion count.
+- [x] Add a replay action that restarts the main story while preserving the saved ending and completed hidden-room archive; keep full archive deletion behind the explicit campaign reset API.
 - [x] Build Hidden Chapter 07, The Room That Steals Your Shadow, with a mirrored shadow actor, three alternating light-pool targets, dynamic status, reactive lighting and bilingual dialogue.
 - [x] Build Hidden Chapter 08, The Room That Remembers You, with a persistent completion archive, saved-finale recall puzzle, three interactive memory panels and bilingual feedback.
 - [ ] Add alternate solutions and broader narrative callbacks.
