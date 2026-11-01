@@ -54,6 +54,7 @@ namespace Oddly
 
             openingElapsed = 0f;
             opening = true;
+            WorldAudioDirector.Instance?.PlayDoorCue();
             dialogue?.Say("door_open");
         }
     }
