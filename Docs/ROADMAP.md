@@ -52,6 +52,7 @@
 - [x] Build the Chapter 7 Room That Laughs reaction chamber, with player-action listeners, moving props, a shifting wall panel, light pulses, escalating dialogue and a reaction-based exit unlock.
 - [x] Build Chapter 8 The Loop, a three-pass spatial reset that changes room props, lighting and signage before breaking the loop and unlocking the exit.
 - [x] Build Chapter 9 The Wrong Audience stage puzzle, with a spotlight zone, audience silhouettes, bilingual live progress sign, back-to-audience performance condition and standing-ovation exit reward.
+- [x] Build Chapter 10 The Unfinished Game, with three TODO markers, ordered traversal, wrong-step reset, bilingual production board and exit unlock.
 - [ ] Build 12–14 connected story sequences targeting approximately 2 hours of main-story playtime.
 - [ ] Build 5–8 hidden chapters/rooms targeting approximately 1 additional hour.
 - [ ] Add at least three ending variations, alternate solutions and narrative callbacks.
