@@ -46,7 +46,7 @@ namespace Oddly
                     roomLight.intensity = 1.8f;
                 }
                 if (exitDoor != null) exitDoor.Unlock();
-                if (dialogue != null) dialogue.Play("last_save_restored");
+                if (dialogue != null) dialogue.Say("last_save_restored");
                 return;
             }
 
@@ -61,7 +61,7 @@ namespace Oddly
                     : new Color(0.65f, 0.35f, 1f);
                 roomLight.intensity = 1.15f;
             }
-            if (dialogue != null) dialogue.Play("last_save_wrong");
+            if (dialogue != null) dialogue.Say("last_save_wrong");
         }
 
         private void RestoreOriginalSnapshot()
