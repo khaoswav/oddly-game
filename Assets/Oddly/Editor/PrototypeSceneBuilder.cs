@@ -1750,6 +1750,25 @@ namespace Oddly.Editor
             SetPrivate(unwrittenTrigger, "endingLight", unwrittenLight);
             SetPrivate(unwrittenTrigger, "statusSign", unwrittenSign);
 
+            TextMesh finalArchiveSign = new GameObject("Unwritten ending final epilogue sign").AddComponent<TextMesh>();
+            finalArchiveSign.transform.position = new Vector3(-65.9f, 3.55f, 519f);
+            finalArchiveSign.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+            finalArchiveSign.text = "THE LAST PAGE";
+            finalArchiveSign.fontSize = 22;
+            finalArchiveSign.characterSize = 0.045f;
+            finalArchiveSign.anchor = TextAnchor.MiddleCenter;
+            finalArchiveSign.alignment = TextAlignment.Center;
+            finalArchiveSign.color = new Color(0.82f, 0.9f, 1f);
+
+            GameObject finalArchiveTriggerObject = new GameObject("Unwritten ending epilogue interaction");
+            finalArchiveTriggerObject.transform.position = new Vector3(-63.5f, 1.2f, 519f);
+            BoxCollider finalArchiveCollider = finalArchiveTriggerObject.AddComponent<BoxCollider>();
+            finalArchiveCollider.isTrigger = true;
+            finalArchiveCollider.size = new Vector3(2.4f, 2.6f, 4f);
+            AfterChoiceUnwrittenEpilogueTrigger finalArchive =
+                finalArchiveTriggerObject.AddComponent<AfterChoiceUnwrittenEpilogueTrigger>();
+            SetPrivate(finalArchive, "statusSign", finalArchiveSign);
+
             CreatePrimitive("After-choice memory room near wall", PrimitiveType.Cube,
                 new Vector3(-36f, 2.25f, 511f), new Vector3(20f, 4.5f, 0.25f), wallMat);
             CreatePrimitive("After-choice memory room far side wall", PrimitiveType.Cube,
