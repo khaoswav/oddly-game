@@ -62,6 +62,7 @@ namespace Oddly
                     ? "SESSİZLİK TAMAMLANDI / ÇIKIŞ AÇIK"
                     : "STILLNESS COMPLETE / EXIT OPEN";
             dialogue?.Say("hidden_stillness_complete");
+            HiddenChapterArchive.MarkCompleted(2);
             exitDoor?.Unlock();
         }
 
