@@ -89,6 +89,7 @@ namespace Oddly
             Add("bridge_settle", "SYSTEM-02", "Bırak ve bekle. Köprü olmayı kabul etmesi için tahtaya bir saniye ver.", "Drop it and wait. Give the plank a moment to accept its new career as a bridge.");
             Add("bridge_align", "ANLATICI", "Boyu tamam. Şimdi boşluğun tam ortasına yerleştir. Hassasiyet, lütfen.", "The length is fine. Now place it right across the middle of the gap. Precision, please.");
             Add("bridge_solved", "SYSTEM-02", "Geçiş doğrulandı. Bir tahta, iki platform ve sıfır inşaat ruhsatı.", "Crossing verified. One plank, two platforms, and absolutely no building permit.");
+            Add("fall_recover", "ANLATICI", "Aşağısı biraz fazla aşağıymış. Seni son güvenli noktaya aldık. Rica ederim.", "Turns out down was a little too far down. We put you back at the last safe spot. You are welcome.");
             Add("impossible_room", "ANLATICI", "Bir dakika... Az önce nereden geldin? Boş ver. Ben de artık takip etmiyorum.", "Wait... where did you just come from? Never mind. I've stopped keeping track too.");
             Add("meta_notice", "SYSTEM-02", "UYARI: KIRMIZI DÜĞMEYE BASMAYIN. Bu uyarıyı okuduğunuz kaydedildi.", "NOTICE: DO NOT PRESS THE RED BUTTON. Your reading of this notice has been recorded.");
             Add("meta_wrong", "ANLATICI", "Önce bir şeyi fark etmen gerekiyordu. Tabela süs olsun diye burada değil.", "You were supposed to notice something first. The sign isn't here for decoration.");
