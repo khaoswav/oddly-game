@@ -23,6 +23,12 @@ namespace Oddly
         private Coroutine activeCard;
         private bool turkish => PlayerPrefs.GetInt("oddly.language", 1) == 0;
 
+        private void Start()
+        {
+            if (!HasCampaignSave)
+                EnterChapter(1, "THE TEST CENTER", "TEST MERKEZİ", false);
+        }
+
         public static int LastMainChapter => PlayerPrefs.GetInt("oddly.campaign.lastMainChapter", 1);
         public static int FurthestMainChapter => PlayerPrefs.GetInt("oddly.campaign.furthestMainChapter", 1);
         public static bool HasCampaignSave => PlayerPrefs.GetInt("oddly.campaign.started", 0) == 1;
@@ -65,7 +71,7 @@ namespace Oddly
                 ? (turkish ? "ARŞİV DIŞI BİR YER" : "SOMEWHERE OUTSIDE THE ARCHIVE")
                 : (turkish ? "TEST DEVAM EDİYOR. NE YAZIK Kİ." : "THE TEST CONTINUES. UNFORTUNATELY.");
 
-            if (cardGroup == null || titleLabel == null) return;
+            if (cardGroup == null || titleLabel == null || chapterLabel == null || subtitleLabel == null) return;
             if (activeCard != null) StopCoroutine(activeCard);
             activeCard = StartCoroutine(PlayCard(chapter, title, subtitle));
         }
@@ -87,6 +93,12 @@ namespace Oddly
             PlayerPrefs.DeleteKey("oddly.campaign.hiddenVisited");
             PlayerPrefs.DeleteKey("oddly.campaign.complete");
             PlayerPrefs.DeleteKey("oddly.campaign.finalEnding");
+            PlayerPrefs.DeleteKey("oddly.campaign.checkpoint.saved");
+            for (int i = 0; i < 3; i++)
+            {
+                PlayerPrefs.DeleteKey("oddly.campaign.checkpoint.position." + i);
+                PlayerPrefs.DeleteKey("oddly.campaign.checkpoint.rotation." + i);
+            }
             for (int i = 1; i <= 8; i++)
                 PlayerPrefs.DeleteKey("oddly.hidden.completed." + i);
             PlayerPrefs.DeleteKey("oddly.ending");
