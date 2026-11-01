@@ -11,6 +11,9 @@ namespace Oddly
         [SerializeField] private BehaviorTracker behavior;
         [SerializeField] private DoorController linkedDoor;
         [SerializeField] private DialogueDirector dialogue;
+        [SerializeField] private TextMesh dropCountLabel;
+        [SerializeField] private TextMesh retryCountLabel;
+        [SerializeField] private TextMesh waitCountLabel;
 
         private int dominantHabit;
         private bool initialized;
@@ -26,6 +29,9 @@ namespace Oddly
             // Stable tie-breaking keeps the puzzle fair and its answer visible.
             dominantHabit = drops >= retries && drops >= waits ? 0 :
                 retries >= waits ? 1 : 2;
+            if (dropCountLabel != null) dropCountLabel.text = drops.ToString();
+            if (retryCountLabel != null) retryCountLabel.text = retries.ToString();
+            if (waitCountLabel != null) waitCountLabel.text = waits.ToString();
             initialized = true;
         }
 
