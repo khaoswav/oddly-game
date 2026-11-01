@@ -25,6 +25,7 @@ The validation command rebuilds the generated greybox scene, then checks:
 - All eight echo pillars have unique chapter IDs, trigger colliders, visual references and status labels.
 - All three final choices have unique ending indices and a non-null FinalDecisionPuzzle reference.
 - The memory-room trigger references all eight visual pillars and its status label; The Last Page has its status label.
+- Game UI contains both WorldAudioDirector and WorldPresentationDirector.
 - Required finale/archive trigger objects have enabled trigger colliders.
 - The generated scene is enabled in Build Settings.
 
@@ -91,7 +92,7 @@ The build commands regenerate and validate the scene before calling Unity's Buil
 - [ ] Keyboard/mouse controls, cursor lock and UI interaction are checked on both platforms.
 - [ ] Turkish and English text fit all signs and subtitle surfaces.
 - [ ] Audio levels, transitions and missing/placeholder audio assets are reviewed.
-- [ ] Performance, memory use, accessibility and save migration are checked.
+- [ ] Performance, memory use, accessibility and save migration are checked. The runtime applies a 60 FPS desktop baseline and reduces shadow distance, shadow resolution and per-pixel light count automatically on systems with 8 GB RAM or less; verify this profile on actual hardware.
 - [ ] Clean-install and upgrade-from-existing-save paths are tested.
 
 ## Current release blockers
