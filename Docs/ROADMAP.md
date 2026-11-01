@@ -63,10 +63,11 @@
 - [x] Build Hidden Chapter 03, The Moment Between Blinks, with three pulse-timed sightline stations, varied target angles, reactive lighting and bilingual dialogue.
 - [x] Build Hidden Chapter 04, The Room That Remembers Tomorrow, with behaviour-history sampling and a dynamically selected physical bridge route.
 - [x] Build Hidden Chapter 05, The Room That Borrows Your Hands, with inverted movement controls, an alternating slalom route, a checkpoint and bilingual control-return feedback.
-- [ ] Build 5–8 hidden chapters/rooms targeting approximately 1 additional hour.
+- [x] Build 8 hidden chapters/rooms targeting approximately 1 additional hour.
 - [x] Build Hidden Chapter 06, The Room That Exists When Watched, with three gaze-reactive barriers that appear and collide only while observed, plus checkpoint, bilingual hints and exit progression.
 - [x] Add three distinct ending variations with localized dialogue, reactive finale visuals and a locally saved ending choice.
 - [x] Build Hidden Chapter 07, The Room That Steals Your Shadow, with a mirrored shadow actor, three alternating light-pool targets, dynamic status, reactive lighting and bilingual dialogue.
+- [x] Build Hidden Chapter 08, The Room That Remembers You, with a persistent completion archive, saved-finale recall puzzle, three interactive memory panels and bilingual feedback.
 - [ ] Add alternate solutions and broader narrative callbacks.
 - [ ] Add optional replay challenges and achievements.
 - [ ] Add persistent campaign saves and chapter checkpoints.
