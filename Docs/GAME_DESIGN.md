@@ -34,6 +34,7 @@ Explore → notice an inconsistency → manipulate an object or viewpoint → te
 - Impossible-room transitions and environmental changes.
 - Paired doorway loops that relocate the player within a continuous room, with signage that changes in response to traversal.
 - Meta puzzles involving signs, instructions and in-world interfaces.\n- The first meta puzzle teaches players to inspect a warning before deliberately disobeying it to unlock the exit.
+- Chapter 1 begins with a short three-beat bilingual welcome sequence before control is handed to the player.
 - Behavior tracking for local, contextual banter.
 
 ## Planned chapter arc
