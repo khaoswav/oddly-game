@@ -738,7 +738,7 @@ namespace Oddly.Editor
             BlindSpotPuzzle blindSpotPuzzle = player.AddComponent<BlindSpotPuzzle>();
             SetPrivate(blindSpotPuzzle, "viewpoint", blindSpotMarker.transform);
             SetPrivate(blindSpotPuzzle, "exitDirection", blindSpotExitDirection.transform);
-            SetPrivate(blindSpotPuzzle, "playerCamera", playerCamera);
+            SetPrivate(blindSpotPuzzle, "playerCamera", camera);
             SetPrivate(blindSpotPuzzle, "linkedDoor", chapterFiveExitController);
             SetPrivate(blindSpotPuzzle, "dialogue", director);
             SetPrivate(chapterFiveExitController, "dialogue", director);
