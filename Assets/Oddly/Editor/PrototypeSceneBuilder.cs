@@ -1303,6 +1303,9 @@ namespace Oddly.Editor
             finalDecisionSign.alignment = TextAlignment.Center;
             finalDecisionSign.color = new Color(0.22f, 0.25f, 0.32f);
 
+            GameObject finalDecisionObject = new GameObject("Final decision puzzle controller");
+            FinalDecisionPuzzle finalDecisionPuzzle = finalDecisionObject.AddComponent<FinalDecisionPuzzle>();
+
             Transform[] endingRelics = new Transform[3];
             float[] endingXs = { -3f, 0f, 3f };
             string[] endingLabels = {
@@ -1343,9 +1346,6 @@ namespace Oddly.Editor
             endingLight.type = LightType.Point;
             endingLight.range = 18f;
             endingLight.intensity = 1.1f;
-
-            GameObject finalDecisionObject = new GameObject("Final decision puzzle controller");
-            FinalDecisionPuzzle finalDecisionPuzzle = finalDecisionObject.AddComponent<FinalDecisionPuzzle>();
 
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
