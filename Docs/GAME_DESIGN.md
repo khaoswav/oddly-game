@@ -29,7 +29,7 @@ Explore → notice an inconsistency → manipulate an object or viewpoint → te
 
 ## Core mechanics
 - First-person movement and inspection.
-- Pick up, carry, resize and place selected objects. Pickup distance changes the object's physical scale to preserve its apparent size at the holding point, creating a spatial reasoning mechanic.
+- Pick up, carry and place selected objects. While held, moving an object closer or farther changes its physical world scale in proportion to camera distance, preserving its apparent on-screen size. On release, the new world scale remains, turning depth into a core puzzle verb.
 - Perspective-dependent spatial puzzles.
 - Impossible-room transitions and environmental changes.
 - Paired doorway loops that relocate the player within a continuous room, with signage that changes in response to traversal.
@@ -37,7 +37,7 @@ Explore → notice an inconsistency → manipulate an object or viewpoint → te
 - The first meta puzzle teaches players to inspect a warning before deliberately disobeying it to unlock the exit.
 - Chapter 1 begins with a short three-beat bilingual welcome sequence before control is handed to the player.
 - The first unlocked exit opens into a narrow corridor. A seemingly helpful EXIT sign changes after the player approaches, triggering a bilingual character reaction, then the end wall lifts to reveal a larger waiting room.
-- The waiting room introduces a second camera-projected frame puzzle and a separate exit, requiring the player to use distance, apparent size and viewpoint together.
+- The waiting room introduces a second camera-projected frame puzzle and a separate exit, requiring the player to use depth movement, persistent world scale, apparent size and viewpoint together.
 - Behavior tracking for local, contextual banter.
 
 ## Planned chapter arc
