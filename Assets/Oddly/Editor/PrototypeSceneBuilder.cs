@@ -143,6 +143,33 @@ namespace Oddly.Editor
             SetPrivate(portalAController, "sign", portalA.GetComponentInChildren<TextMesh>());
             SetPrivate(portalBController, "sign", portalB.GetComponentInChildren<TextMesh>());
 
+            // Meta puzzle: the warning explicitly forbids the red button.
+            // Reading it is the prerequisite for intentionally disobeying it.
+            MetaPuzzleController metaPuzzle = player.AddComponent<MetaPuzzleController>();
+            SetPrivate(metaPuzzle, "linkedDoor", doorController);
+
+            GameObject notice = CreatePrimitive("Forbidden button notice", PrimitiveType.Cube,
+                new Vector3(5.9f, 1.65f, -2.8f), new Vector3(1.25f, 1.15f, 0.12f), doorMat);
+            MetaPuzzleNode noticeNode = notice.AddComponent<MetaPuzzleNode>();
+            SetPrivate(noticeNode, "puzzle", metaPuzzle);
+            SetPrivate(noticeNode, "action", MetaPuzzleAction.ReadNotice);
+            TextMesh noticeText = new GameObject("Notice text").AddComponent<TextMesh>();
+            noticeText.transform.SetParent(notice.transform, false);
+            noticeText.transform.localPosition = new Vector3(0f, 0f, -0.56f);
+            noticeText.transform.localRotation = Quaternion.identity;
+            noticeText.text = "DO NOT\\nPRESS RED";
+            noticeText.fontSize = 44;
+            noticeText.characterSize = 0.035f;
+            noticeText.anchor = TextAnchor.MiddleCenter;
+            noticeText.alignment = TextAlignment.Center;
+            noticeText.color = new Color(0.2f, 0.16f, 0.18f);
+
+            GameObject forbiddenButton = CreatePrimitive("Forbidden red button", PrimitiveType.Sphere,
+                new Vector3(5.9f, 0.95f, -1.6f), Vector3.one * 0.58f, accentMat);
+            MetaPuzzleNode buttonNode = forbiddenButton.AddComponent<MetaPuzzleNode>();
+            SetPrivate(buttonNode, "puzzle", metaPuzzle);
+            SetPrivate(buttonNode, "action", MetaPuzzleAction.PressForbiddenButton);
+
             CreateLighting();
             Canvas canvas = CreateCanvas();
 
@@ -173,6 +200,7 @@ namespace Oddly.Editor
             SetPrivate(perspectivePuzzle, "dialogue", director);
             SetPrivate(portalAController, "dialogue", director);
             SetPrivate(portalBController, "dialogue", director);
+            SetPrivate(metaPuzzle, "dialogue", director);
 
             movement.enabled = false;
             interaction.enabled = false;
