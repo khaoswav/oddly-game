@@ -35,7 +35,8 @@ The prototype scene is generated automatically by the Unity Editor bootstrap whe
 | E | Pick up / interact |
 | Mouse wheel | Resize held object |
 | Left click | Drop held object |
-| Escape | Release cursor |
+| Escape | Release cursor / pause gameplay input |
+| Left click (cursor released) | Resume and capture mouse |
 
 ## Repository layout
 - `Assets/Oddly/Scripts`: gameplay systems.
