@@ -118,8 +118,8 @@ namespace Oddly
                 PlayerPrefs.DeleteKey("oddly.campaign.checkpoint.rotation." + i);
             }
 
-            // Keep oddly.ending, oddly.ending.name and oddly.hidden.completed.*
-            // so Hidden Chapter 08 can still ask the player to remember the finale.
+            // Keep the ending, hidden completions, discovered echoes and reward for replay.
+            // The epilogue archive and Last Echo reward are intentionally persistent.
             PlayerPrefs.Save();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
@@ -140,6 +140,9 @@ namespace Oddly
             }
             for (int i = 1; i <= 8; i++)
                 PlayerPrefs.DeleteKey("oddly.hidden.completed." + i);
+            PlayerPrefs.DeleteKey("oddly.epilogue.archiveFound");
+            PlayerPrefs.DeleteKey("oddly.afterchoice.echoMask");
+            PlayerPrefs.DeleteKey("oddly.afterchoice.lastEchoClaimed");
             PlayerPrefs.DeleteKey("oddly.ending");
             PlayerPrefs.DeleteKey("oddly.ending.name");
             PlayerPrefs.Save();
