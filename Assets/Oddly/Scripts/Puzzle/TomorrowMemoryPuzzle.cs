@@ -71,6 +71,7 @@ namespace Oddly
                     ? "GEÇMİŞİN YOLU AÇILDI / ÇIKIŞ AÇIK"
                     : "YOUR PAST MADE A WAY / EXIT OPEN";
             dialogue?.Say("tomorrow_memory_complete");
+            HiddenChapterArchive.MarkCompleted(4);
             exitDoor?.Unlock();
         }
 
