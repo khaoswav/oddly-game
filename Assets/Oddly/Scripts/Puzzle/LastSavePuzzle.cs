@@ -27,7 +27,7 @@ namespace Oddly
                     originalRotations[i] = snapshotProps[i].rotation;
                 }
             }
-            UpdateStatus("NO SAVE LOADED / KAYIT YÜKLENMEDİ");
+            UpdateStatus("NO SAVE LOADED", "KAYIT YÜKLENMEDİ");
         }
 
         public void LoadSlot(int slot)
@@ -39,7 +39,7 @@ namespace Oddly
             {
                 RestoreOriginalSnapshot();
                 solved = true;
-                UpdateStatus("SAVE 02 RESTORED / EXIT AVAILABLE");
+                UpdateStatus("SAVE 02 RESTORED / EXIT AVAILABLE", "KAYIT 02 YÜKLENDİ / ÇIKIŞ AÇIK");
                 if (roomLight != null)
                 {
                     roomLight.color = new Color(0.35f, 0.95f, 0.72f);
@@ -51,9 +51,8 @@ namespace Oddly
             }
 
             ApplyCorruptSnapshot(slot);
-            UpdateStatus(slot == 0
-                ? "SAVE 01 / BEFORE THE CRASH"
-                : "SAVE 03 / AFTER THE CRASH");
+            UpdateStatus(slot == 0 ? "SAVE 01 / BEFORE THE CRASH" : "SAVE 03 / AFTER THE CRASH",
+                slot == 0 ? "KAYIT 01 / ÇÖKMEDEN ÖNCE" : "KAYIT 03 / ÇÖKMEDEN SONRA");
             if (roomLight != null)
             {
                 roomLight.color = slot == 0
@@ -88,13 +87,11 @@ namespace Oddly
             }
         }
 
-        private void UpdateStatus(string value)
+        private void UpdateStatus(string english, string turkish)
         {
             if (statusSign == null) return;
-            bool english = PlayerPrefs.GetInt("oddly.language", 1) == 1;
-            statusSign.text = value.Contains("/") && !english
-                ? value.Substring(value.IndexOf('/') + 1).Trim() + " / " + value.Substring(0, value.IndexOf('/')).Trim()
-                : value;
+            bool useEnglish = PlayerPrefs.GetInt("oddly.language", 1) == 1;
+            statusSign.text = useEnglish ? english : turkish;
         }
     }
 }
