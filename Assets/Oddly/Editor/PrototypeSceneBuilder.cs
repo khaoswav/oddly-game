@@ -1908,6 +1908,109 @@ namespace Oddly.Editor
             borrowedEnding.alignment = TextAlignment.Center;
             borrowedEnding.color = new Color(0.65f, 0.82f, 1f);
 
+            // Hidden Chapter 06: barriers materialize only while directly observed.
+            CreatePrimitive("Hidden 06 approach corridor floor", PrimitiveType.Cube,
+                new Vector3(225f, -0.25f, 495f), new Vector3(10f, 0.5f, 4f), floorMat);
+            CreatePrimitive("Hidden 06 chamber floor", PrimitiveType.Cube,
+                new Vector3(245f, -0.25f, 495f), new Vector3(30f, 0.5f, 16f), floorMat);
+            CreatePrimitive("Hidden 06 near wall", PrimitiveType.Cube,
+                new Vector3(245f, 2.5f, 487f), new Vector3(30f, 5f, 0.25f), wallMat);
+            CreatePrimitive("Hidden 06 far wall", PrimitiveType.Cube,
+                new Vector3(245f, 2.5f, 503f), new Vector3(30f, 5f, 0.25f), wallMat);
+            CreatePrimitive("Hidden 06 entry wall near", PrimitiveType.Cube,
+                new Vector3(230f, 2.5f, 489.5f), new Vector3(0.25f, 5f, 5f), wallMat);
+            CreatePrimitive("Hidden 06 entry wall far", PrimitiveType.Cube,
+                new Vector3(230f, 2.5f, 500.5f), new Vector3(0.25f, 5f, 5f), wallMat);
+            CreatePrimitive("Hidden 06 entry header", PrimitiveType.Cube,
+                new Vector3(230f, 4.55f, 495f), new Vector3(0.25f, 0.9f, 6f), wallMat);
+            CreatePrimitive("Hidden 06 exit wall near", PrimitiveType.Cube,
+                new Vector3(260f, 2.5f, 489.5f), new Vector3(0.25f, 5f, 5f), wallMat);
+            CreatePrimitive("Hidden 06 exit wall far", PrimitiveType.Cube,
+                new Vector3(260f, 2.5f, 500.5f), new Vector3(0.25f, 5f, 5f), wallMat);
+            CreatePrimitive("Hidden 06 exit header", PrimitiveType.Cube,
+                new Vector3(260f, 4.55f, 495f), new Vector3(0.25f, 0.9f, 6f), wallMat);
+
+            GameObject gazeEntryDoorObject = CreatePrimitive("Hidden 06 exit door",
+                PrimitiveType.Cube, new Vector3(259.82f, 2f, 495f),
+                new Vector3(0.35f, 4f, 5.5f), doorMat);
+            DoorController gazeExitDoor = gazeEntryDoorObject.AddComponent<DoorController>();
+            SetPrivate(gazeExitDoor, "dialogue", director);
+
+            float[] gazeGateX = { 237f, 245f, 253f };
+            for (int i = 0; i < gazeGateX.Length; i++)
+            {
+                GameObject barrier = CreatePrimitive("Hidden 06 gaze barrier " + (i + 1),
+                    PrimitiveType.Cube, new Vector3(gazeGateX[i], 1.85f, 495f),
+                    new Vector3(0.5f, 3.7f, 16f), i == 1 ? accentMat : cubeMat);
+                GazeReactiveBarrier gazeBarrier = barrier.AddComponent<GazeReactiveBarrier>();
+                SetPrivate(gazeBarrier, "playerView", playerCamera.transform);
+                SetPrivate(gazeBarrier, "gazeThreshold", 0.91f);
+                SetPrivate(gazeBarrier, "activationDistance", 10f);
+            }
+
+            GameObject gazeEntryObject = new GameObject("Hidden Chapter 06 entry trigger");
+            gazeEntryObject.transform.position = new Vector3(232f, 1.2f, 495f);
+            BoxCollider gazeEntryCollider = gazeEntryObject.AddComponent<BoxCollider>();
+            gazeEntryCollider.isTrigger = true;
+            gazeEntryCollider.size = new Vector3(1.2f, 2.4f, 8f);
+            GameObject gazeCheckpoint = new GameObject("Hidden Chapter 06 checkpoint");
+            gazeCheckpoint.transform.position = new Vector3(233.5f, 0.15f, 495f);
+
+            TextMesh gazeTitle = new GameObject("Hidden Chapter 06 title").AddComponent<TextMesh>();
+            gazeTitle.transform.position = new Vector3(234f, 3.8f, 495f);
+            gazeTitle.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+            gazeTitle.text = "HIDDEN 06 / THE ROOM THAT EXISTS WHEN WATCHED";
+            gazeTitle.fontSize = 21;
+            gazeTitle.characterSize = 0.04f;
+            gazeTitle.anchor = TextAnchor.MiddleCenter;
+            gazeTitle.alignment = TextAlignment.Center;
+            gazeTitle.color = new Color(0.75f, 0.62f, 1f);
+
+            TextMesh gazeStatus = new GameObject("Hidden 06 gaze status").AddComponent<TextMesh>();
+            gazeStatus.transform.position = new Vector3(245f, 4.1f, 487.35f);
+            gazeStatus.fontSize = 22;
+            gazeStatus.characterSize = 0.045f;
+            gazeStatus.anchor = TextAnchor.MiddleCenter;
+            gazeStatus.alignment = TextAlignment.Center;
+            gazeStatus.color = new Color(0.75f, 0.62f, 1f);
+
+            GameObject gazeLightObject = new GameObject("Hidden 06 reactive light");
+            gazeLightObject.transform.position = new Vector3(245f, 4.2f, 495f);
+            Light gazeLight = gazeLightObject.AddComponent<Light>();
+            gazeLight.type = LightType.Point;
+            gazeLight.range = 24f;
+            gazeLight.intensity = 0.75f;
+            gazeLight.color = new Color(0.62f, 0.42f, 1f);
+
+            GazeRoomEntryTrigger gazeEntry = gazeEntryObject.AddComponent<GazeRoomEntryTrigger>();
+            SetPrivate(gazeEntry, "dialogue", director);
+            SetPrivate(gazeEntry, "chapterSign", gazeTitle);
+            SetPrivate(gazeEntry, "statusSign", gazeStatus);
+            SetPrivate(gazeEntry, "fallRecovery", fallRecovery);
+            SetPrivate(gazeEntry, "checkpoint", gazeCheckpoint.transform);
+
+            GameObject gazeFinishObject = new GameObject("Hidden 06 finish trigger");
+            gazeFinishObject.transform.position = new Vector3(257f, 1.2f, 495f);
+            BoxCollider gazeFinishCollider = gazeFinishObject.AddComponent<BoxCollider>();
+            gazeFinishCollider.isTrigger = true;
+            gazeFinishCollider.size = new Vector3(1.4f, 2.4f, 12f);
+            GazeRoomFinishTrigger gazeFinish = gazeFinishObject.AddComponent<GazeRoomFinishTrigger>();
+            SetPrivate(gazeFinish, "exitDoor", gazeExitDoor);
+            SetPrivate(gazeFinish, "dialogue", director);
+            SetPrivate(gazeFinish, "statusSign", gazeStatus);
+
+            CreatePrimitive("Hidden 06 ending corridor floor", PrimitiveType.Cube,
+                new Vector3(265f, -0.25f, 495f), new Vector3(10f, 0.5f, 4f), floorMat);
+            TextMesh gazeEnding = new GameObject("Hidden 06 ending message").AddComponent<TextMesh>();
+            gazeEnding.transform.position = new Vector3(269f, 2.8f, 495f);
+            gazeEnding.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+            gazeEnding.text = "YOU SAW NOTHING.\nHİÇBİR ŞEY GÖRMEDİN.";
+            gazeEnding.fontSize = 22;
+            gazeEnding.characterSize = 0.045f;
+            gazeEnding.anchor = TextAnchor.MiddleCenter;
+            gazeEnding.alignment = TextAlignment.Center;
+            gazeEnding.color = new Color(0.75f, 0.62f, 1f);
+
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
             BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
