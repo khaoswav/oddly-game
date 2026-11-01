@@ -13,7 +13,7 @@
 - [ ] Fix and validate all prototype interactions.
 - [x] Add scale-sensitive object placement with readable too-large / too-small feedback.
 - [x] Add camera-projected, apparent-size perspective frame puzzles to the first room and waiting room.
-- [x] Scale picked-up objects according to pickup distance while preserving their apparent size at the hold point.
+- [x] Preserve apparent size when picking up objects from different distances.\n- [x] Move held objects along camera depth; dynamically scale world size to preserve apparent size, retaining the new scale on drop.
 - [ ] Expand perspective-dependent placement into multi-step forced-perspective room tricks, object combinations and linked follow-on rooms.
 - [x] Add a paired impossible-room doorway loop with reactive bilingual dialogue and changing signs.
 - [x] Add a bilingual notice-and-forbidden-button meta puzzle that unlocks the exit.
