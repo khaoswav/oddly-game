@@ -50,7 +50,8 @@ namespace Oddly
             {
                 solved = true;
                 dialogue?.Say("hidden_echo_complete");
-                exitDoor?.Unlock();
+                HiddenChapterArchive.MarkCompleted(3);
+            exitDoor?.Unlock();
             }
             RefreshStatus();
         }
