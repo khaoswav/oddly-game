@@ -2,6 +2,7 @@ using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -104,6 +105,12 @@ namespace Oddly.Editor
 
             CreateLighting();
             Canvas canvas = CreateCanvas();
+
+            // UI buttons require an EventSystem to receive pointer input.
+            GameObject eventSystem = new GameObject("EventSystem");
+            eventSystem.AddComponent<EventSystem>();
+            eventSystem.AddComponent<StandaloneInputModule>();
+
             Text prompt = MakeText(canvas.transform, "Prompt", "WASD MOVE     MOUSE LOOK", 18, TextAnchor.UpperCenter);
             SetRect(prompt.rectTransform, new Vector2(0.15f, 0.91f), new Vector2(0.85f, 0.98f));
 
@@ -124,7 +131,6 @@ namespace Oddly.Editor
             SetPrivate(goalZone, "dialogue", director);
             SetPrivate(doorController, "dialogue", director);
 
-            // Keep the world still and the cursor available until the player starts.
             movement.enabled = false;
             interaction.enabled = false;
             tracker.enabled = false;
