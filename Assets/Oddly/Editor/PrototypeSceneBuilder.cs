@@ -1549,7 +1549,7 @@ namespace Oddly.Editor
                 TextMesh padLabel = new GameObject("Breath pad label " + (i + 1)).AddComponent<TextMesh>();
                 padLabel.transform.position = new Vector3(stillnessPadXs[i], 1.25f, 493.2f);
                 padLabel.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-                padLabel.text = i == 0 ? "1 / STOP" : i == 1 ? "2 / STAY" : "3 / STILL";
+                padLabel.text = i == 0 ? "1 / STOP / DUR" : i == 1 ? "2 / STAY / KAL" : "3 / STILL / SESSİZ";
                 padLabel.fontSize = 21;
                 padLabel.characterSize = 0.04f;
                 padLabel.anchor = TextAnchor.MiddleCenter;
