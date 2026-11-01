@@ -68,7 +68,8 @@ namespace Oddly
                         ? "GÖLGE SERBEST\nÇIKIŞ AÇIK"
                         : "SHADOW RELEASED\nEXIT OPEN";
                 dialogue?.Say("hidden_shadow_complete");
-                exitDoor?.Unlock();
+                HiddenChapterArchive.MarkCompleted(7);
+            exitDoor?.Unlock();
             }
             else
             {
