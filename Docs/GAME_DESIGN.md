@@ -80,6 +80,7 @@ Explore → notice an inconsistency → manipulate an object or viewpoint → te
 - Chapter 14.4 adds a separate ending-history bitmask. Each distinct final choice is recorded when selected and survives replay, so the archive can distinguish a player who has experienced one ending from a player who has seen all three. Full campaign reset clears this history.
 - A concealed opening in the memory chamber's west wall leads to a ninth record chamber. It requires all three ending records, all eight hidden-room completions, all eight discovered echoes, the claimed Last Echo reward and the discovered archive branch.
 - The three ending relics converge in this chamber. Opening it persists the ninth record and unlocks The Unwritten Ending, an alternate finale discovery that remains available across replay.
+- Inside the ninth chamber, a final core offers a separate E-interaction. Activating it plays The Unwritten Ending as a distinct alternate-finale coda: the room's ambient light and fog transition, the core awakens, and completion is persisted independently from the three original ending records. Re-entering the room restores the completed finale presentation.
 
 ## Campaign structure and playtime
 The main story target is approximately **2 hours**, with **about 1 additional hour** for hidden chapters, for roughly **3 hours** to see the full planned experience. These are design targets, not padding requirements. Rooms should stay surprising and mechanically distinct; the game should not stretch its runtime with empty corridors or repeated versions of the same puzzle.
