@@ -84,6 +84,9 @@
 - [x] Make each ending transform the world atmosphere: distinct ambient colour, fog density, global light response, relic motion and ending-specific audio pitch; restore the selected presentation after relaunch.
 - [x] Add a post-ending epilogue corridor with ending-specific callbacks and a hidden-room completion count.
 - [x] Add a replay action that restarts the main story while preserving the saved ending and completed hidden-room archive; keep full archive deletion behind the explicit campaign reset API.
+- [x] Chapter 14.2: add a concealed post-choice archive branch requiring a saved ending and at least three completed hidden rooms.
+- [x] Build a discoverable memory chamber with eight visual archive pillars that react to persistent hidden-room completion records.
+- [x] Carry the previous ending and hidden-room archive into replay callbacks; keep the secret chamber available from preserved history.
 - [x] Build Hidden Chapter 07, The Room That Steals Your Shadow, with a mirrored shadow actor, three alternating light-pool targets, dynamic status, reactive lighting and bilingual dialogue.
 - [x] Build Hidden Chapter 08, The Room That Remembers You, with a persistent completion archive, saved-finale recall puzzle, three interactive memory panels and bilingual feedback.
 - [ ] Add alternate solutions and broader narrative callbacks.
