@@ -2011,6 +2011,139 @@ namespace Oddly.Editor
             gazeEnding.alignment = TextAlignment.Center;
             gazeEnding.color = new Color(0.75f, 0.62f, 1f);
 
+            // Hidden Chapter 07: the player's shadow is mirrored across the room and must be guided into three light pools.
+            Material shadowInkMat = MakeMaterial("Shadow Ink", new Color(0.055f, 0.045f, 0.09f));
+            Material shadowTargetMat = MakeMaterial("Shadow Catchlight", new Color(0.28f, 0.78f, 0.96f));
+
+            CreatePrimitive("Hidden 07 approach corridor floor", PrimitiveType.Cube,
+                new Vector3(275f, -0.25f, 495f), new Vector3(10f, 0.5f, 4f), floorMat);
+            CreatePrimitive("Hidden 07 chamber floor", PrimitiveType.Cube,
+                new Vector3(295f, -0.25f, 495f), new Vector3(30f, 0.5f, 16f), floorMat);
+            CreatePrimitive("Hidden 07 near wall", PrimitiveType.Cube,
+                new Vector3(295f, 2.5f, 487f), new Vector3(30f, 5f, 0.25f), wallMat);
+            CreatePrimitive("Hidden 07 far wall", PrimitiveType.Cube,
+                new Vector3(295f, 2.5f, 503f), new Vector3(30f, 5f, 0.25f), wallMat);
+            CreatePrimitive("Hidden 07 entry wall near", PrimitiveType.Cube,
+                new Vector3(280f, 2.5f, 489.5f), new Vector3(0.25f, 5f, 5f), wallMat);
+            CreatePrimitive("Hidden 07 entry wall far", PrimitiveType.Cube,
+                new Vector3(280f, 2.5f, 500.5f), new Vector3(0.25f, 5f, 5f), wallMat);
+            CreatePrimitive("Hidden 07 entry header", PrimitiveType.Cube,
+                new Vector3(280f, 4.55f, 495f), new Vector3(0.25f, 0.9f, 6f), wallMat);
+            CreatePrimitive("Hidden 07 exit wall near", PrimitiveType.Cube,
+                new Vector3(310f, 2.5f, 489.5f), new Vector3(0.25f, 5f, 5f), wallMat);
+            CreatePrimitive("Hidden 07 exit wall far", PrimitiveType.Cube,
+                new Vector3(310f, 2.5f, 500.5f), new Vector3(0.25f, 5f, 5f), wallMat);
+            CreatePrimitive("Hidden 07 exit header", PrimitiveType.Cube,
+                new Vector3(310f, 4.55f, 495f), new Vector3(0.25f, 0.9f, 6f), wallMat);
+
+            GameObject shadowExitObject = CreatePrimitive("Hidden 07 exit door",
+                PrimitiveType.Cube, new Vector3(309.82f, 2f, 495f),
+                new Vector3(0.35f, 4f, 5.5f), doorMat);
+            DoorController shadowExitDoor = shadowExitObject.AddComponent<DoorController>();
+            SetPrivate(shadowExitDoor, "dialogue", director);
+
+            GameObject shadowRoot = new GameObject("Hidden 07 mirrored player shadow");
+            GameObject shadowBody = CreatePrimitive("Shadow silhouette body", PrimitiveType.Capsule,
+                new Vector3(0f, 0f, 0f), new Vector3(0.62f, 0.08f, 1.12f), shadowInkMat);
+            shadowBody.transform.SetParent(shadowRoot.transform, false);
+            shadowBody.transform.localPosition = new Vector3(0f, 0.02f, 0f);
+            shadowBody.transform.localScale = new Vector3(0.62f, 0.08f, 1.12f);
+            Collider shadowBodyCollider = shadowBody.GetComponent<Collider>();
+            if (shadowBodyCollider != null) shadowBodyCollider.enabled = false;
+            GameObject shadowHead = CreatePrimitive("Shadow silhouette head", PrimitiveType.Sphere,
+                new Vector3(0f, 0f, 0f), new Vector3(0.34f, 0.06f, 0.34f), shadowInkMat);
+            shadowHead.transform.SetParent(shadowRoot.transform, false);
+            shadowHead.transform.localPosition = new Vector3(0f, 0.025f, 0.48f);
+            shadowHead.transform.localScale = new Vector3(0.34f, 0.06f, 0.34f);
+            Collider shadowHeadCollider = shadowHead.GetComponent<Collider>();
+            if (shadowHeadCollider != null) shadowHeadCollider.enabled = false;
+
+            float[] shadowTargetX = { 286f, 295f, 304f };
+            float[] shadowTargetZ = { 499f, 491f, 499f };
+            Transform[] shadowTargets = new Transform[shadowTargetX.Length];
+            for (int i = 0; i < shadowTargetX.Length; i++)
+            {
+                GameObject target = CreatePrimitive("Hidden 07 shadow light pool " + (i + 1),
+                    PrimitiveType.Cylinder,
+                    new Vector3(shadowTargetX[i], 0.055f, shadowTargetZ[i]),
+                    new Vector3(1.8f, 0.06f, 1.8f), shadowTargetMat);
+                Collider targetCollider = target.GetComponent<Collider>();
+                if (targetCollider != null) targetCollider.enabled = false;
+                shadowTargets[i] = target.transform;
+
+                GameObject targetLightObject = new GameObject("Hidden 07 target glow " + (i + 1));
+                targetLightObject.transform.position = new Vector3(shadowTargetX[i], 1.2f, shadowTargetZ[i]);
+                Light targetLight = targetLightObject.AddComponent<Light>();
+                targetLight.type = LightType.Point;
+                targetLight.range = 4.5f;
+                targetLight.intensity = 0.65f;
+                targetLight.color = new Color(0.28f, 0.78f, 0.96f);
+            }
+
+            GameObject shadowEntryObject = new GameObject("Hidden Chapter 07 entry trigger");
+            shadowEntryObject.transform.position = new Vector3(282f, 1.2f, 495f);
+            BoxCollider shadowEntryCollider = shadowEntryObject.AddComponent<BoxCollider>();
+            shadowEntryCollider.isTrigger = true;
+            shadowEntryCollider.size = new Vector3(1.2f, 2.4f, 8f);
+            GameObject shadowCheckpoint = new GameObject("Hidden Chapter 07 checkpoint");
+            shadowCheckpoint.transform.position = new Vector3(283.5f, 0.15f, 495f);
+
+            TextMesh shadowTitle = new GameObject("Hidden Chapter 07 title").AddComponent<TextMesh>();
+            shadowTitle.transform.position = new Vector3(284f, 3.8f, 495f);
+            shadowTitle.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+            shadowTitle.text = "HIDDEN 07 / THE ROOM THAT STEALS YOUR SHADOW";
+            shadowTitle.fontSize = 21;
+            shadowTitle.characterSize = 0.04f;
+            shadowTitle.anchor = TextAnchor.MiddleCenter;
+            shadowTitle.alignment = TextAlignment.Center;
+            shadowTitle.color = new Color(0.38f, 0.78f, 0.96f);
+
+            TextMesh shadowStatus = new GameObject("Hidden 07 shadow status").AddComponent<TextMesh>();
+            shadowStatus.transform.position = new Vector3(295f, 4.1f, 487.35f);
+            shadowStatus.fontSize = 22;
+            shadowStatus.characterSize = 0.045f;
+            shadowStatus.anchor = TextAnchor.MiddleCenter;
+            shadowStatus.alignment = TextAlignment.Center;
+            shadowStatus.color = new Color(0.38f, 0.78f, 0.96f);
+
+            GameObject shadowLightObject = new GameObject("Hidden 07 ambient light");
+            shadowLightObject.transform.position = new Vector3(295f, 4.2f, 495f);
+            Light shadowRoomLight = shadowLightObject.AddComponent<Light>();
+            shadowRoomLight.type = LightType.Point;
+            shadowRoomLight.range = 26f;
+            shadowRoomLight.intensity = 0.7f;
+            shadowRoomLight.color = new Color(0.42f, 0.32f, 0.85f);
+
+            GameObject shadowPuzzleObject = new GameObject("Hidden 07 shadow trail puzzle");
+            ShadowTrailPuzzle shadowPuzzle = shadowPuzzleObject.AddComponent<ShadowTrailPuzzle>();
+            SetPrivate(shadowPuzzle, "shadowVisual", shadowRoot.transform);
+            SetPrivate(shadowPuzzle, "shadowTargets", shadowTargets);
+            SetPrivate(shadowPuzzle, "exitDoor", shadowExitDoor);
+            SetPrivate(shadowPuzzle, "dialogue", director);
+            SetPrivate(shadowPuzzle, "statusSign", shadowStatus);
+            SetPrivate(shadowPuzzle, "roomLight", shadowRoomLight);
+            SetPrivate(shadowPuzzle, "mirrorAxisZ", 495f);
+            SetPrivate(shadowPuzzle, "targetRadius", 1.35f);
+
+            ShadowRoomEntryTrigger shadowEntry = shadowEntryObject.AddComponent<ShadowRoomEntryTrigger>();
+            SetPrivate(shadowEntry, "puzzle", shadowPuzzle);
+            SetPrivate(shadowEntry, "dialogue", director);
+            SetPrivate(shadowEntry, "chapterSign", shadowTitle);
+            SetPrivate(shadowEntry, "fallRecovery", fallRecovery);
+            SetPrivate(shadowEntry, "checkpoint", shadowCheckpoint.transform);
+
+            CreatePrimitive("Hidden 07 ending corridor floor", PrimitiveType.Cube,
+                new Vector3(315f, -0.25f, 495f), new Vector3(10f, 0.5f, 4f), floorMat);
+            TextMesh shadowEnding = new GameObject("Hidden 07 ending message").AddComponent<TextMesh>();
+            shadowEnding.transform.position = new Vector3(319f, 2.8f, 495f);
+            shadowEnding.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+            shadowEnding.text = "IT WAS NEVER YOUR SHADOW.\nO HİÇBİR ZAMAN SENİN GÖLGEN DEĞİLDİ.";
+            shadowEnding.fontSize = 21;
+            shadowEnding.characterSize = 0.045f;
+            shadowEnding.anchor = TextAnchor.MiddleCenter;
+            shadowEnding.alignment = TextAlignment.Center;
+            shadowEnding.color = new Color(0.38f, 0.78f, 0.96f);
+
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
             BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
