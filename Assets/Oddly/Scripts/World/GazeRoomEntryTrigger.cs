@@ -29,6 +29,7 @@ namespace Oddly
                     ? "DUVARLARA BAKMA.\nBAKIŞINI ÇEVİR VE GEÇ."
                     : "DO NOT LOOK AT THE WALLS.\nTURN AWAY TO PASS.";
             dialogue?.Say("hidden_gaze_room_entry");
+            CampaignDirector.Instance?.EnterChapter(6, "THE ROOM THAT EXISTS WHEN WATCHED", "BAKTIĞINDA VAR OLAN ODA", true);
         }
     }
 }
