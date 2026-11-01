@@ -494,6 +494,14 @@ namespace Oddly.Editor
             SetPrivate(sightlinePuzzle, "playerCamera", camera);
             SetPrivate(sightlinePuzzle, "linkedDoor", sightlineExitController);
             SetPrivate(sightlinePuzzle, "dialogue", director);
+            SetPrivate(chapterTwoEntryTrigger, "dialogue", director);
+            SetPrivate(chapterTwoEntryTrigger, "chapterSign", chapterTwoSign);
+            SetPrivate(chapterTwoExitController, "dialogue", director);
+            PerspectiveBridgePuzzle bridgePuzzle = player.AddComponent<PerspectiveBridgePuzzle>();
+            SetPrivate(bridgePuzzle, "bridge", bridgePerspectiveObject);
+            SetPrivate(bridgePuzzle, "landingTarget", bridgeTarget.transform);
+            SetPrivate(bridgePuzzle, "linkedDoor", chapterTwoExitController);
+            SetPrivate(bridgePuzzle, "dialogue", director);
             SetPrivate(sightlineExitController, "dialogue", director);
             SetPrivate(waitingRoomPuzzle, "dialogue", director);
             SetPrivate(perspectivePuzzle, "dialogue", director);
