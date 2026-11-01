@@ -14,6 +14,7 @@ namespace Oddly
 
         public bool IsHeld { get; private set; }
         public float CurrentUniformScale => transform.lossyScale.x;
+        public float LastPerspectiveScaleFactor { get; private set; } = 1f;
 
         private void Awake()
         {
@@ -21,9 +22,20 @@ namespace Oddly
             originalScale = transform.localScale;
         }
 
-        public void PickUp(Transform holdPoint)
+        public void PickUp(Transform holdPoint, Camera viewCamera)
         {
-            if (IsHeld) return;
+            if (IsHeld || holdPoint == null || viewCamera == null) return;
+
+            // Preserve the object's apparent size as it moves from the world
+            // into the fixed holding distance. This makes pickup distance a
+            // real puzzle variable instead of treating every grab identically.
+            float worldDistance = Vector3.Distance(viewCamera.transform.position, transform.position);
+            float holdDistance = Vector3.Distance(viewCamera.transform.position, holdPoint.position);
+            LastPerspectiveScaleFactor = worldDistance > 0.01f
+                ? Mathf.Clamp(holdDistance / worldDistance, 0.35f, 2.8f)
+                : 1f;
+            float heldScale = transform.lossyScale.x * LastPerspectiveScaleFactor;
+
             IsHeld = true;
             body.velocity = Vector3.zero;
             body.angularVelocity = Vector3.zero;
@@ -31,6 +43,7 @@ namespace Oddly
             transform.SetParent(holdPoint, true);
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
+            transform.localScale = Vector3.one * heldScale;
         }
 
         public void Drop()
