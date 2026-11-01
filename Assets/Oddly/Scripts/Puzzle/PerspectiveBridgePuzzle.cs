@@ -15,7 +15,6 @@ namespace Oddly
         [SerializeField, Min(0.1f)] private float placementRadius = 1.15f;
         [SerializeField, Min(0.1f)] private float minimumBridgeScale = 2.55f;
         [SerializeField, Min(0.1f)] private float maximumBridgeScale = 3.2f;
-        [SerializeField, Min(0.02f)] private float scaleTolerance = 0.28f;
         [SerializeField, Min(0.1f)] private float hintCooldown = 4f;
 
         private bool completed;
@@ -41,7 +40,7 @@ namespace Oddly
             if (!nearLanding || Time.time < nextHintTime) return;
             nextHintTime = Time.time + hintCooldown;
 
-            if (scale < minimumBridgeScale - scaleTolerance)
+            if (scale < minimumBridgeScale)
                 dialogue?.Say("bridge_grow");
             else if (scale > maximumBridgeScale)
                 dialogue?.Say("bridge_shrink");
