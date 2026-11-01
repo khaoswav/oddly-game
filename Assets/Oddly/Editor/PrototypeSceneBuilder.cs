@@ -235,6 +235,46 @@ namespace Oddly.Editor
                 director.SetLanguage(currentlyEnglish ? SystemLanguage.Turkish : SystemLanguage.English);
                 language.GetComponentInChildren<Text>().text = currentlyEnglish ? "DİL: TÜRKÇE" : "LANGUAGE: ENGLISH";
             });
+
+            GameObject optionsPanel = new GameObject("Options Panel");
+            optionsPanel.transform.SetParent(canvas.transform, false);
+            Image optionsBackground = optionsPanel.AddComponent<Image>();
+            optionsBackground.color = new Color(0.10f, 0.12f, 0.18f, 0.98f);
+            SetRect(optionsPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one);
+            optionsPanel.SetActive(false);
+
+            Text optionsTitle = MakeText(optionsPanel.transform, "Options Title", "OPTIONS / AYARLAR", 36, TextAnchor.MiddleCenter);
+            SetRect(optionsTitle.rectTransform, new Vector2(0.15f, 0.72f), new Vector2(0.85f, 0.84f));
+            Text sensitivityLabel = MakeText(optionsPanel.transform, "Sensitivity Label", "MOUSE SENSITIVITY / FARE HASSASİYETİ", 18, TextAnchor.MiddleCenter);
+            SetRect(sensitivityLabel.rectTransform, new Vector2(0.18f, 0.57f), new Vector2(0.82f, 0.66f));
+            Text sensitivityValue = MakeText(optionsPanel.transform, "Sensitivity Value", "2.0", 22, TextAnchor.MiddleCenter);
+            SetRect(sensitivityValue.rectTransform, new Vector2(0.43f, 0.47f), new Vector2(0.57f, 0.56f));
+            Text fovLabel = MakeText(optionsPanel.transform, "FOV Label", "FIELD OF VIEW / GÖRÜŞ AÇISI", 18, TextAnchor.MiddleCenter);
+            SetRect(fovLabel.rectTransform, new Vector2(0.18f, 0.34f), new Vector2(0.82f, 0.43f));
+            Text fovValue = MakeText(optionsPanel.transform, "FOV Value", "78", 22, TextAnchor.MiddleCenter);
+            SetRect(fovValue.rectTransform, new Vector2(0.43f, 0.24f), new Vector2(0.57f, 0.33f));
+
+            OptionsMenuController optionsController = canvas.gameObject.AddComponent<OptionsMenuController>();
+            SetPrivate(optionsController, "titlePanel", menu);
+            SetPrivate(optionsController, "optionsPanel", optionsPanel);
+            SetPrivate(optionsController, "movement", movement);
+            SetPrivate(optionsController, "playerCamera", camera);
+            SetPrivate(optionsController, "sensitivityValue", sensitivityValue);
+            SetPrivate(optionsController, "fieldOfViewValue", fovValue);
+
+            Button sensitivityDown = MakeButton(optionsPanel.transform, "−", new Vector2(0.28f, 0.47f), new Vector2(0.39f, 0.56f));
+            sensitivityDown.onClick.AddListener(() => optionsController.AdjustSensitivity(-0.2f));
+            Button sensitivityUp = MakeButton(optionsPanel.transform, "+", new Vector2(0.61f, 0.47f), new Vector2(0.72f, 0.56f));
+            sensitivityUp.onClick.AddListener(() => optionsController.AdjustSensitivity(0.2f));
+            Button fovDown = MakeButton(optionsPanel.transform, "−", new Vector2(0.28f, 0.24f), new Vector2(0.39f, 0.33f));
+            fovDown.onClick.AddListener(() => optionsController.AdjustFieldOfView(-2f));
+            Button fovUp = MakeButton(optionsPanel.transform, "+", new Vector2(0.61f, 0.24f), new Vector2(0.72f, 0.33f));
+            fovUp.onClick.AddListener(() => optionsController.AdjustFieldOfView(2f));
+            Button back = MakeButton(optionsPanel.transform, "BACK / GERİ", new Vector2(0.35f, 0.08f), new Vector2(0.65f, 0.17f));
+            back.onClick.AddListener(optionsController.Close);
+
+            Button options = MakeButton(menu.transform, "OPTIONS / AYARLAR", new Vector2(0.35f, 0.10f), new Vector2(0.65f, 0.19f));
+            options.onClick.AddListener(optionsController.Open);
         }
 
         private static Transform BuildImpossiblePortal(string portalName, Vector3 position,
