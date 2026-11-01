@@ -39,6 +39,7 @@
 - [x] Add an ending-specific campaign completion card and campaign-progress reset API.
 - [x] Add a one-shot corridor set-piece where a lying exit sign changes its story, props animate into impossible positions and lighting shifts around the player.
 - [x] Smooth door openings and animate Chapter 8 loop prop/light rearrangements instead of snapping the environment instantly.
+- [x] Add a Chapter 8-to-9 encore corridor with a localized sign, rising/spinning props and reactive lighting.
 - [ ] Build more distinct room-to-room transitions and surprising set-piece events so progression feels like a continuous surreal comedy adventure, not a row of repeated puzzle rooms.
 
 ## Milestone 2 — Visual identity
