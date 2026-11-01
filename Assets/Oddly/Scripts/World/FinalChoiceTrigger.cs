@@ -8,15 +8,12 @@ namespace Oddly
         [SerializeField] private FinalDecisionPuzzle puzzle;
         [SerializeField, Range(0, 2)] private int endingIndex;
 
-        private void Reset()
-        {
-            GetComponent<BoxCollider>().isTrigger = true;
-        }
+        private void Reset() { GetComponent<BoxCollider>().isTrigger = true; }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerStay(Collider other)
         {
             if (other.GetComponent<CharacterController>() == null) return;
-            puzzle?.ChooseEnding(endingIndex);
+            if (Input.GetKeyDown(KeyCode.E)) puzzle?.ChooseEnding(endingIndex);
         }
     }
 }
