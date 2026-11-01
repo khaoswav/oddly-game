@@ -37,6 +37,7 @@ The first vertical slice is intentionally small and playable:
 - Chapter 11's Patch Notes turns updates into physical world changes. Apply three patches in the right release order or trigger a rollback that resets the room.
 - Chapter 12's Last Save lets you restore one of three archived room states. Two snapshots are corrupted; restoring the last stable save changes the room back and opens the real exit.
 - Chapter 13's Control Room makes the player settle a power struggle between the Narrator and SYSTEM-02 by routing three live channels into a stable ownership pattern.
+- Hidden Chapter 02, The Room That Holds Its Breath, continues beyond the first hidden room. Stop moving on three sequential pads and remain still for 1.8 seconds on each; movement resets the current pause.
 - Hidden Chapter 01, The Room That Forgot You, branches off the finale chamber. Find three lost fragments to open a concealed side gate, then face away and walk backwards across three marks to unlock the hidden exit.
 - Chapter 14's Final Decision closes the main arc with three physical choices: trust the Narrator, trust SYSTEM-02, or reject both. Each choice changes the final chamber, plays its own bilingual ending dialogue, unlocks the exit and saves the selected ending locally.
 - Chapter 2 and Chapter 3 have separate checkpoints, localized entry beats and fall recovery.
