@@ -2877,6 +2877,23 @@ namespace Oddly.Editor
             Text subtitle = MakeText(canvas.transform, "Subtitle", "Welcome. This test is easy.", 21, TextAnchor.UpperLeft);
             SetRect(subtitle.rectTransform, new Vector2(0.06f, 0.06f), new Vector2(0.94f, 0.17f));
 
+            GameObject subtitleBackplate = new GameObject("Subtitle Contrast Backplate",
+                typeof(RectTransform), typeof(Image));
+            subtitleBackplate.transform.SetParent(canvas.transform, false);
+            SetRect(subtitleBackplate.GetComponent<RectTransform>(),
+                new Vector2(0.035f, 0.045f), new Vector2(0.965f, 0.235f));
+            Image subtitleBackplateImage = subtitleBackplate.GetComponent<Image>();
+            subtitleBackplateImage.color = new Color(0.025f, 0.035f, 0.06f, 0.78f);
+            subtitleBackplateImage.raycastTarget = false;
+            subtitleBackplate.transform.SetSiblingIndex(speaker.transform.GetSiblingIndex());
+
+            Shadow speakerShadow = speaker.gameObject.AddComponent<Shadow>();
+            speakerShadow.effectColor = new Color(0f, 0f, 0f, 0.9f);
+            speakerShadow.effectDistance = new Vector2(1.5f, -1.5f);
+            Shadow subtitleShadow = subtitle.gameObject.AddComponent<Shadow>();
+            subtitleShadow.effectColor = new Color(0f, 0f, 0f, 0.9f);
+            subtitleShadow.effectDistance = new Vector2(1.5f, -1.5f);
+
             GameObject campaignCardObject = new GameObject("Campaign Chapter Card", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
             campaignCardObject.transform.SetParent(canvas.transform, false);
             SetRect(campaignCardObject.GetComponent<RectTransform>(), Vector2.zero, Vector2.one);
