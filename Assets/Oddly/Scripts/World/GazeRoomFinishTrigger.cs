@@ -21,6 +21,7 @@ namespace Oddly
                     ? "GÖRÜNMEYEN DUVARLAR GEÇİLDİ\nÇIKIŞ AÇIK"
                     : "UNSEEN WALLS CROSSED\nEXIT OPEN";
             dialogue?.Say("hidden_gaze_room_complete");
+            HiddenChapterArchive.MarkCompleted(6);
             exitDoor?.Unlock();
         }
     }
