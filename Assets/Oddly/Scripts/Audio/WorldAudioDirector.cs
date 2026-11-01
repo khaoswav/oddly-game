@@ -4,8 +4,9 @@ using UnityEngine;
 namespace Oddly
 {
     /// <summary>
-    /// Central routing for original/licensed music, ambience and one-shot effects.
-    /// Clip assets are intentionally supplied by the audio production pass.
+    /// Central routing for music, ambience and one-shot effects.
+    /// The prototype supplies a quiet synthesized ambience and original
+    /// placeholder cues until the final music and sound assets are produced.
     /// </summary>
     public sealed class WorldAudioDirector : MonoBehaviour
     {
@@ -19,6 +20,10 @@ namespace Oddly
         [SerializeField, Range(0f, 1f)] private float effectsVolume = 0.9f;
         [SerializeField, Min(0.05f)] private float crossfadeDuration = 1.4f;
 
+        private AudioClip generatedAmbient;
+        private AudioClip doorCue;
+        private AudioClip revealCue;
+        private AudioClip surpriseCue;
         private Coroutine musicTransition;
 
         private void Awake()
@@ -34,7 +39,17 @@ namespace Oddly
             musicVolume = PlayerPrefs.GetFloat("oddly.audio.music", musicVolume);
             ambienceVolume = PlayerPrefs.GetFloat("oddly.audio.ambience", ambienceVolume);
             effectsVolume = PlayerPrefs.GetFloat("oddly.audio.effects", effectsVolume);
+            generatedAmbient = ProceduralAudioPalette.CreateAmbientBed();
+            doorCue = ProceduralAudioPalette.CreateDoorCue();
+            revealCue = ProceduralAudioPalette.CreateRevealCue();
+            surpriseCue = ProceduralAudioPalette.CreateSurpriseCue();
             ApplyVolumes();
+
+            if (ambienceSource.clip == null)
+                ambienceSource.clip = generatedAmbient;
+            ambienceSource.loop = true;
+            if (!ambienceSource.isPlaying)
+                ambienceSource.Play();
         }
 
         private void CreateSourcesIfNeeded()
@@ -78,7 +93,12 @@ namespace Oddly
             if (effectsSource == null || clip == null) return;
             effectsSource.pitch = Mathf.Clamp(pitch, 0.5f, 2f);
             effectsSource.PlayOneShot(clip, effectsVolume);
+            effectsSource.pitch = 1f;
         }
+
+        public void PlayDoorCue() { PlayEffect(doorCue); }
+        public void PlayRevealCue() { PlayEffect(revealCue, 1.04f); }
+        public void PlaySurpriseCue() { PlayEffect(surpriseCue, 0.92f); }
 
         public void SetMusicVolume(float value) { musicVolume = Mathf.Clamp01(value); ApplyVolumes(); SaveVolumes(); }
         public void SetAmbienceVolume(float value) { ambienceVolume = Mathf.Clamp01(value); ApplyVolumes(); SaveVolumes(); }
@@ -149,6 +169,10 @@ namespace Oddly
         private void OnDestroy()
         {
             if (Instance == this) Instance = null;
+            if (generatedAmbient != null) Destroy(generatedAmbient);
+            if (doorCue != null) Destroy(doorCue);
+            if (revealCue != null) Destroy(revealCue);
+            if (surpriseCue != null) Destroy(surpriseCue);
         }
     }
 }
