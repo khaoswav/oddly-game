@@ -25,6 +25,7 @@ namespace Oddly
                     ? "GİZLİ 05 / KONTROLLERİ ÖDÜNÇ ALAN ODA"
                     : "HIDDEN 05 / THE ROOM THAT BORROWS YOUR HANDS";
             puzzle?.Enter(controller);
+            CampaignDirector.Instance?.EnterChapter(5, "THE ROOM THAT BORROWS YOUR HANDS", "KONTROLLERİ ÖDÜNÇ ALAN ODA", true);
         }
     }
 }
