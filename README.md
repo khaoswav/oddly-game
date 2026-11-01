@@ -28,6 +28,7 @@ The first vertical slice is intentionally small and playable:
 - Chapter 2 opens with a real gap between platforms. Enlarge a proportion-preserving plank through depth, place it across the gap and let its physics settle before the exit unlocks.
 - Chapter 3's Wrong Dimension chamber blocks the player with a wall but lets a correctly resized object pass through a narrow slot to a landing platform on the other side.
 - Chapter 4's System Error chamber turns the Narrator and SYSTEM-02's argument into a playable sequence puzzle: their instructions conflict, and the player must identify the reliable recorded order to unlock the exit.
+- Chapter 5's Don't Trust Your Eyes chamber turns the obvious route into a trick: stand on the floor marker, look away from the exit, and wait for the hidden unlock.
 - Chapter 2 and Chapter 3 have separate checkpoints, localized entry beats and fall recovery.
 - The full campaign target is approximately 2 hours for the main story and approximately 3 hours including 5–8 hidden chapters/rooms.
 - The dual-scale relay only accepts objects once they have physically settled on their pads.
@@ -49,6 +50,7 @@ The prototype scene is generated automatically by the Unity Editor bootstrap whe
 - Chapter 2: a physical platform gap that must be crossed with a depth-resized plank.
 - Chapter 3 opening: transfer a resized object through a player-blocking wall slot and land it beyond the barrier.
 - Chapter 4 opening: resolve a three-step switch sequence while the two characters give conflicting instructions.
+- Chapter 5 opening: stand on the marked spot and turn away from the exit to reveal the route.
 - All current chapter text and puzzle hints are authored in Turkish and English.
 
 ## Controls
