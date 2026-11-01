@@ -86,6 +86,10 @@
 - [x] Add a replay action that restarts the main story while preserving the saved ending and completed hidden-room archive; keep full archive deletion behind the explicit campaign reset API.
 - [x] Chapter 14.2: add a concealed post-choice archive branch requiring a saved ending and at least three completed hidden rooms.
 - [x] Build a discoverable memory chamber with eight visual archive pillars that react to persistent hidden-room completion records.
+- [x] Chapter 14.3: add eight interactable post-finale echoes, one for each hidden chapter, with dialogue selected by the remembered ending.
+- [x] Persist discovered echo records across replay while keeping them separate from hidden-room completion records.
+- [x] Add The Last Echo reward, unlocked only after all eight hidden rooms are complete and all eight echoes have been heard.
+- [x] Keep the full campaign reset as the explicit action that clears archive access, echo discoveries and the reward claim.
 - [x] Carry the previous ending and hidden-room archive into replay callbacks; keep the secret chamber available from preserved history.
 - [x] Build Hidden Chapter 07, The Room That Steals Your Shadow, with a mirrored shadow actor, three alternating light-pool targets, dynamic status, reactive lighting and bilingual dialogue.
 - [x] Build Hidden Chapter 08, The Room That Remembers You, with a persistent completion archive, saved-finale recall puzzle, three interactive memory panels and bilingual feedback.
