@@ -54,7 +54,9 @@ Explore → notice an inconsistency → manipulate an object or viewpoint → te
 - Chapter 13, The Control Room, asks the player to route three rival channels into the stable SYSTEM-02 / Narrator / SYSTEM-02 configuration. Each channel cycles through Narrator, SYSTEM-02 and Offline; the live status board, reactive lighting and dialogue respond to every change.
 - Behavior tracking for local, contextual banter.
 
-- Chapter 14, The Final Decision, closes the main story with a three-way physical choice: trust the Narrator, trust SYSTEM-02, or reject both. The selected ending changes the chamber lighting and relics, unlocks the final exit, and is stored locally as the player's ending record. Each branch has distinct Turkish and English dialogue.\n\n## Campaign structure and playtime
+- Chapter 14, The Final Decision, closes the main story with a three-way physical choice: trust the Narrator, trust SYSTEM-02, or reject both. The selected ending changes the chamber lighting and relics, unlocks the final exit, and is stored locally as the player's ending record. Each branch has distinct Turkish and English dialogue.
+
+## Campaign structure and playtime
 The main story target is approximately **2 hours**, with **about 1 additional hour** for hidden chapters, for roughly **3 hours** to see the full planned experience. These are design targets, not padding requirements. Rooms should stay surprising and mechanically distinct; the game should not stretch its runtime with empty corridors or repeated versions of the same puzzle.
 
 The campaign is planned as **12–14 connected story sequences**, rather than a rigid set of identical-sized levels. The current story arc is:
