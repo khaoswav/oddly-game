@@ -1193,7 +1193,7 @@ namespace Oddly.Editor
             TextMesh controlClue = new GameObject("Control routing clue").AddComponent<TextMesh>();
             controlClue.transform.position = new Vector3(0, 3.15f, 454f);
             controlClue.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-            controlClue.text = "STABLE ROUTE: SYSTEM / NARRATOR / SYSTEM";
+            controlClue.text = "STABLE ROUTE: SYSTEM / NARRATOR / SYSTEM\nKARARLI HAT: SYSTEM / ANLATICI / SYSTEM";
             controlClue.fontSize = 28;
             controlClue.characterSize = 0.043f;
             controlClue.anchor = TextAnchor.MiddleCenter;
@@ -1306,9 +1306,9 @@ namespace Oddly.Editor
             Transform[] endingRelics = new Transform[3];
             float[] endingXs = { -3f, 0f, 3f };
             string[] endingLabels = {
-                "TRUST THE NARRATOR\nANLATICIYA GÜVEN",
-                "TRUST SYSTEM-02\nSYSTEM-02'YE GÜVEN",
-                "TRUST NO ONE\nKİMSEYE GÜVENME"
+                "TRUST THE NARRATOR / PRESS E\nANLATICIYA GÜVEN / E'YE BAS",
+                "TRUST SYSTEM-02 / PRESS E\nSYSTEM-02'YE GÜVEN / E'YE BAS",
+                "TRUST NO ONE / PRESS E\nKİMSEYE GÜVENME / E'YE BAS"
             };
             for (int i = 0; i < 3; i++)
             {
