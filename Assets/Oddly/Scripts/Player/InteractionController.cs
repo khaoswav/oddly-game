@@ -40,19 +40,27 @@ namespace Oddly
                 if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward,
                     out RaycastHit hit, reach, interactionMask))
                 {
-                    PerspectiveObject target = hit.collider.GetComponentInParent<PerspectiveObject>();
-                    if (target != null)
+                    MetaPuzzleNode metaNode = hit.collider.GetComponentInParent<MetaPuzzleNode>();
+                    if (metaNode != null)
                     {
-                        heldObject = target;
-                        heldObject.PickUp(holdPoint);
-                        behavior?.RegisterPickup();
-                        dialogue?.Say("picked_up");
+                        metaNode.Interact();
                     }
                     else
                     {
-                        DoorController door = hit.collider.GetComponentInParent<DoorController>();
-                        if (door != null) door.TryOpen();
-                        else behavior?.RegisterFailedInteraction();
+                        PerspectiveObject target = hit.collider.GetComponentInParent<PerspectiveObject>();
+                        if (target != null)
+                        {
+                            heldObject = target;
+                            heldObject.PickUp(holdPoint);
+                            behavior?.RegisterPickup();
+                            dialogue?.Say("picked_up");
+                        }
+                        else
+                        {
+                            DoorController door = hit.collider.GetComponentInParent<DoorController>();
+                            if (door != null) door.TryOpen();
+                            else behavior?.RegisterFailedInteraction();
+                        }
                     }
                 }
                 else
@@ -69,6 +77,8 @@ namespace Oddly
             if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward,
                 out RaycastHit hit, reach, interactionMask))
             {
+                MetaPuzzleNode metaNode = hit.collider.GetComponentInParent<MetaPuzzleNode>();
+                if (metaNode != null) return metaNode.GetPrompt();
                 if (hit.collider.GetComponentInParent<PerspectiveObject>() != null) return "E  PICK UP";
                 if (hit.collider.GetComponentInParent<DoorController>() != null) return "E  TRY THE DOOR";
             }
