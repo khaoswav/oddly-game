@@ -56,9 +56,9 @@
 - [x] Build Chapter 11 The Patch Notes, with three physical update consoles, non-chronological patch order, world-state changes, rollback on conflicts and bilingual version status.
 - [x] Build Chapter 12 The Last Save, with three restorable snapshots, corrupted-state prop and lighting changes, a discoverable stable-save clue and a bilingual exit unlock.
 - [x] Build Chapter 13 The Control Room, with three cyclic ownership consoles, live channel routing, reactive props and lighting, bilingual character conflict and a stable configuration exit unlock.
-- [ ] Build 12–14 connected story sequences targeting approximately 2 hours of main-story playtime.
+- [x] Build the 14th main-story sequence and three-way final decision chamber.\n- [ ] Complete pacing and content needed for approximately 2 hours of main-story playtime.
 - [ ] Build 5–8 hidden chapters/rooms targeting approximately 1 additional hour.
-- [ ] Add at least three ending variations, alternate solutions and narrative callbacks.
+- [x] Add three distinct ending variations with localized dialogue, reactive finale visuals and a locally saved ending choice.\n- [ ] Add alternate solutions and broader narrative callbacks.
 - [ ] Add optional replay challenges and achievements.
 - [ ] Add persistent campaign saves and chapter checkpoints.
 
