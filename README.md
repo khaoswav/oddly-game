@@ -30,6 +30,7 @@ The first vertical slice is intentionally small and playable:
 - Chapter 4's System Error chamber turns the Narrator and SYSTEM-02's argument into a playable sequence puzzle: their instructions conflict, and the player must identify the reliable recorded order to unlock the exit.
 - Chapter 5's Don't Trust Your Eyes chamber turns the obvious route into a trick: stand on the floor marker, look away from the exit, and wait for the hidden unlock.
 - Chapter 6's You Again? chamber remembers the player's run. It counts drops, failed interactions and idle episodes, then asks the player to identify their most common habit.
+- Chapter 7's Room That Laughs reacts to drops and failed interactions: props shift, a wall panel slides, the light pulses, and five reactions open the exit.
 - Chapter 2 and Chapter 3 have separate checkpoints, localized entry beats and fall recovery.
 - The full campaign target is approximately 2 hours for the main story and approximately 3 hours including 5–8 hidden chapters/rooms.
 - The dual-scale relay only accepts objects once they have physically settled on their pads.
