@@ -11,6 +11,8 @@ namespace Oddly
     {
         [SerializeField] private Transform viewpoint;
         [SerializeField] private Transform sightlineTarget;
+        [SerializeField] private Transform nearFragment;
+        [SerializeField] private Transform farFragment;
         [SerializeField] private Camera playerCamera;
         [SerializeField] private DoorController linkedDoor;
         [SerializeField, Min(0.1f)] private float viewpointRadius = 0.85f;
@@ -23,7 +25,7 @@ namespace Oddly
 
         private void Update()
         {
-            if (completed || viewpoint == null || sightlineTarget == null || playerCamera == null)
+            if (completed || viewpoint == null || sightlineTarget == null || nearFragment == null || farFragment == null || playerCamera == null)
                 return;
 
             Vector3 playerPosition = playerCamera.transform.position;
@@ -39,7 +41,13 @@ namespace Oddly
 
             Vector3 toTarget = sightlineTarget.position - playerCamera.transform.position;
             float angle = Vector3.Angle(playerCamera.transform.forward, toTarget);
-            if (angle > aimTolerance)
+            Vector3 nearViewport = playerCamera.WorldToViewportPoint(nearFragment.position);
+            Vector3 farViewport = playerCamera.WorldToViewportPoint(farFragment.position);
+            float fragmentError = Vector2.Distance(
+                new Vector2(nearViewport.x, nearViewport.y),
+                new Vector2(farViewport.x, farViewport.y));
+            if (nearViewport.z <= 0f || farViewport.z <= 0f ||
+                angle > aimTolerance || fragmentError > 0.025f)
             {
                 alignedSince = -1f;
                 return;
