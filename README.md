@@ -12,7 +12,7 @@ ODDLY is an original first-person puzzle-comedy game for macOS and Windows. It c
 
 The first vertical slice is intentionally small and playable:
 - First-person movement and mouse look.
-- Pick up, resize and place perspective objects; pickup distance changes their world scale while preserving apparent size in hand.
+- Pick up and move perspective objects through depth; their world scale changes with camera distance while apparent size stays approximately constant in hand. Drop them to keep their new scale for spatial puzzles.
 - Scale-sensitive object placement with bilingual size feedback.
 - A camera-projected perspective frame puzzle.
 - Paired impossible doorways that loop through the same room and react with changing signs.
@@ -39,7 +39,7 @@ The prototype scene is generated automatically by the Unity Editor bootstrap whe
 | WASD | Move |
 | Mouse | Look |
 | E | Pick up / interact |
-| Mouse wheel | Resize held object |
+| Mouse wheel | Move held object closer / farther; world scale changes with perspective |
 | Left click | Drop held object |
 | Escape | Release cursor / pause gameplay input |
 | Left click (cursor released) | Resume and capture mouse |
