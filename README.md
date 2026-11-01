@@ -36,6 +36,12 @@ The prototype scene is generated automatically by the Unity Editor bootstrap whe
 4. Wait for scripts to compile. The editor bootstrap creates `Assets/Scenes/Prototype.unity`.
 5. Open the Prototype scene and press Play.
 
+## Current playable progression
+
+- Chapter 1 prototype route: opening test room, false exit corridor, waiting-room perspective frame, dual-scale relay and forced-perspective sightline chamber.
+- Chapter 2 opening: a physical platform gap that must be crossed with a depth-resized plank. The far exit leads into a small reveal bay for the next spatial test.
+- All current chapter text and puzzle hints are authored in Turkish and English.
+
 ## Controls
 | Input | Action |
 |---|---|
