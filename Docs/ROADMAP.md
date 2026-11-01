@@ -36,7 +36,9 @@
 - [x] Persist current/furthest campaign chapter, hidden-room visits and the selected ending.
 - [x] Persist chapter-entry checkpoints and restore the latest safe location on relaunch.
 - [x] Add an ending-specific campaign completion card and campaign-progress reset API.
-- [ ] Build distinct room-to-room transitions and surprising set-piece events so progression feels like a continuous surreal comedy adventure, not a row of repeated puzzle rooms.
+- [x] Add a one-shot corridor set-piece where a lying exit sign changes its story, props animate into impossible positions and lighting shifts around the player.
+- [x] Smooth door openings and animate Chapter 8 loop prop/light rearrangements instead of snapping the environment instantly.
+- [ ] Build more distinct room-to-room transitions and surprising set-piece events so progression feels like a continuous surreal comedy adventure, not a row of repeated puzzle rooms.
 
 ## Milestone 2 — Visual identity
 - [ ] Establish URP lighting and post-processing.
