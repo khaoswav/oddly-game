@@ -10,6 +10,23 @@ ODDLY is an original first-person puzzle-comedy game for macOS and Windows. It c
 **Campaign scope:** 12–14 connected story sequences plus 5–8 hidden chapters/rooms.
 **Current milestone:** First playable greybox prototype.
 
+## Current integrated finale
+
+The generated prototype now includes the three original endings, the persistent post-choice archive, eight hidden-room memory echoes, The Last Echo reward, the ninth-record convergence chamber, The Unwritten Ending and its separate closing epilogue, The Last Page. Ending history and replay count persist across normal replay and are cleared only by the explicit full campaign reset.
+
+The final memory chamber responds to the player's recorded endings and replay history. Its three original ending relics remain visually connected during the finale, and the ninth chamber provides the alternate ending coda.
+
+## Unity validation and standalone builds
+
+Open the project in Unity 6.3 and wait for script compilation to finish. The editor-generated scene is Assets/Scenes/Prototype.unity.
+
+Use the Unity menu:
+- Oddly/Release/Validate Generated Prototype to rebuild the greybox scene and check required player, dialogue, ending, archive and echo wiring.
+- Oddly/Release/Build macOS to create Builds/macOS/ODDLY.app.
+- Oddly/Release/Build Windows to create Builds/Windows/ODDLY.exe.
+
+The macOS and Windows build commands require the corresponding Unity Build Support modules. These commands have been added to the project; actual Editor validation, Play Mode testing and platform builds still need to be run on a machine with Unity installed.
+
 ## First playable prototype
 
 The first vertical slice is intentionally small and playable:
