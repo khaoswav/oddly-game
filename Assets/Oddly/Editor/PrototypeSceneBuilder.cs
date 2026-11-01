@@ -635,6 +635,75 @@ namespace Oddly.Editor
             SetPrivate(waitChoiceNode, "action", MetaPuzzleAction.ChooseHabitWait);
             SetPrivate(waitChoiceNode, "behaviorMemoryPuzzle", behaviorMemoryPuzzle);
 
+            // Chapter 7: the room reacts to the player's own repeated actions.
+            CreatePrimitive("Chapter 7 laughing room floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 243), new Vector3(10, 0.5f, 24), floorMat);
+            CreatePrimitive("Chapter 7 left wall", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 243), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 7 right wall", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 243), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 7 far wall left", PrimitiveType.Cube,
+                new Vector3(-4.15f, 2.5f, 255), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 7 far wall right", PrimitiveType.Cube,
+                new Vector3(4.15f, 2.5f, 255), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 7 far wall header", PrimitiveType.Cube,
+                new Vector3(0, 4.55f, 255), new Vector3(6.6f, 0.9f, 0.5f), wallMat);
+            GameObject chapterSevenExit = CreatePrimitive("Chapter 7 laughing exit",
+                PrimitiveType.Cube, new Vector3(0, 2, 254.7f), new Vector3(2.8f, 4, 0.35f), doorMat);
+            DoorController chapterSevenExitController = chapterSevenExit.AddComponent<DoorController>();
+
+            GameObject chapterSevenEntry = new GameObject("Chapter 7 entry trigger");
+            chapterSevenEntry.transform.position = new Vector3(0, 1.2f, 221.5f);
+            BoxCollider chapterSevenEntryCollider = chapterSevenEntry.AddComponent<BoxCollider>();
+            chapterSevenEntryCollider.isTrigger = true;
+            chapterSevenEntryCollider.size = new Vector3(8.5f, 2.4f, 1.2f);
+            ChapterEntryTrigger chapterSevenEntryTrigger = chapterSevenEntry.AddComponent<ChapterEntryTrigger>();
+            GameObject chapterSevenCheckpoint = new GameObject("Chapter 7 checkpoint");
+            chapterSevenCheckpoint.transform.position = new Vector3(0f, 0.15f, 223.5f);
+
+            TextMesh chapterSevenSign = new GameObject("Chapter 7 title sign").AddComponent<TextMesh>();
+            chapterSevenSign.transform.position = new Vector3(0, 3.65f, 225f);
+            chapterSevenSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            chapterSevenSign.text = "CHAPTER 07 / THE ROOM THAT LAUGHS";
+            chapterSevenSign.fontSize = 36;
+            chapterSevenSign.characterSize = 0.05f;
+            chapterSevenSign.anchor = TextAnchor.MiddleCenter;
+            chapterSevenSign.alignment = TextAlignment.Center;
+            chapterSevenSign.color = new Color(0.22f, 0.25f, 0.32f);
+
+            TextMesh laughingInstruction = new GameObject("Laughing room instruction").AddComponent<TextMesh>();
+            laughingInstruction.transform.position = new Vector3(0, 2.8f, 228f);
+            laughingInstruction.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            laughingInstruction.text = "GO ON. MAKE A MISTAKE. / HAYDİ. BİR HATA YAP.";
+            laughingInstruction.fontSize = 32;
+            laughingInstruction.characterSize = 0.05f;
+            laughingInstruction.anchor = TextAnchor.MiddleCenter;
+            laughingInstruction.alignment = TextAlignment.Center;
+            laughingInstruction.color = new Color(0.82f, 0.28f, 0.42f);
+
+            GameObject prankOne = CreatePrimitive("Laughing prop one", PrimitiveType.Cube,
+                new Vector3(-2.5f, 0.8f, 239f), Vector3.one * 1.2f, accentMat);
+            GameObject prankTwo = CreatePrimitive("Laughing prop two", PrimitiveType.Sphere,
+                new Vector3(0f, 0.8f, 239f), Vector3.one * 1.2f, cubeMat);
+            GameObject prankThree = CreatePrimitive("Laughing prop three", PrimitiveType.Capsule,
+                new Vector3(2.5f, 0.8f, 239f), Vector3.one * 1.2f, doorMat);
+            GameObject movingPrankWall = CreatePrimitive("Laughing room shifting panel",
+                PrimitiveType.Cube, new Vector3(-4.4f, 2.1f, 243f), new Vector3(0.18f, 4.2f, 7f), accentMat);
+
+            GameObject laughLightObject = new GameObject("Laughing room reactive light");
+            laughLightObject.transform.position = new Vector3(0, 4.2f, 241f);
+            Light laughLight = laughLightObject.AddComponent<Light>();
+            laughLight.type = LightType.Point;
+            laughLight.range = 15f;
+            laughLight.intensity = 1.1f;
+
+            GameObject laughingRoomTrigger = new GameObject("Laughing room behavior trigger");
+            laughingRoomTrigger.transform.position = new Vector3(0, 2f, 243f);
+            BoxCollider laughingRoomCollider = laughingRoomTrigger.AddComponent<BoxCollider>();
+            laughingRoomCollider.isTrigger = true;
+            laughingRoomCollider.size = new Vector3(9f, 4f, 22f);
+            LaughingRoomDirector laughingRoomDirector = laughingRoomTrigger.AddComponent<LaughingRoomDirector>();
+
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
             BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
@@ -843,6 +912,19 @@ namespace Oddly.Editor
             SetPrivate(behaviorMemoryPuzzle, "retryCountLabel", retryLabel);
             SetPrivate(behaviorMemoryPuzzle, "waitCountLabel", waitLabel);
             SetPrivate(chapterSixExitController, "dialogue", director);
+            SetPrivate(chapterSevenEntryTrigger, "dialogue", director);
+            SetPrivate(chapterSevenEntryTrigger, "chapterSign", chapterSevenSign);
+            SetPrivate(chapterSevenEntryTrigger, "dialogueId", "chapter_seven_entry");
+            SetPrivate(chapterSevenEntryTrigger, "englishSign", "CHAPTER 07  /  THE ROOM THAT LAUGHS");
+            SetPrivate(chapterSevenEntryTrigger, "turkishSign", "BÖLÜM 07  /  GÜLEN ODA");
+            SetPrivate(chapterSevenEntryTrigger, "fallRecovery", fallRecovery);
+            SetPrivate(chapterSevenEntryTrigger, "checkpoint", chapterSevenCheckpoint.transform);
+            SetPrivate(laughingRoomDirector, "behavior", tracker);
+            SetPrivate(laughingRoomDirector, "dialogue", director);
+            SetPrivate(laughingRoomDirector, "prankObjects", new Transform[] { prankOne.transform, prankTwo.transform, prankThree.transform });
+            SetPrivate(laughingRoomDirector, "roomLight", laughLight);
+            SetPrivate(laughingRoomDirector, "movingWall", movingPrankWall.transform);
+            SetPrivate(chapterSevenExitController, "dialogue", director);
             PerspectiveBridgePuzzle bridgePuzzle = player.AddComponent<PerspectiveBridgePuzzle>();
             SetPrivate(bridgePuzzle, "bridge", bridgePerspectiveObject);
             SetPrivate(bridgePuzzle, "landingTarget", bridgeTarget.transform);
