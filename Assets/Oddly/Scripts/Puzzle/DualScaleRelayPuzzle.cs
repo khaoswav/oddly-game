@@ -56,7 +56,7 @@ namespace Oddly
 
         private bool IsCorrectlyPlaced(PerspectiveObject item, Transform target, float requiredScale)
         {
-            if (item == null || item.IsHeld || !IsNearTarget(item, target)) return false;
+            if (item == null || item.IsHeld || !item.IsSettled || !IsNearTarget(item, target)) return false;
             return Mathf.Abs(item.CurrentUniformScale - requiredScale) <= scaleTolerance;
         }
 
