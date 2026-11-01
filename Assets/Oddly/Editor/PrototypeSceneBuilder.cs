@@ -342,8 +342,75 @@ namespace Oddly.Editor
                 new Vector3(-5, 2.5f, 115), new Vector3(0.25f, 5, 12), wallMat);
             CreatePrimitive("Chapter 2 reveal bay right", PrimitiveType.Cube,
                 new Vector3(5, 2.5f, 115), new Vector3(0.25f, 5, 12), wallMat);
-            CreatePrimitive("Chapter 2 reveal bay end wall", PrimitiveType.Cube,
-                new Vector3(0, 2.5f, 121), new Vector3(10, 5, 0.5f), wallMat);
+            // Chapter 3: the player cannot fit through the wall's narrow slot,
+            // but a correctly resized object can. This changes the puzzle verb
+            // from crossing a gap to sending an object into another dimension.
+            CreatePrimitive("Chapter 2 reveal bay end wall left", PrimitiveType.Cube,
+                new Vector3(-4.15f, 2.5f, 121), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 2 reveal bay end wall right", PrimitiveType.Cube,
+                new Vector3(4.15f, 2.5f, 121), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 2 reveal bay end wall header", PrimitiveType.Cube,
+                new Vector3(0, 4.45f, 121), new Vector3(6.6f, 1.1f, 0.5f), wallMat);
+
+            CreatePrimitive("Chapter 3 dimension chamber floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 133), new Vector3(10, 0.5f, 24), floorMat);
+            CreatePrimitive("Chapter 3 left wall", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 133), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 3 right wall", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 133), new Vector3(0.25f, 5, 24), wallMat);
+            // Slot opening: 1.3m wide and 0.9m high, too small for the player.
+            CreatePrimitive("Dimension wall left", PrimitiveType.Cube,
+                new Vector3(-2.825f, 2.5f, 132.5f), new Vector3(4.35f, 5, 0.5f), wallMat);
+            CreatePrimitive("Dimension wall right", PrimitiveType.Cube,
+                new Vector3(2.825f, 2.5f, 132.5f), new Vector3(4.35f, 5, 0.5f), wallMat);
+            CreatePrimitive("Dimension slot lower sill", PrimitiveType.Cube,
+                new Vector3(0, 0.35f, 132.5f), new Vector3(1.3f, 0.7f, 0.5f), accentMat);
+            CreatePrimitive("Dimension slot upper lintel", PrimitiveType.Cube,
+                new Vector3(0, 3.3f, 132.5f), new Vector3(1.3f, 3.4f, 0.5f), accentMat);
+            CreatePrimitive("Chapter 3 far wall left", PrimitiveType.Cube,
+                new Vector3(-4.2f, 2.5f, 145), new Vector3(1.6f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 3 far wall right", PrimitiveType.Cube,
+                new Vector3(4.2f, 2.5f, 145), new Vector3(1.6f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 3 far wall header", PrimitiveType.Cube,
+                new Vector3(0, 4.65f, 145), new Vector3(6.8f, 0.7f, 0.5f), wallMat);
+            GameObject chapterThreeExit = CreatePrimitive("Chapter 3 dimension exit",
+                PrimitiveType.Cube, new Vector3(0, 2, 144.7f), new Vector3(2.8f, 4, 0.35f), doorMat);
+            DoorController chapterThreeExitController = chapterThreeExit.AddComponent<DoorController>();
+
+            GameObject dimensionObject = CreatePrimitive("Dimension slot cube",
+                PrimitiveType.Cube, new Vector3(0, 0.62f, 126), Vector3.one, cubeMat);
+            dimensionObject.AddComponent<Rigidbody>().mass = 1.1f;
+            PerspectiveObject dimensionPerspectiveObject = dimensionObject.AddComponent<PerspectiveObject>();
+            GameObject dimensionLandingTarget = new GameObject("Dimension landing target");
+            dimensionLandingTarget.transform.position = new Vector3(0, 0.5f, 136.1f);
+
+            TextMesh dimensionInstruction = new GameObject("Dimension slot instruction").AddComponent<TextMesh>();
+            dimensionInstruction.transform.position = new Vector3(0, 3.25f, 125f);
+            dimensionInstruction.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            dimensionInstruction.text = "YOU DON'T FIT / SEN SIĞMAZSIN";
+            dimensionInstruction.fontSize = 42;
+            dimensionInstruction.characterSize = 0.05f;
+            dimensionInstruction.anchor = TextAnchor.MiddleCenter;
+            dimensionInstruction.alignment = TextAlignment.Center;
+            dimensionInstruction.color = new Color(0.22f, 0.25f, 0.32f);
+
+            GameObject chapterThreeEntry = new GameObject("Chapter 3 entry trigger");
+            chapterThreeEntry.transform.position = new Vector3(0, 1.2f, 122.2f);
+            BoxCollider chapterThreeEntryCollider = chapterThreeEntry.AddComponent<BoxCollider>();
+            chapterThreeEntryCollider.isTrigger = true;
+            chapterThreeEntryCollider.size = new Vector3(8.5f, 2.4f, 1.2f);
+            ChapterEntryTrigger chapterThreeEntryTrigger = chapterThreeEntry.AddComponent<ChapterEntryTrigger>();
+            GameObject chapterThreeCheckpoint = new GameObject("Chapter 3 checkpoint");
+            chapterThreeCheckpoint.transform.position = new Vector3(0f, 0.15f, 123.5f);
+            TextMesh chapterThreeSign = new GameObject("Chapter 3 title sign").AddComponent<TextMesh>();
+            chapterThreeSign.transform.position = new Vector3(0, 3.65f, 124f);
+            chapterThreeSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            chapterThreeSign.text = "CHAPTER 03 / WRONG DIMENSION";
+            chapterThreeSign.fontSize = 42;
+            chapterThreeSign.characterSize = 0.055f;
+            chapterThreeSign.anchor = TextAnchor.MiddleCenter;
+            chapterThreeSign.alignment = TextAlignment.Center;
+            chapterThreeSign.color = new Color(0.22f, 0.25f, 0.32f);
 
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
@@ -503,6 +570,16 @@ namespace Oddly.Editor
             SetPrivate(chapterTwoEntryTrigger, "checkpoint", chapterTwoCheckpoint.transform);
             fallRecovery.SetDialogue(director);
             SetPrivate(chapterTwoExitController, "dialogue", director);
+            SetPrivate(chapterThreeEntryTrigger, "dialogue", director);
+            SetPrivate(chapterThreeEntryTrigger, "chapterSign", chapterThreeSign);
+            SetPrivate(chapterThreeEntryTrigger, "fallRecovery", fallRecovery);
+            SetPrivate(chapterThreeEntryTrigger, "checkpoint", chapterThreeCheckpoint.transform);
+            DimensionSlotPuzzle dimensionPuzzle = player.AddComponent<DimensionSlotPuzzle>();
+            SetPrivate(dimensionPuzzle, "slotObject", dimensionPerspectiveObject);
+            SetPrivate(dimensionPuzzle, "landingTarget", dimensionLandingTarget.transform);
+            SetPrivate(dimensionPuzzle, "linkedDoor", chapterThreeExitController);
+            SetPrivate(dimensionPuzzle, "dialogue", director);
+            SetPrivate(chapterThreeExitController, "dialogue", director);
             PerspectiveBridgePuzzle bridgePuzzle = player.AddComponent<PerspectiveBridgePuzzle>();
             SetPrivate(bridgePuzzle, "bridge", bridgePerspectiveObject);
             SetPrivate(bridgePuzzle, "landingTarget", bridgeTarget.transform);
