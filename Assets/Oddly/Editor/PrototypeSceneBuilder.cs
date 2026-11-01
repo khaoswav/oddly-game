@@ -635,6 +635,14 @@ namespace Oddly.Editor
             SetPrivate(waitChoiceNode, "action", MetaPuzzleAction.ChooseHabitWait);
             SetPrivate(waitChoiceNode, "behaviorMemoryPuzzle", behaviorMemoryPuzzle);
 
+            // Short connector keeps the Chapter 6 exit physically connected to Chapter 7.
+            CreatePrimitive("Chapter 6 to 7 connector floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 225), new Vector3(10, 0.5f, 12), floorMat);
+            CreatePrimitive("Chapter 6 to 7 connector left rail", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 225), new Vector3(0.25f, 5, 12), wallMat);
+            CreatePrimitive("Chapter 6 to 7 connector right rail", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 225), new Vector3(0.25f, 5, 12), wallMat);
+
             // Chapter 7: the room reacts to the player's own repeated actions.
             CreatePrimitive("Chapter 7 laughing room floor", PrimitiveType.Cube,
                 new Vector3(0, -0.25f, 243), new Vector3(10, 0.5f, 24), floorMat);
@@ -703,6 +711,14 @@ namespace Oddly.Editor
             laughingRoomCollider.isTrigger = true;
             laughingRoomCollider.size = new Vector3(9f, 4f, 22f);
             LaughingRoomDirector laughingRoomDirector = laughingRoomTrigger.AddComponent<LaughingRoomDirector>();
+
+            // Connector between the laughing room and the loop corridor.
+            CreatePrimitive("Chapter 7 to 8 connector floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 261), new Vector3(10, 0.5f, 12), floorMat);
+            CreatePrimitive("Chapter 7 to 8 connector left rail", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 261), new Vector3(0.25f, 5, 12), wallMat);
+            CreatePrimitive("Chapter 7 to 8 connector right rail", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 261), new Vector3(0.25f, 5, 12), wallMat);
 
             // Chapter 8: each apparent exit returns the player to a subtly altered room.
             CreatePrimitive("Chapter 8 loop floor", PrimitiveType.Cube,
