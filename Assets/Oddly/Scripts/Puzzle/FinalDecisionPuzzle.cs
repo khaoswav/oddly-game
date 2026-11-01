@@ -23,7 +23,6 @@ namespace Oddly
         private Color originalAmbient;
         private Color originalFogColor;
         private float originalFogDensity;
-        private bool originalFogEnabled;
         private Vector3[] relicBasePositions;
         private Coroutine endingAnimation;
 
@@ -53,7 +52,6 @@ namespace Oddly
             originalAmbient = RenderSettings.ambientLight;
             originalFogColor = RenderSettings.fogColor;
             originalFogDensity = RenderSettings.fogDensity;
-            originalFogEnabled = RenderSettings.fog;
 
             worldLights = FindObjectsOfType<Light>();
             originalLightColors = new Color[worldLights.Length];
@@ -84,6 +82,16 @@ namespace Oddly
                 {
                     decided = true;
                     ApplyEndingPresentation(savedEnding, false);
+                    exitDoor?.Unlock();
+
+                    if (decisionSign != null)
+                    {
+                        bool turkish = dialogue != null && dialogue.IsTurkish;
+                        string[] tr = { "SON: HİKÂYE ANLATICININ", "SON: SİSTEMİN KONTROLÜ", "SON: OYUNCUNUN ÖZGÜRLÜĞÜ" };
+                        string[] en = { "ENDING: THE STORYTELLER", "ENDING: SYSTEM CONTROL", "ENDING: PLAYER FREEDOM" };
+                        decisionSign.text = turkish ? tr[savedEnding] : en[savedEnding];
+                        decisionSign.color = EndingColors[savedEnding];
+                    }
                 }
             }
         }
@@ -155,20 +163,23 @@ namespace Oddly
                 endingIndex == 1 ? 0.026f : 0.008f;
             RenderSettings.ambientLight = targetAmbient;
 
-            for (int i = 0; i < worldLights.Length; i++)
+            if (!animate)
             {
-                Light worldLight = worldLights[i];
-                if (worldLight == null) continue;
-                worldLight.color = Color.Lerp(originalLightColors[i], endingColor,
-                    worldLight == endingLight ? 1f : 0.48f);
-                worldLight.intensity = originalLightIntensities[i] *
-                    (worldLight == endingLight ? 1.9f : 0.82f);
-            }
+                for (int i = 0; i < worldLights.Length; i++)
+                {
+                    Light worldLight = worldLights[i];
+                    if (worldLight == null) continue;
+                    worldLight.color = Color.Lerp(originalLightColors[i], endingColor,
+                        worldLight == endingLight ? 1f : 0.48f);
+                    worldLight.intensity = worldLight == endingLight ? 2.1f :
+                        originalLightIntensities[i] * 0.82f;
+                }
 
-            if (endingLight != null)
-            {
-                endingLight.color = endingColor;
-                endingLight.intensity = 2.1f;
+                if (endingLight != null)
+                {
+                    endingLight.color = endingColor;
+                    endingLight.intensity = 2.1f;
+                }
             }
 
             for (int i = 0; i < endingRelics.Length; i++)
@@ -207,6 +218,17 @@ namespace Oddly
                 RenderSettings.ambientLight = Color.Lerp(startAmbient, EndingAmbients[endingIndex], t);
                 RenderSettings.fogColor = Color.Lerp(startFog, EndingFogColors[endingIndex], t);
                 RenderSettings.fogDensity = Mathf.Lerp(startFogDensity, targetFogDensity, t);
+
+                for (int i = 0; i < worldLights.Length; i++)
+                {
+                    Light worldLight = worldLights[i];
+                    if (worldLight == null) continue;
+                    worldLight.color = Color.Lerp(originalLightColors[i],
+                        EndingColors[endingIndex], worldLight == endingLight ? t : 0.48f * t);
+                    float targetIntensity = worldLight == endingLight ? 2.1f :
+                        originalLightIntensities[i] * 0.82f;
+                    worldLight.intensity = Mathf.Lerp(originalLightIntensities[i], targetIntensity, t);
+                }
 
                 for (int i = 0; i < endingRelics.Length; i++)
                 {
