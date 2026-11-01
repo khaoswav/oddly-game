@@ -10,7 +10,8 @@
 
 ## Milestone 1 — First playable vertical slice
 - [ ] Fix and validate all prototype interactions.
-- [ ] Add proper perspective-dependent object placement.
+- [x] Add scale-sensitive object placement with readable too-large / too-small feedback.
+- [ ] Add proper perspective-dependent object placement and forced-perspective room tricks.
 - [ ] Add one memorable meta puzzle.
 - [ ] Add dialogue cooldowns, variation and speaker handoff.
 - [ ] Add options menu and persistent language selection.
