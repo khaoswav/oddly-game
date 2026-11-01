@@ -1751,7 +1751,6 @@ namespace Oddly.Editor
             SetPrivate(unwrittenTrigger, "statusSign", unwrittenSign);
 
             CreatePrimitive("After-choice memory room near wall", PrimitiveType.Cube,
-            CreatePrimitive("After-choice memory room near wall", PrimitiveType.Cube,
                 new Vector3(-36f, 2.25f, 511f), new Vector3(20f, 4.5f, 0.25f), wallMat);
             CreatePrimitive("After-choice memory room far side wall", PrimitiveType.Cube,
                 new Vector3(-36f, 2.25f, 527f), new Vector3(20f, 4.5f, 0.25f), wallMat);
