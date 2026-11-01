@@ -81,15 +81,19 @@ namespace Oddly.Editor
 
             // A second, viewpoint-dependent solution: line the dropped cube up
             // with the wall frame and match its apparent size from the camera.
-            GameObject frame = CreatePrimitive("Perspective frame", PrimitiveType.Cube,
-                new Vector3(-4f, 2.15f, 8.55f), new Vector3(1.55f, 1.55f, 0.18f), accentMat);
+            Vector3 frameCenter = new Vector3(-4f, 2.15f, 8.55f);
+            CreatePrimitive("Perspective frame top", PrimitiveType.Cube,
+                frameCenter + Vector3.up * 0.78f, new Vector3(1.7f, 0.14f, 0.18f), accentMat);
+            CreatePrimitive("Perspective frame bottom", PrimitiveType.Cube,
+                frameCenter - Vector3.up * 0.78f, new Vector3(1.7f, 0.14f, 0.18f), accentMat);
+            CreatePrimitive("Perspective frame left", PrimitiveType.Cube,
+                frameCenter + Vector3.left * 0.78f, new Vector3(0.14f, 1.42f, 0.18f), accentMat);
+            CreatePrimitive("Perspective frame right", PrimitiveType.Cube,
+                frameCenter + Vector3.right * 0.78f, new Vector3(0.14f, 1.42f, 0.18f), accentMat);
             GameObject target = new GameObject("Perspective target");
             target.transform.position = new Vector3(-4f, 2.15f, 8.42f);
-            target.transform.localScale = Vector3.one * 0.72f;
             GameObject targetVisual = CreatePrimitive("Target marker", PrimitiveType.Cube,
                 target.transform.position, Vector3.one * 0.72f, cubeMat);
-            targetVisual.transform.SetParent(target.transform, true);
-            targetVisual.transform.localScale = Vector3.one * 0.72f;
             targetVisual.GetComponent<Collider>().enabled = false;
 
             GameObject player = new GameObject("Player");
