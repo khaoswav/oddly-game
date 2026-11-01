@@ -91,6 +91,11 @@ The campaign is planned as **12–14 connected story sequences**, rather than a 
 
 Plan **5–8 hidden chapters/rooms** for optional discoveries, plus optional replay challenges. Hidden content is designed to add approximately one hour. At least three ending variations are planned, subject to narrative implementation. The exact sequence count can change during production, but the 2-hour main-story and 3-hour full-experience targets remain the scope guardrails.
 
+## Environmental set-pieces and audio
+Environmental comedy should happen in the world, not only in subtitles. The Chapter 7-to-8 connector now contains a one-shot lying-exit gag: the sign changes its instruction, nearby props glide into impossible positions, and a point light shifts through a short colour sequence. Door panels use eased motion, while the Chapter 8 loop animates its rearrangements and lighting transitions. These effects are authored as original ODDLY moments and should remain readable rather than obscuring navigation.
+
+The runtime audio foundation separates music, ambience and one-shot effects, persists their volume settings and supports crossfaded music changes. No finished music, ambience or SFX recordings are bundled yet; the system is waiting for original or properly licensed assets.
+
 ## Adaptive character reactions
 The Narrator and SYSTEM-02 observe the player's run-local habits through the behaviour tracker. Pickup frequency, repeated object drops, failed interactions, repeated door attempts and long idle episodes can trigger distinct bilingual reaction beats. Reactions escalate at selected milestones rather than firing on every input, and a short delayed handoff prevents them from replacing immediate puzzle feedback. These comments are optional flavour: they never change puzzle rules, block controls or punish experimentation.
 
