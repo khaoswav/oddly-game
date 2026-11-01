@@ -29,6 +29,7 @@
 - [x] Add a three-beat bilingual Chapter 1 opening sequence with a deliberate control handoff.
 - [x] Extend the unlocked exit into a traversable corridor with a bilingual false-exit reveal and animated passage into a waiting room.
 - [ ] Add original placeholder music and sound design.
+- [ ] Build distinct room-to-room transitions and surprising set-piece events so progression feels like a continuous surreal comedy adventure, not a row of repeated puzzle rooms.
 
 ## Milestone 2 — Visual identity
 - [ ] Establish URP lighting and post-processing.
@@ -42,11 +43,14 @@
 - [ ] Add dialogue event and emotion metadata.
 - [ ] Add licensed/original music and SFX with asset register.
 
-## Milestone 4 — Eight-chapter campaign
-- [ ] Build chapters 1–4.
-- [ ] Build chapters 5–8.
-- [ ] Add hidden rooms, alternate solutions and endings.
-- [ ] Add achievements and save checkpoints.
+## Milestone 4 — Two-hour main story campaign
+- [x] Build the Chapter 2 physical perspective bridge and recovery checkpoint.
+- [x] Build the first Chapter 3 Wrong Dimension slot-transfer puzzle with a separate checkpoint and bilingual feedback.
+- [ ] Build 12–14 connected story sequences targeting approximately 2 hours of main-story playtime.
+- [ ] Build 5–8 hidden chapters/rooms targeting approximately 1 additional hour.
+- [ ] Add at least three ending variations, alternate solutions and narrative callbacks.
+- [ ] Add optional replay challenges and achievements.
+- [ ] Add persistent campaign saves and chapter checkpoints.
 
 ## Milestone 5 — Release
 - [ ] macOS Intel/Apple Silicon compatibility testing.
