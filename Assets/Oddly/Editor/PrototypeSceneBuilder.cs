@@ -66,7 +66,30 @@ namespace Oddly.Editor
             CreatePrimitive("Exit corridor left", PrimitiveType.Cube, new Vector3(-1.8f, 2.5f, 17), new Vector3(0.25f, 5, 16), wallMat);
             CreatePrimitive("Exit corridor right", PrimitiveType.Cube, new Vector3(1.8f, 2.5f, 17), new Vector3(0.25f, 5, 16), wallMat);
             CreatePrimitive("Exit corridor ceiling", PrimitiveType.Cube, new Vector3(0, 5.05f, 17), new Vector3(3.6f, 0.2f, 16), wallMat);
-            CreatePrimitive("Corridor end wall", PrimitiveType.Cube, new Vector3(0, 2.5f, 25), new Vector3(3.6f, 5, 0.5f), wallMat);
+            GameObject corridorEndPanel = CreatePrimitive("Corridor end wall panel", PrimitiveType.Cube,
+                new Vector3(0, 2.5f, 25), new Vector3(3.6f, 5, 0.5f), wallMat);
+
+            // The false exit is a moving wall. Behind it sits a larger,
+            // deliberately over-bright waiting room that becomes the next space.
+            CreatePrimitive("Waiting room floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 31), new Vector3(8, 0.5f, 12), floorMat);
+            CreatePrimitive("Waiting room left wall", PrimitiveType.Cube,
+                new Vector3(-4, 2.5f, 31), new Vector3(0.25f, 5, 12), wallMat);
+            CreatePrimitive("Waiting room right wall", PrimitiveType.Cube,
+                new Vector3(4, 2.5f, 31), new Vector3(0.25f, 5, 12), wallMat);
+            CreatePrimitive("Waiting room far wall", PrimitiveType.Cube,
+                new Vector3(0, 2.5f, 37), new Vector3(8, 5, 0.5f), wallMat);
+            CreatePrimitive("Waiting room welcome plinth", PrimitiveType.Cube,
+                new Vector3(0, 0.55f, 32.8f), new Vector3(2.4f, 1.1f, 2.4f), accentMat);
+            TextMesh waitingRoomSign = new GameObject("Waiting room sign").AddComponent<TextMesh>();
+            waitingRoomSign.transform.position = new Vector3(0, 3.4f, 36.65f);
+            waitingRoomSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            waitingRoomSign.text = "WAITING ROOM";
+            waitingRoomSign.fontSize = 56;
+            waitingRoomSign.characterSize = 0.06f;
+            waitingRoomSign.anchor = TextAnchor.MiddleCenter;
+            waitingRoomSign.alignment = TextAlignment.Center;
+            waitingRoomSign.color = new Color(0.22f, 0.25f, 0.32f);
 
             TextMesh falseExitSign = new GameObject("False exit sign").AddComponent<TextMesh>();
             falseExitSign.transform.position = new Vector3(0, 3.15f, 23.8f);
@@ -223,6 +246,7 @@ namespace Oddly.Editor
             SetPrivate(hud, "interaction", interaction);
             SetPrivate(hud, "prompt", prompt);
             SetPrivate(corridorBeatTrigger, "dialogue", director);
+            SetPrivate(corridorBeatTrigger, "revealPanel", corridorEndPanel.transform);
             SetPrivate(goalZone, "dialogue", director);
             SetPrivate(doorController, "dialogue", director);
             SetPrivate(perspectivePuzzle, "dialogue", director);
