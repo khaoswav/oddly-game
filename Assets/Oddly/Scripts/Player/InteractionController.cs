@@ -53,7 +53,11 @@ namespace Oddly
                             heldObject = target;
                             heldObject.PickUp(holdPoint, playerCamera);
                             behavior?.RegisterPickup();
-                            dialogue?.Say("picked_up");
+                            if (heldObject.LastPerspectiveScaleFactor < 0.82f ||
+                                heldObject.LastPerspectiveScaleFactor > 1.18f)
+                                dialogue?.Say("perspective_grab_scaled");
+                            else
+                                dialogue?.Say("picked_up");
                         }
                         else
                         {
