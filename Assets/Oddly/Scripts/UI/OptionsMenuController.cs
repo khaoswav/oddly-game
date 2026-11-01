@@ -15,7 +15,7 @@ namespace Oddly
         private float sensitivity;
         private float fieldOfView;
 
-        private void Awake()
+        private void Start()
         {
             sensitivity = PlayerPrefs.GetFloat("oddly.sensitivity", 2f);
             fieldOfView = PlayerPrefs.GetFloat("oddly.fov", 78f);
