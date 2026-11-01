@@ -1251,6 +1251,101 @@ namespace Oddly.Editor
                 SetPrivate(consoleTrigger, "channelIndex", i);
             }
 
+            // Chapter 14: the player decides who owns the story.
+            CreatePrimitive("Chapter 13 to 14 connector floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 477), new Vector3(10, 0.5f, 12), floorMat);
+            CreatePrimitive("Chapter 13 to 14 connector left rail", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 477), new Vector3(0.25f, 5, 12), wallMat);
+            CreatePrimitive("Chapter 13 to 14 connector right rail", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 477), new Vector3(0.25f, 5, 12), wallMat);
+
+            CreatePrimitive("Chapter 14 final chamber floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 495), new Vector3(10, 0.5f, 24), floorMat);
+            CreatePrimitive("Chapter 14 left wall", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 495), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 14 right wall", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 495), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 14 far wall left", PrimitiveType.Cube,
+                new Vector3(-4.15f, 2.5f, 507), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 14 far wall right", PrimitiveType.Cube,
+                new Vector3(4.15f, 2.5f, 507), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 14 far wall header", PrimitiveType.Cube,
+                new Vector3(0, 4.55f, 507), new Vector3(6.6f, 0.9f, 0.5f), wallMat);
+            GameObject chapterFourteenExit = CreatePrimitive("Chapter 14 ending exit",
+                PrimitiveType.Cube, new Vector3(0, 2, 506.7f), new Vector3(2.8f, 4, 0.35f), doorMat);
+            DoorController chapterFourteenExitController = chapterFourteenExit.AddComponent<DoorController>();
+
+            GameObject chapterFourteenEntry = new GameObject("Chapter 14 entry trigger");
+            chapterFourteenEntry.transform.position = new Vector3(0, 1.2f, 481.5f);
+            BoxCollider chapterFourteenEntryCollider = chapterFourteenEntry.AddComponent<BoxCollider>();
+            chapterFourteenEntryCollider.isTrigger = true;
+            chapterFourteenEntryCollider.size = new Vector3(8.5f, 2.4f, 1.2f);
+            ChapterEntryTrigger chapterFourteenEntryTrigger = chapterFourteenEntry.AddComponent<ChapterEntryTrigger>();
+            GameObject chapterFourteenCheckpoint = new GameObject("Chapter 14 checkpoint");
+            chapterFourteenCheckpoint.transform.position = new Vector3(0f, 0.15f, 483.5f);
+
+            TextMesh chapterFourteenSign = new GameObject("Chapter 14 title sign").AddComponent<TextMesh>();
+            chapterFourteenSign.transform.position = new Vector3(0, 3.65f, 485f);
+            chapterFourteenSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            chapterFourteenSign.text = "CHAPTER 14 / THE FINAL DECISION";
+            chapterFourteenSign.fontSize = 38;
+            chapterFourteenSign.characterSize = 0.05f;
+            chapterFourteenSign.anchor = TextAnchor.MiddleCenter;
+            chapterFourteenSign.alignment = TextAlignment.Center;
+            chapterFourteenSign.color = new Color(0.22f, 0.25f, 0.32f);
+
+            TextMesh finalDecisionSign = new GameObject("Final decision status").AddComponent<TextMesh>();
+            finalDecisionSign.transform.position = new Vector3(0, 3.25f, 501f);
+            finalDecisionSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            finalDecisionSign.fontSize = 30;
+            finalDecisionSign.characterSize = 0.045f;
+            finalDecisionSign.anchor = TextAnchor.MiddleCenter;
+            finalDecisionSign.alignment = TextAlignment.Center;
+            finalDecisionSign.color = new Color(0.22f, 0.25f, 0.32f);
+
+            Transform[] endingRelics = new Transform[3];
+            float[] endingXs = { -3f, 0f, 3f };
+            string[] endingLabels = {
+                "TRUST THE NARRATOR\nANLATICIYA GÜVEN",
+                "TRUST SYSTEM-02\nSYSTEM-02'YE GÜVEN",
+                "TRUST NO ONE\nKİMSEYE GÜVENME"
+            };
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject relic = CreatePrimitive("Ending choice relic " + (i + 1),
+                    PrimitiveType.Cube, new Vector3(endingXs[i], 0.9f, 498f),
+                    new Vector3(1.35f, 1.8f, 1.35f), i == 1 ? cubeMat : accentMat);
+                endingRelics[i] = relic.transform;
+
+                TextMesh endingLabel = new GameObject("Ending choice label " + (i + 1)).AddComponent<TextMesh>();
+                endingLabel.transform.position = new Vector3(endingXs[i], 2.35f, 498f);
+                endingLabel.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                endingLabel.text = endingLabels[i];
+                endingLabel.fontSize = 21;
+                endingLabel.characterSize = 0.04f;
+                endingLabel.anchor = TextAnchor.MiddleCenter;
+                endingLabel.alignment = TextAlignment.Center;
+                endingLabel.color = new Color(0.22f, 0.25f, 0.32f);
+
+                GameObject choiceTriggerObject = new GameObject("Ending choice trigger " + (i + 1));
+                choiceTriggerObject.transform.position = new Vector3(endingXs[i], 1f, 493f);
+                BoxCollider choiceCollider = choiceTriggerObject.AddComponent<BoxCollider>();
+                choiceCollider.isTrigger = true;
+                choiceCollider.size = new Vector3(2.3f, 2.4f, 2.3f);
+                FinalChoiceTrigger choiceTrigger = choiceTriggerObject.AddComponent<FinalChoiceTrigger>();
+                SetPrivate(choiceTrigger, "endingIndex", i);
+            }
+
+            GameObject endingLightObject = new GameObject("Final ending reactive light");
+            endingLightObject.transform.position = new Vector3(0, 4.2f, 498f);
+            Light endingLight = endingLightObject.AddComponent<Light>();
+            endingLight.type = LightType.Point;
+            endingLight.range = 18f;
+            endingLight.intensity = 1.1f;
+
+            GameObject finalDecisionObject = new GameObject("Final decision puzzle controller");
+            FinalDecisionPuzzle finalDecisionPuzzle = finalDecisionObject.AddComponent<FinalDecisionPuzzle>();
+
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
             BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
@@ -1551,6 +1646,19 @@ namespace Oddly.Editor
             SetPrivate(controlPuzzle, "statusSign", controlStatus);
             SetPrivate(controlPuzzle, "channelProps", controlChannels);
             SetPrivate(controlPuzzle, "controlLight", controlRoomLight);
+            SetPrivate(chapterFourteenEntryTrigger, "dialogue", director);
+            SetPrivate(chapterFourteenEntryTrigger, "chapterSign", chapterFourteenSign);
+            SetPrivate(chapterFourteenEntryTrigger, "dialogueId", "chapter_fourteen_entry");
+            SetPrivate(chapterFourteenEntryTrigger, "englishSign", "CHAPTER 14  /  THE FINAL DECISION");
+            SetPrivate(chapterFourteenEntryTrigger, "turkishSign", "BÖLÜM 14  /  SON KARAR");
+            SetPrivate(chapterFourteenEntryTrigger, "fallRecovery", fallRecovery);
+            SetPrivate(chapterFourteenEntryTrigger, "checkpoint", chapterFourteenCheckpoint.transform);
+            SetPrivate(finalDecisionPuzzle, "exitDoor", chapterFourteenExitController);
+            SetPrivate(finalDecisionPuzzle, "dialogue", director);
+            SetPrivate(finalDecisionPuzzle, "decisionSign", finalDecisionSign);
+            SetPrivate(finalDecisionPuzzle, "endingLight", endingLight);
+            SetPrivate(finalDecisionPuzzle, "endingRelics", endingRelics);
+            SetPrivate(chapterFourteenExitController, "dialogue", director);
             SetPrivate(chapterThirteenExitController, "dialogue", director);
             PerspectiveBridgePuzzle bridgePuzzle = player.AddComponent<PerspectiveBridgePuzzle>();
             SetPrivate(bridgePuzzle, "bridge", bridgePerspectiveObject);
