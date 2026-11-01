@@ -77,8 +77,15 @@ namespace Oddly.Editor
                 new Vector3(-4, 2.5f, 31), new Vector3(0.25f, 5, 12), wallMat);
             CreatePrimitive("Waiting room right wall", PrimitiveType.Cube,
                 new Vector3(4, 2.5f, 31), new Vector3(0.25f, 5, 12), wallMat);
-            CreatePrimitive("Waiting room far wall", PrimitiveType.Cube,
-                new Vector3(0, 2.5f, 37), new Vector3(8, 5, 0.5f), wallMat);
+            CreatePrimitive("Waiting room far wall left", PrimitiveType.Cube,
+                new Vector3(-2.65f, 2.5f, 37), new Vector3(2.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Waiting room far wall right", PrimitiveType.Cube,
+                new Vector3(2.65f, 2.5f, 37), new Vector3(2.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Waiting room far wall above exit", PrimitiveType.Cube,
+                new Vector3(0, 4.65f, 37), new Vector3(2.6f, 0.7f, 0.5f), wallMat);
+            GameObject waitingRoomDoor = CreatePrimitive("Waiting room perspective door",
+                PrimitiveType.Cube, new Vector3(0, 2, 36.7f), new Vector3(2.6f, 4, 0.35f), doorMat);
+            DoorController waitingRoomDoorController = waitingRoomDoor.AddComponent<DoorController>();
             CreatePrimitive("Waiting room welcome plinth", PrimitiveType.Cube,
                 new Vector3(0, 0.55f, 32.8f), new Vector3(2.4f, 1.1f, 2.4f), accentMat);
             TextMesh waitingRoomSign = new GameObject("Waiting room sign").AddComponent<TextMesh>();
@@ -162,6 +169,29 @@ namespace Oddly.Editor
             camera.fieldOfView = 78f;
             camera.nearClipPlane = 0.05f;
             cameraPivot.AddComponent<AudioListener>();
+
+            // The waiting room's exit is visible immediately, but its frame
+            // only accepts the carried object when its screen projection matches.
+            GameObject waitingCube = CreatePrimitive("Waiting room perspective cube",
+                PrimitiveType.Cube, new Vector3(-2.55f, 0.65f, 30.1f), Vector3.one, cubeMat);
+            waitingCube.AddComponent<Rigidbody>().mass = 1.2f;
+            PerspectiveObject waitingPerspectiveObject = waitingCube.AddComponent<PerspectiveObject>();
+
+            Vector3 waitingFrameCenter = new Vector3(0f, 1.2f, 36.42f);
+            CreatePrimitive("Waiting frame top", PrimitiveType.Cube,
+                waitingFrameCenter + Vector3.up * 0.78f, new Vector3(1.7f, 0.14f, 0.18f), accentMat);
+            CreatePrimitive("Waiting frame bottom", PrimitiveType.Cube,
+                waitingFrameCenter - Vector3.up * 0.78f, new Vector3(1.7f, 0.14f, 0.18f), accentMat);
+            CreatePrimitive("Waiting frame left", PrimitiveType.Cube,
+                waitingFrameCenter + Vector3.left * 0.78f, new Vector3(0.14f, 1.42f, 0.18f), accentMat);
+            CreatePrimitive("Waiting frame right", PrimitiveType.Cube,
+                waitingFrameCenter + Vector3.right * 0.78f, new Vector3(0.14f, 1.42f, 0.18f), accentMat);
+            GameObject waitingTarget = new GameObject("Waiting room perspective target");
+            waitingTarget.transform.position = waitingFrameCenter;
+            waitingTarget.transform.localScale = Vector3.one * 0.72f;
+            GameObject waitingTargetVisual = CreatePrimitive("Waiting room target marker",
+                PrimitiveType.Cube, waitingFrameCenter, Vector3.one * 0.72f, cubeMat);
+            waitingTargetVisual.GetComponent<Collider>().enabled = false;
             SetPrivate(movement, "cameraPivot", cameraPivot.transform);
 
             GameObject holdPoint = new GameObject("Hold Point");
@@ -176,6 +206,12 @@ namespace Oddly.Editor
             SetPrivate(perspectivePuzzle, "puzzleObject", cube.GetComponent<PerspectiveObject>());
             SetPrivate(perspectivePuzzle, "target", target.transform);
             SetPrivate(perspectivePuzzle, "linkedDoor", doorController);
+
+            PerspectiveFramePuzzle waitingRoomPuzzle = player.AddComponent<PerspectiveFramePuzzle>();
+            SetPrivate(waitingRoomPuzzle, "playerCamera", camera);
+            SetPrivate(waitingRoomPuzzle, "puzzleObject", waitingPerspectiveObject);
+            SetPrivate(waitingRoomPuzzle, "target", waitingTarget.transform);
+            SetPrivate(waitingRoomPuzzle, "linkedDoor", waitingRoomDoorController);
 
             // Two matching freestanding doors create an impossible loop:
             // crossing one relocates the player to the other, which faces back
@@ -249,6 +285,8 @@ namespace Oddly.Editor
             SetPrivate(corridorBeatTrigger, "revealPanel", corridorEndPanel.transform);
             SetPrivate(goalZone, "dialogue", director);
             SetPrivate(doorController, "dialogue", director);
+            SetPrivate(waitingRoomDoorController, "dialogue", director);
+            SetPrivate(waitingRoomPuzzle, "dialogue", director);
             SetPrivate(perspectivePuzzle, "dialogue", director);
             SetPrivate(portalAController, "dialogue", director);
             SetPrivate(portalBController, "dialogue", director);
