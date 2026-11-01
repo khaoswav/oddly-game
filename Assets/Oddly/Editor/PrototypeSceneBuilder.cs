@@ -572,6 +572,9 @@ namespace Oddly.Editor
             SetPrivate(chapterTwoExitController, "dialogue", director);
             SetPrivate(chapterThreeEntryTrigger, "dialogue", director);
             SetPrivate(chapterThreeEntryTrigger, "chapterSign", chapterThreeSign);
+            SetPrivate(chapterThreeEntryTrigger, "dialogueId", "chapter_three_entry");
+            SetPrivate(chapterThreeEntryTrigger, "englishSign", "CHAPTER 03  /  WRONG DIMENSION");
+            SetPrivate(chapterThreeEntryTrigger, "turkishSign", "BÖLÜM 03  /  YANLIŞ BOYUT");
             SetPrivate(chapterThreeEntryTrigger, "fallRecovery", fallRecovery);
             SetPrivate(chapterThreeEntryTrigger, "checkpoint", chapterThreeCheckpoint.transform);
             DimensionSlotPuzzle dimensionPuzzle = player.AddComponent<DimensionSlotPuzzle>();
