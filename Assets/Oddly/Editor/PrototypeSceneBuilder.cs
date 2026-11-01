@@ -174,6 +174,7 @@ namespace Oddly.Editor
             character.radius = 0.34f;
             character.center = new Vector3(0, 0.9f, 0);
             FirstPersonController movement = player.AddComponent<FirstPersonController>();
+            FallRecovery fallRecovery = player.AddComponent<FallRecovery>();
 
             GameObject cameraPivot = new GameObject("Camera Pivot");
             cameraPivot.transform.SetParent(player.transform);
@@ -350,6 +351,8 @@ namespace Oddly.Editor
             chapterTwoEntryCollider.isTrigger = true;
             chapterTwoEntryCollider.size = new Vector3(8.5f, 2.4f, 1.2f);
             ChapterEntryTrigger chapterTwoEntryTrigger = chapterTwoEntry.AddComponent<ChapterEntryTrigger>();
+            GameObject chapterTwoCheckpoint = new GameObject("Chapter 2 checkpoint");
+            chapterTwoCheckpoint.transform.position = new Vector3(0f, 0.15f, 81.5f);
 
             TextMesh chapterTwoSign = new GameObject("Chapter 2 title sign").AddComponent<TextMesh>();
             chapterTwoSign.transform.position = new Vector3(0, 3.65f, 82f);
@@ -496,6 +499,9 @@ namespace Oddly.Editor
             SetPrivate(sightlinePuzzle, "dialogue", director);
             SetPrivate(chapterTwoEntryTrigger, "dialogue", director);
             SetPrivate(chapterTwoEntryTrigger, "chapterSign", chapterTwoSign);
+            SetPrivate(chapterTwoEntryTrigger, "fallRecovery", fallRecovery);
+            SetPrivate(chapterTwoEntryTrigger, "checkpoint", chapterTwoCheckpoint.transform);
+            fallRecovery.SetDialogue(director);
             SetPrivate(chapterTwoExitController, "dialogue", director);
             PerspectiveBridgePuzzle bridgePuzzle = player.AddComponent<PerspectiveBridgePuzzle>();
             SetPrivate(bridgePuzzle, "bridge", bridgePerspectiveObject);
