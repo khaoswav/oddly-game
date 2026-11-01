@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Oddly
@@ -36,6 +37,14 @@ namespace Oddly
             tracker.IdleEpisodeRegistered += OnIdleEpisode;
         }
 
+        private void QueueReaction(string dialogueId) => StartCoroutine(PlayReactionAfterCurrentBeat(dialogueId));
+
+        private IEnumerator PlayReactionAfterCurrentBeat(string dialogueId)
+        {
+            yield return new WaitForSecondsRealtime(0.22f);
+            if (CanReact()) dialogue.Say(dialogueId);
+        }
+
         private bool CanReact()
         {
             if (dialogue == null || Time.unscaledTime - lastReactionAt < reactionCooldown)
@@ -47,48 +56,46 @@ namespace Oddly
         private void OnPickup()
         {
             pickups++;
-            if (pickups == 1 && CanReact())
-                dialogue.Say("reaction_first_pickup");
-            else if (pickups == 5 && CanReact())
-                dialogue.Say("reaction_pickup_habit");
+            if (pickups == 5)
+                QueueReaction("reaction_pickup_habit");
         }
 
         private void OnDrop()
         {
             drops++;
-            if (drops == 1 && CanReact())
-                dialogue.Say("reaction_first_drop");
-            else if (drops == 3 && CanReact())
-                dialogue.Say("reaction_drop_three");
-            else if (drops == 7 && CanReact())
-                dialogue.Say("reaction_drop_seven");
+            if (drops == 1)
+                QueueReaction("reaction_first_drop");
+            else if (drops == 3)
+                QueueReaction("reaction_drop_three");
+            else if (drops == 7)
+                QueueReaction("reaction_drop_seven");
         }
 
         private void OnFailedInteraction()
         {
             failedActions++;
-            if (failedActions == 2 && CanReact())
-                dialogue.Say("reaction_second_miss");
-            else if (failedActions == 5 && CanReact())
-                dialogue.Say("reaction_persistent_miss");
+            if (failedActions == 2)
+                QueueReaction("reaction_second_miss");
+            else if (failedActions == 5)
+                QueueReaction("reaction_persistent_miss");
         }
 
         private void OnDoorAttempt()
         {
             doorAttempts++;
-            if (doorAttempts == 3 && CanReact())
-                dialogue.Say("reaction_door_three");
-            else if (doorAttempts == 6 && CanReact())
-                dialogue.Say("reaction_door_six");
+            if (doorAttempts == 3)
+                QueueReaction("reaction_door_three");
+            else if (doorAttempts == 6)
+                QueueReaction("reaction_door_six");
         }
 
         private void OnIdleEpisode()
         {
             idleEpisodes++;
-            if (idleEpisodes == 2 && CanReact())
-                dialogue.Say("reaction_idle_twice");
-            else if (idleEpisodes == 4 && CanReact())
-                dialogue.Say("reaction_idle_four");
+            if (idleEpisodes == 2)
+                QueueReaction("reaction_idle_twice");
+            else if (idleEpisodes == 4)
+                QueueReaction("reaction_idle_four");
         }
 
         private void OnDisable()
