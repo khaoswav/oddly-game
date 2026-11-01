@@ -33,7 +33,7 @@ Explore → notice an inconsistency → manipulate an object or viewpoint → te
 - Perspective-dependent spatial puzzles.
 - Impossible-room transitions and environmental changes.
 - Paired doorway loops that relocate the player within a continuous room, with signage that changes in response to traversal.
-- Meta puzzles involving signs, instructions and in-world interfaces.
+- Meta puzzles involving signs, instructions and in-world interfaces.\n- The first meta puzzle teaches players to inspect a warning before deliberately disobeying it to unlock the exit.
 - Behavior tracking for local, contextual banter.
 
 ## Planned chapter arc
