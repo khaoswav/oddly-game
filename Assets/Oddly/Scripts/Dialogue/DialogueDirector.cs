@@ -75,6 +75,11 @@ namespace Oddly
             Add("perspective_align", "SYSTEM-02", "Küpü çerçevenin tam ortasına getir. Hayır, göz kararı değil. Biraz daha dikkat.", "Line the cube up with the frame. No, not approximately. Try looking properly.");
             Add("perspective_size", "ANLATICI", "Konum fena değil. Şimdi ekranda kapladığı boyutu çerçeveyle eşleştir.", "Not bad positioning. Now match its apparent size to the frame.");
             Add("perspective_solved", "SYSTEM-02", "Görüş açısı doğrulandı. Fizik kuralları itiraz dilekçesi hazırlıyor.", "Viewpoint confirmed. The laws of physics are drafting a complaint.");
+            Add("dual_scale_small_shrink", "SYSTEM-02", "Küçük platform küçük bir nesne istiyor. Biraz daha yakına getir ya da boyutunu küçült.", "The small pad needs a smaller object. Bring it closer or reduce its scale.");
+            Add("dual_scale_small_grow", "ANLATICI", "Bu kadar da minik olmasın. Küçük platformun bile standartları var.", "Not that tiny. Even the small pad has standards.");
+            Add("dual_scale_large_shrink", "ANLATICI", "Büyük platforma geldin ama nesne henüz yeterince büyük değil. Biraz uzaklaştır.", "You found the big pad, but the object isn't big enough yet. Move it farther away.");
+            Add("dual_scale_large_grow", "SYSTEM-02", "Bu nesne fazla büyük. Büyük platformun da bir sınırı var.", "That object is too large. The large pad has limits too.");
+            Add("dual_scale_solved", "ANLATICI", "İki nesne, iki boyut, tek kapı. Matematik sonunda bir işe yaradı.", "Two objects, two sizes, one door. Mathematics finally did something useful.");
             Add("impossible_room", "ANLATICI", "Bir dakika... Az önce nereden geldin? Boş ver. Ben de artık takip etmiyorum.", "Wait... where did you just come from? Never mind. I've stopped keeping track too.");
             Add("meta_notice", "SYSTEM-02", "UYARI: KIRMIZI DÜĞMEYE BASMAYIN. Bu uyarıyı okuduğunuz kaydedildi.", "NOTICE: DO NOT PRESS THE RED BUTTON. Your reading of this notice has been recorded.");
             Add("meta_wrong", "ANLATICI", "Önce bir şeyi fark etmen gerekiyordu. Tabela süs olsun diye burada değil.", "You were supposed to notice something first. The sign isn't here for decoration.");
