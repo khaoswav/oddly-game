@@ -548,6 +548,93 @@ namespace Oddly.Editor
             GameObject blindSpotExitDirection = new GameObject("Blind spot exit direction");
             blindSpotExitDirection.transform.position = new Vector3(0, 1.5f, 194.7f);
 
+            // Chapter 6: the facility has counted the player's habits and
+            // asks them to identify the action they performed most often.
+            CreatePrimitive("Chapter 6 memory floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 207), new Vector3(10, 0.5f, 24), floorMat);
+            CreatePrimitive("Chapter 6 left wall", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 207), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 6 right wall", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 207), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 6 far wall left", PrimitiveType.Cube,
+                new Vector3(-4.15f, 2.5f, 219), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 6 far wall right", PrimitiveType.Cube,
+                new Vector3(4.15f, 2.5f, 219), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 6 far wall header", PrimitiveType.Cube,
+                new Vector3(0, 4.55f, 219), new Vector3(6.6f, 0.9f, 0.5f), wallMat);
+
+            GameObject chapterSixExit = CreatePrimitive("Chapter 6 memory exit",
+                PrimitiveType.Cube, new Vector3(0, 2, 218.7f), new Vector3(2.8f, 4, 0.35f), doorMat);
+            DoorController chapterSixExitController = chapterSixExit.AddComponent<DoorController>();
+
+            GameObject chapterSixEntry = new GameObject("Chapter 6 entry trigger");
+            chapterSixEntry.transform.position = new Vector3(0, 1.2f, 196.5f);
+            BoxCollider chapterSixEntryCollider = chapterSixEntry.AddComponent<BoxCollider>();
+            chapterSixEntryCollider.isTrigger = true;
+            chapterSixEntryCollider.size = new Vector3(8.5f, 2.4f, 1.2f);
+            ChapterEntryTrigger chapterSixEntryTrigger = chapterSixEntry.AddComponent<ChapterEntryTrigger>();
+            GameObject chapterSixCheckpoint = new GameObject("Chapter 6 checkpoint");
+            chapterSixCheckpoint.transform.position = new Vector3(0f, 0.15f, 198.5f);
+
+            TextMesh chapterSixSign = new GameObject("Chapter 6 title sign").AddComponent<TextMesh>();
+            chapterSixSign.transform.position = new Vector3(0, 3.65f, 200f);
+            chapterSixSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            chapterSixSign.text = "CHAPTER 06 / YOU AGAIN?";
+            chapterSixSign.fontSize = 42;
+            chapterSixSign.characterSize = 0.055f;
+            chapterSixSign.anchor = TextAnchor.MiddleCenter;
+            chapterSixSign.alignment = TextAlignment.Center;
+            chapterSixSign.color = new Color(0.22f, 0.25f, 0.32f);
+
+            TextMesh memoryInstruction = new GameObject("Memory instruction").AddComponent<TextMesh>();
+            memoryInstruction.transform.position = new Vector3(0, 3.0f, 203f);
+            memoryInstruction.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            memoryInstruction.text = "WE HAVE BEEN KEEPING COUNT / SAYGIYLA TAKİP EDİYORUZ";
+            memoryInstruction.fontSize = 30;
+            memoryInstruction.characterSize = 0.045f;
+            memoryInstruction.anchor = TextAnchor.MiddleCenter;
+            memoryInstruction.alignment = TextAlignment.Center;
+            memoryInstruction.color = new Color(0.22f, 0.25f, 0.32f);
+
+            GameObject memoryRoot = new GameObject("Behavior memory puzzle controller");
+            BehaviorMemoryPuzzle behaviorMemoryPuzzle = memoryRoot.AddComponent<BehaviorMemoryPuzzle>();
+            DoorController chapterSixDoor = chapterSixExitController;
+
+            TextMesh dropLabel = new GameObject("Drop habit label").AddComponent<TextMesh>();
+            dropLabel.transform.position = new Vector3(-3f, 2.4f, 211f);
+            dropLabel.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            dropLabel.text = "DROP";
+            dropLabel.fontSize = 38; dropLabel.characterSize = 0.055f;
+            dropLabel.anchor = TextAnchor.MiddleCenter; dropLabel.alignment = TextAlignment.Center;
+            TextMesh retryLabel = new GameObject("Retry habit label").AddComponent<TextMesh>();
+            retryLabel.transform.position = new Vector3(0f, 2.4f, 211f);
+            retryLabel.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            retryLabel.text = "RETRY";
+            retryLabel.fontSize = 38; retryLabel.characterSize = 0.055f;
+            retryLabel.anchor = TextAnchor.MiddleCenter; retryLabel.alignment = TextAlignment.Center;
+            TextMesh waitLabel = new GameObject("Wait habit label").AddComponent<TextMesh>();
+            waitLabel.transform.position = new Vector3(3f, 2.4f, 211f);
+            waitLabel.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            waitLabel.text = "WAIT";
+            waitLabel.fontSize = 38; waitLabel.characterSize = 0.055f;
+            waitLabel.anchor = TextAnchor.MiddleCenter; waitLabel.alignment = TextAlignment.Center;
+
+            GameObject dropChoice = CreatePrimitive("Drop habit choice", PrimitiveType.Cube,
+                new Vector3(-3f, 0.65f, 211f), new Vector3(1.8f, 0.45f, 1.8f), accentMat);
+            MetaPuzzleNode dropChoiceNode = dropChoice.AddComponent<MetaPuzzleNode>();
+            SetPrivate(dropChoiceNode, "action", MetaPuzzleAction.ChooseHabitDrop);
+            SetPrivate(dropChoiceNode, "behaviorMemoryPuzzle", behaviorMemoryPuzzle);
+            GameObject retryChoice = CreatePrimitive("Retry habit choice", PrimitiveType.Cube,
+                new Vector3(0f, 0.65f, 211f), new Vector3(1.8f, 0.45f, 1.8f), cubeMat);
+            MetaPuzzleNode retryChoiceNode = retryChoice.AddComponent<MetaPuzzleNode>();
+            SetPrivate(retryChoiceNode, "action", MetaPuzzleAction.ChooseHabitRetry);
+            SetPrivate(retryChoiceNode, "behaviorMemoryPuzzle", behaviorMemoryPuzzle);
+            GameObject waitChoice = CreatePrimitive("Wait habit choice", PrimitiveType.Cube,
+                new Vector3(3f, 0.65f, 211f), new Vector3(1.8f, 0.45f, 1.8f), doorMat);
+            MetaPuzzleNode waitChoiceNode = waitChoice.AddComponent<MetaPuzzleNode>();
+            SetPrivate(waitChoiceNode, "action", MetaPuzzleAction.ChooseHabitWait);
+            SetPrivate(waitChoiceNode, "behaviorMemoryPuzzle", behaviorMemoryPuzzle);
+
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
             BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
@@ -742,6 +829,20 @@ namespace Oddly.Editor
             SetPrivate(blindSpotPuzzle, "linkedDoor", chapterFiveExitController);
             SetPrivate(blindSpotPuzzle, "dialogue", director);
             SetPrivate(chapterFiveExitController, "dialogue", director);
+            SetPrivate(chapterSixEntryTrigger, "dialogue", director);
+            SetPrivate(chapterSixEntryTrigger, "chapterSign", chapterSixSign);
+            SetPrivate(chapterSixEntryTrigger, "dialogueId", "chapter_six_entry");
+            SetPrivate(chapterSixEntryTrigger, "englishSign", "CHAPTER 06  /  YOU AGAIN?");
+            SetPrivate(chapterSixEntryTrigger, "turkishSign", "BÖLÜM 06  /  YİNE SEN?");
+            SetPrivate(chapterSixEntryTrigger, "fallRecovery", fallRecovery);
+            SetPrivate(chapterSixEntryTrigger, "checkpoint", chapterSixCheckpoint.transform);
+            SetPrivate(behaviorMemoryPuzzle, "behavior", tracker);
+            SetPrivate(behaviorMemoryPuzzle, "linkedDoor", chapterSixDoor);
+            SetPrivate(behaviorMemoryPuzzle, "dialogue", director);
+            SetPrivate(behaviorMemoryPuzzle, "dropCountLabel", dropLabel);
+            SetPrivate(behaviorMemoryPuzzle, "retryCountLabel", retryLabel);
+            SetPrivate(behaviorMemoryPuzzle, "waitCountLabel", waitLabel);
+            SetPrivate(chapterSixExitController, "dialogue", director);
             PerspectiveBridgePuzzle bridgePuzzle = player.AddComponent<PerspectiveBridgePuzzle>();
             SetPrivate(bridgePuzzle, "bridge", bridgePerspectiveObject);
             SetPrivate(bridgePuzzle, "landingTarget", bridgeTarget.transform);
