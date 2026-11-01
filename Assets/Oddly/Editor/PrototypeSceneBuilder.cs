@@ -1227,6 +1227,52 @@ namespace Oddly.Editor
             CreatePrimitive("Chapter 10 to 11 connector right rail", PrimitiveType.Cube,
                 new Vector3(5, 2.5f, 369), new Vector3(0.25f, 5, 12), wallMat);
 
+            // The archive corridor leaks three fragments of the save timeline.
+            // Two corrupted snapshots jitter and sink while the stable middle
+            // snapshot remains suspended above the route.
+            GameObject archiveEchoOne = CreatePrimitive("Archive echo corrupted snapshot A",
+                PrimitiveType.Cube, new Vector3(-3f, 1.8f, 405f),
+                new Vector3(0.72f, 0.72f, 0.72f), accentMat);
+            GameObject archiveEchoTwo = CreatePrimitive("Archive echo stable snapshot",
+                PrimitiveType.Cube, new Vector3(0f, 2f, 405f),
+                new Vector3(0.82f, 0.82f, 0.82f), cubeMat);
+            GameObject archiveEchoThree = CreatePrimitive("Archive echo corrupted snapshot C",
+                PrimitiveType.Cube, new Vector3(3f, 1.8f, 405f),
+                new Vector3(0.72f, 0.72f, 0.72f), doorMat);
+            archiveEchoOne.GetComponent<Collider>().enabled = false;
+            archiveEchoTwo.GetComponent<Collider>().enabled = false;
+            archiveEchoThree.GetComponent<Collider>().enabled = false;
+
+            TextMesh archiveEchoSign = new GameObject("Archive echo corridor sign").AddComponent<TextMesh>();
+            archiveEchoSign.transform.position = new Vector3(0f, 3.55f, 407.1f);
+            archiveEchoSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            archiveEchoSign.text = "RESTORE POINT NOT FOUND";
+            archiveEchoSign.fontSize = 30;
+            archiveEchoSign.characterSize = 0.05f;
+            archiveEchoSign.anchor = TextAnchor.MiddleCenter;
+            archiveEchoSign.alignment = TextAlignment.Center;
+            archiveEchoSign.color = new Color(0.95f, 0.35f, 0.28f);
+
+            GameObject archiveEchoLightObject = new GameObject("Archive echo corridor light");
+            archiveEchoLightObject.transform.position = new Vector3(0f, 3.8f, 405f);
+            Light archiveEchoLight = archiveEchoLightObject.AddComponent<Light>();
+            archiveEchoLight.type = LightType.Point;
+            archiveEchoLight.range = 11f;
+            archiveEchoLight.intensity = 0.85f;
+
+            GameObject archiveEchoTriggerObject = new GameObject("Archive echo corridor trigger");
+            archiveEchoTriggerObject.transform.position = new Vector3(0f, 1.5f, 405f);
+            BoxCollider archiveEchoCollider = archiveEchoTriggerObject.AddComponent<BoxCollider>();
+            archiveEchoCollider.isTrigger = true;
+            archiveEchoCollider.size = new Vector3(9f, 3f, 1.25f);
+            ArchiveEchoCorridorTrigger archiveEchoTrigger =
+                archiveEchoTriggerObject.AddComponent<ArchiveEchoCorridorTrigger>();
+            SetPrivate(archiveEchoTrigger, "snapshots", new Transform[] {
+                archiveEchoOne.transform, archiveEchoTwo.transform, archiveEchoThree.transform
+            });
+            SetPrivate(archiveEchoTrigger, "sign", archiveEchoSign);
+            SetPrivate(archiveEchoTrigger, "eventLight", archiveEchoLight);
+
             // Chapter 12: three archived room states can be restored. Save 02
             // is the only stable snapshot from before the crash.
             CreatePrimitive("Chapter 11 to 12 connector floor", PrimitiveType.Cube,
