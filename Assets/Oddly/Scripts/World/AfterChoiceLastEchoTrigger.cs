@@ -56,7 +56,7 @@ namespace Oddly
             {
                 float pulse = 1f + Mathf.Sin(Time.unscaledTime * 1.8f) * idlePulse;
                 rewardCore.localPosition = coreStartPosition + Vector3.up * (0.12f * pulse);
-                rewardCore.localScale = coreStartScale * pulse;
+                rewardCore.localScale = coreStartScale * 1.25f * pulse;
             }
 
             if (!playerInside || !Input.GetKeyDown(KeyCode.E)) return;
