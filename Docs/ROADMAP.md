@@ -31,7 +31,8 @@
 - [x] Add a three-beat bilingual Chapter 1 opening sequence with a deliberate control handoff.
 - [x] Extend the unlocked exit into a traversable corridor with a bilingual false-exit reveal and animated passage into a waiting room.
 - [x] Add a persistent three-bus audio routing foundation for music, ambience and one-shot effects, with saved volume levels and music crossfades.
-- [ ] Add original placeholder music and sound design.
+- [x] Add an original procedurally synthesized ambient bed and contextual door, reveal and environmental-surprise sound cues.
+- [ ] Compose the original music score and complete the authored/recorded sound-design pass.
 - [x] Add full-screen bilingual cinematic chapter cards with fade transitions for the main story and all eight hidden chapters.
 - [x] Persist current/furthest campaign chapter, hidden-room visits and the selected ending.
 - [x] Persist chapter-entry checkpoints and restore the latest safe location on relaunch.
