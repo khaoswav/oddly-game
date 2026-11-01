@@ -1716,6 +1716,40 @@ namespace Oddly.Editor
             SetPrivate(ninthRecord, "convergenceRelics", convergenceRelics);
             SetPrivate(ninthRecord, "statusSign", ninthRecordSign);
 
+            GameObject unwrittenPedestal = CreatePrimitive("Unwritten ending pedestal",
+                PrimitiveType.Cylinder, new Vector3(-56.5f, 0.38f, 519f),
+                new Vector3(2f, 0.38f, 2f), accentMat);
+            GameObject unwrittenCore = CreatePrimitive("Unwritten ending core",
+                PrimitiveType.Sphere, new Vector3(-56.5f, 1.65f, 519f),
+                Vector3.one * 0.9f, MakeMaterial("Unwritten ending pale core", new Color(0.82f, 0.9f, 1f)));
+            GameObject unwrittenLightObject = new GameObject("Unwritten ending light");
+            unwrittenLightObject.transform.position = new Vector3(-56.5f, 3.2f, 519f);
+            Light unwrittenLight = unwrittenLightObject.AddComponent<Light>();
+            unwrittenLight.type = LightType.Point;
+            unwrittenLight.range = 13f;
+            unwrittenLight.intensity = 0.25f;
+
+            TextMesh unwrittenSign = new GameObject("Unwritten ending interaction sign").AddComponent<TextMesh>();
+            unwrittenSign.transform.position = new Vector3(-56.5f, 3.55f, 519f);
+            unwrittenSign.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+            unwrittenSign.text = "THE LAST CHOICE";
+            unwrittenSign.fontSize = 22;
+            unwrittenSign.characterSize = 0.045f;
+            unwrittenSign.anchor = TextAnchor.MiddleCenter;
+            unwrittenSign.alignment = TextAlignment.Center;
+            unwrittenSign.color = new Color(0.82f, 0.9f, 1f);
+
+            GameObject unwrittenTriggerObject = new GameObject("Unwritten ending finale interaction");
+            unwrittenTriggerObject.transform.position = new Vector3(-56.5f, 1.2f, 519f);
+            BoxCollider unwrittenCollider = unwrittenTriggerObject.AddComponent<BoxCollider>();
+            unwrittenCollider.isTrigger = true;
+            unwrittenCollider.size = new Vector3(3f, 2.8f, 3f);
+            AfterChoiceUnwrittenEndingTrigger unwrittenTrigger =
+                unwrittenTriggerObject.AddComponent<AfterChoiceUnwrittenEndingTrigger>();
+            SetPrivate(unwrittenTrigger, "finalCore", unwrittenCore.transform);
+            SetPrivate(unwrittenTrigger, "endingLight", unwrittenLight);
+            SetPrivate(unwrittenTrigger, "statusSign", unwrittenSign);
+
             CreatePrimitive("After-choice memory room near wall", PrimitiveType.Cube,
             CreatePrimitive("After-choice memory room near wall", PrimitiveType.Cube,
                 new Vector3(-36f, 2.25f, 511f), new Vector3(20f, 4.5f, 0.25f), wallMat);
