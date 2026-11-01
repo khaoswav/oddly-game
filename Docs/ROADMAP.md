@@ -90,6 +90,7 @@
 - [x] Chapter 14.4: record ending history across replays so the archive can verify that all three distinct finales have been experienced.
 - [x] Build a concealed ninth record chamber that opens only after all three endings, eight hidden-room completions, eight echoes and The Last Echo reward are recorded.
 - [x] Add three converging ending relics and unlock The Unwritten Ending as a persistent alternate finale discovery.
+- [x] Add a separate E-interaction that plays The Unwritten Ending as a short alternate-finale coda with a world-lighting transition, persistent completion and replay-safe restoration.
 - [x] Preserve ending history and the ninth-record unlock during replay; clear both only on full campaign reset.
 - [x] Persist discovered echo records across replay while keeping them separate from hidden-room completion records.
 - [x] Add The Last Echo reward, unlocked only after all eight hidden rooms are complete and all eight echoes have been heard.
