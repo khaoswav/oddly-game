@@ -27,6 +27,13 @@ Their arguments are scripted and triggered contextually.
 ## Core loop
 Explore → notice an inconsistency → manipulate an object or viewpoint → test a hypothesis → solve the room → receive a character reaction → discover a new rule.
 
+## Campaign progression and cinematic transitions
+- Main-story entry points persist the current chapter and furthest chapter reached. Hidden-room entry points are tracked separately in an eight-bit visit mask, while the existing hidden completion archive continues to record solved rooms.
+- A restrained full-screen chapter card fades in at each main or hidden chapter entrance, presents a localized title and short tone-setting subtitle, then fades away without pausing the simulation or blocking controls.
+- The first launch introduces Chapter 01 with the same card. The final choice stores the selected ending and marks the campaign complete, then presents an ending-specific completion card.
+- Chapter-entry checkpoints persist their world position and facing direction. Relaunching the game restores the player at the latest saved checkpoint rather than restarting the opening room. Falling still returns the player to that same safe checkpoint.
+- Campaign reset clears chapter progress, ending selection, hidden-room completion and the persisted checkpoint. It deliberately does not clear language or accessibility preferences.
+
 ## Core mechanics
 - First-person movement and inspection.
 - Pick up, carry and place selected objects. While held, moving an object closer or farther changes its physical world scale in proportion to camera distance, preserving its apparent on-screen size. On release, the new world scale remains, turning depth into a core puzzle verb.
