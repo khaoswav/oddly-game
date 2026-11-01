@@ -41,6 +41,7 @@
 - [x] Smooth door openings and animate Chapter 8 loop prop/light rearrangements instead of snapping the environment instantly.
 - [x] Add a Chapter 8-to-9 encore corridor with a localized sign, rising/spinning props and reactive lighting.
 - [x] Add a Chapter 9-to-10 audience escape corridor with three animated silhouettes, bilingual signage and reactive lighting.
+- [x] Add a Chapter 10-to-11 version seam with sliding wall panels, bilingual hotfix signage and reactive lighting.
 - [ ] Build more distinct room-to-room transitions and surprising set-piece events so progression feels like a continuous surreal comedy adventure, not a row of repeated puzzle rooms.
 
 ## Milestone 2 — Visual identity
