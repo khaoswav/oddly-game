@@ -19,7 +19,7 @@ The first vertical slice is intentionally small and playable:
 - A bilingual meta puzzle built around a forbidden red button and a misleading instruction.
 - Turkish/English dialogue from two distinct characters, with per-event cooldowns, randomized banter and speaker handoff.
 - Three-beat Turkish/English Chapter 1 opening sequence.
-- A traversable exit corridor with a one-time false-exit reveal and localized environmental signage.
+- A traversable exit corridor with a one-time false-exit reveal, animated hidden passage and waiting room.
 - Persistent title-screen options for mouse sensitivity and field of view.
 - Runtime-created prototype room, HUD and title screen.
 
