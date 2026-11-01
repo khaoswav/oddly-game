@@ -7,6 +7,8 @@ namespace Oddly
     {
         [SerializeField] private Transform destination;
         [SerializeField] private DialogueDirector dialogue;
+        [SerializeField] private ImpossibleRoomPortal pairedPortal;
+        [SerializeField] private TextMesh sign;
         [SerializeField] private float exitOffset = 1.35f;
         [SerializeField] private float transferCooldown = 0.8f;
 
@@ -38,7 +40,14 @@ namespace Oddly
             player.SetPositionAndRotation(exitPosition, exitRotation);
             controller.enabled = true;
 
+            if (sign != null) sign.text = "TOO LATE";
+            pairedPortal?.SetSignText("WELCOME BACK");
             dialogue?.Say("impossible_room");
+        }
+
+        public void SetSignText(string message)
+        {
+            if (sign != null) sign.text = message;
         }
     }
 }
