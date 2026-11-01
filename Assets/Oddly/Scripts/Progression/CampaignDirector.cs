@@ -25,6 +25,7 @@ namespace Oddly
 
         private void Start()
         {
+            SetCardVisible(false);
             if (!HasCampaignSave)
                 EnterChapter(1, "THE TEST CENTER", "TEST MERKEZİ", false);
         }
