@@ -209,6 +209,29 @@ namespace Oddly
             AddVariant("repeat", "ANLATICI", "Bir kez daha yaparsan bu sefer kesin farklı olacak. Muhtemelen.", "Do it one more time and it'll definitely work. Probably.");
             Add("failed", "SYSTEM-02", "Etkileşim algılanmadı. Parmağınızdan şüpheleniyorum.", "No interaction detected. I am beginning to suspect your finger.");
             AddVariant("failed", "ANLATICI", "Orada bir şey yok. Ama kararlılığını takdir ediyorum.", "There's nothing there. But I admire the commitment.");
+            Add("reaction_first_pickup", "SYSTEM-02", "İlk nesne alındı. Lütfen bu kez envanterinizi yere dökmeyin.", "First object acquired. Please do not empty your inventory onto the floor this time.");
+            AddVariant("reaction_first_pickup", "ANLATICI", "Güzel seçim. Bu küpün senden beklentisi yüksek. Benimki de öyle ama baskı yapmak istemiyorum.", "Good choice. This cube has high expectations of you. So do I, but I don't want to put pressure on you.");
+            Add("reaction_pickup_habit", "ANLATICI", "Beşinci kez bir şey aldın. Bir koleksiyon mu yapıyoruz, yoksa ellerin boş kalınca mı endişeleniyorsun?", "That's your fifth pickup. Are we collecting things, or do empty hands make you nervous?");
+            AddVariant("reaction_pickup_habit", "SYSTEM-02", "Nesne edinme sıklığınız ortalamanın üzerinde. Depolama alanı talebinizi reddediyorum.", "Your object acquisition rate is above average. Your storage expansion request is denied.");
+            Add("reaction_first_drop", "ANLATICI", "Daha yeni tanıştınız. Biraz sert oldu. Küpün duyguları olduğunu söylemedim. Henüz.", "You only just met. That was a little harsh. I never said the cube had feelings. Yet.");
+            AddVariant("reaction_first_drop", "SYSTEM-02", "Nesne bırakıldı. Yer çekimi yine işini yaptı. Terfi talebi değerlendirilecek.", "Object released. Gravity has done its job again. Its promotion request will be reviewed.");
+            Add("reaction_drop_three", "SYSTEM-02", "Üç nesne bırakma kaydedildi. Zemin artık bu ilişkinin üçüncü tarafı.", "Three object drops recorded. The floor is now the third party in this relationship.");
+            AddVariant("reaction_drop_three", "ANLATICI", "Küpü sürekli bırakıyorsun. Biraz bağlanma sorunu mu yaşıyoruz?", "You keep letting go of the cube. Are we having commitment issues?");
+            Add("reaction_drop_seven", "ANLATICI", "Yedinci düşüş. Sana bir paspas ve küçük bir özür kartı göndereceğim.", "Drop number seven. I'll send you a mop and a tiny apology card.");
+            AddVariant("reaction_drop_seven", "SYSTEM-02", "Zemin kullanım istatistiği güncellendi. Bu odanın en yoğun çalışan sistemi artık zemin.", "Floor usage statistics updated. The floor is now the hardest-working system in this room.");
+            Add("reaction_second_miss", "ANLATICI", "İkinci deneme de olmadı. İstersen düğmeye biraz daha nazik bakmayı deneyebilirsin.", "Second attempt missed too. Perhaps try looking at the button more politely.");
+            AddVariant("reaction_second_miss", "SYSTEM-02", "Etkileşim başarısızlığı tekrarlandı. Parmağınızla aranızdaki iletişimi geliştirin.", "Interaction failure repeated. Please improve communication with your finger.");
+            Add("reaction_persistent_miss", "SYSTEM-02", "Beş başarısız etkileşim. Kullanıcı arayüzü değil, kullanıcı güncellenmeli olabilir.", "Five failed interactions. Perhaps the user needs updating, not the interface.");
+            AddVariant("reaction_persistent_miss", "ANLATICI", "Beş kez denedin. Artık düğme senden korkuyor. Biraz alan tanı.", "Five attempts. The button is afraid of you now. Give it some space.");
+            Add("reaction_door_three", "SYSTEM-02", "Üçüncü kapı denemesi. Kapının açılmak için fikrini değiştirmesi gerekmiyor.", "Third door attempt. The door does not need to reconsider its position.");
+            AddVariant("reaction_door_three", "ANLATICI", "Kapıyla konuşmayı denedin mi? Gerçi denesen bile senden daha az konuşur.", "Have you tried talking to the door? Then again, it would still talk less than you.");
+            Add("reaction_door_six", "ANLATICI", "Altı deneme. Kapı artık seni tanıyor. İçeri almak istemediğinden eminim.", "Six attempts. The door recognises you now. I'm fairly sure it doesn't want to let you in.");
+            AddVariant("reaction_door_six", "SYSTEM-02", "Kapı erişim kaydı: kullanıcı 6, kapı 0. Bu eşleşme istatistiksel olarak üzücü.", "Door access record: user 6, door 0. This matchup is statistically unfortunate.");
+            Add("reaction_idle_twice", "ANLATICI", "Yine durdun. İtiraf et, benimle vakit geçirmek için yapıyorsun.", "You stopped again. Admit it, you're doing this to spend time with me.");
+            AddVariant("reaction_idle_twice", "SYSTEM-02", "İkinci uzun hareketsizlik. Kullanıcının ekran koruyucuya dönüşme ihtimali artıyor.", "Second extended idle period. Probability of user becoming a screensaver is increasing.");
+            Add("reaction_idle_four", "SYSTEM-02", "Dört uzun bekleme kaydedildi. Kullanıcıya sandalye tahsis edilmesi öneriliyor.", "Four extended idle periods recorded. Recommend assigning the user a chair.");
+            AddVariant("reaction_idle_four", "ANLATICI", "Burada birlikte yaşlanacağız galiba. Benim yaşlanma özelliğim yok ama atmosferi bozmayayım.", "I think we're going to grow old here together. I don't age, but I won't ruin the atmosphere.");
+
         }
 
         private void Add(string id, string speaker, string tr, string en)
