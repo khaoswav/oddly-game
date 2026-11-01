@@ -23,6 +23,8 @@ The first vertical slice is intentionally small and playable:
 - A second forced-perspective frame puzzle in the waiting room, unlocking its own exit.
 - A new two-object relay chamber: move a cube and sphere through depth to create two different world scales, then place each on its matching pad to unlock the next door.
 - A forced-perspective sightline chamber: stand on a marked viewpoint and align the camera with separated architectural fragments to reveal the next exit. The puzzle checks real viewport alignment and gives bilingual correction hints.
+- Chapter 2 opens with a real gap between platforms. Enlarge a proportion-preserving plank through depth, place it across the gap and let its physics settle before the exit unlocks.
+- A Chapter 2 checkpoint recovers the player after a fall, while dropped perspective props that fall out of the world return to their original positions.
 - The dual-scale relay only accepts objects once they have physically settled on their pads.
 - Persistent title-screen options for mouse sensitivity and field of view.
 - Runtime-created prototype room, HUD and title screen.
