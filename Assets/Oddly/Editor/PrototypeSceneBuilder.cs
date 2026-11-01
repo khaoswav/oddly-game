@@ -1081,6 +1081,55 @@ namespace Oddly.Editor
             CreatePrimitive("Chapter 9 to 10 connector right rail", PrimitiveType.Cube,
                 new Vector3(5, 2.5f, 333), new Vector3(0.25f, 5, 12), wallMat);
 
+            // A version-control seam connects the unfinished build to the patch room.
+            // Wall panels briefly detach, slide outward and reassemble while the
+            // corridor sign pretends this was an intentional feature.
+            CreatePrimitive("Chapter 10 to 11 version seam floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 369.5f), new Vector3(10, 0.5f, 11), floorMat);
+            CreatePrimitive("Chapter 10 to 11 version seam left rail", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 369.5f), new Vector3(0.25f, 5, 11), wallMat);
+            CreatePrimitive("Chapter 10 to 11 version seam right rail", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 369.5f), new Vector3(0.25f, 5, 11), wallMat);
+
+            GameObject seamPanelLeft = CreatePrimitive("Version seam floating panel left",
+                PrimitiveType.Cube, new Vector3(-4.25f, 2.35f, 369.5f),
+                new Vector3(0.7f, 3.6f, 0.35f), accentMat);
+            GameObject seamPanelRight = CreatePrimitive("Version seam floating panel right",
+                PrimitiveType.Cube, new Vector3(4.25f, 2.35f, 369.5f),
+                new Vector3(0.7f, 3.6f, 0.35f), doorMat);
+            seamPanelLeft.GetComponent<Collider>().enabled = false;
+            seamPanelRight.GetComponent<Collider>().enabled = false;
+
+            TextMesh versionSeamSign = new GameObject("Version seam status sign").AddComponent<TextMesh>();
+            versionSeamSign.transform.position = new Vector3(0f, 3.65f, 371.5f);
+            versionSeamSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            versionSeamSign.text = "VERSION 10.0.1 / APPLYING PATCH";
+            versionSeamSign.fontSize = 30;
+            versionSeamSign.characterSize = 0.05f;
+            versionSeamSign.anchor = TextAnchor.MiddleCenter;
+            versionSeamSign.alignment = TextAlignment.Center;
+            versionSeamSign.color = new Color(0.95f, 0.55f, 0.22f);
+
+            GameObject versionSeamLightObject = new GameObject("Version seam light");
+            versionSeamLightObject.transform.position = new Vector3(0f, 3.7f, 369.5f);
+            Light versionSeamLight = versionSeamLightObject.AddComponent<Light>();
+            versionSeamLight.type = LightType.Point;
+            versionSeamLight.range = 10f;
+            versionSeamLight.intensity = 0.7f;
+
+            GameObject versionSeamTriggerObject = new GameObject("Version seam transition trigger");
+            versionSeamTriggerObject.transform.position = new Vector3(0f, 1.5f, 369.5f);
+            BoxCollider versionSeamCollider = versionSeamTriggerObject.AddComponent<BoxCollider>();
+            versionSeamCollider.isTrigger = true;
+            versionSeamCollider.size = new Vector3(9f, 3f, 1.2f);
+            VersionSeamTransitionTrigger versionSeamTrigger =
+                versionSeamTriggerObject.AddComponent<VersionSeamTransitionTrigger>();
+            SetPrivate(versionSeamTrigger, "panels", new Transform[] {
+                seamPanelLeft.transform, seamPanelRight.transform
+            });
+            SetPrivate(versionSeamTrigger, "sign", versionSeamSign);
+            SetPrivate(versionSeamTrigger, "eventLight", versionSeamLight);
+
             // Chapter 11: patch notes physically rewrite the room. The required
             // release order is deliberately non-chronological: 3.0, 1.0, 2.0.
             CreatePrimitive("Chapter 11 patch floor", PrimitiveType.Cube,
