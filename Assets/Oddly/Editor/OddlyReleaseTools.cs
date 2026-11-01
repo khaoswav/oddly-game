@@ -90,8 +90,16 @@ namespace Oddly.Editor
                     "Required generated scene component is missing: " + objectName + " (" + typeof(T).Name + ")");
 
             BoxCollider trigger = target.GetComponent<BoxCollider>();
-            if (trigger != null && !trigger.isTrigger)
-                throw new System.InvalidOperationException("Expected trigger collider on: " + objectName);
+            if (trigger == null || !trigger.isTrigger)
+                throw new System.InvalidOperationException("Required trigger collider is missing or disabled on: " + objectName);
+        }
+
+        private static void RequireReference(SerializedObject serialized, string propertyName, string owner)
+        {
+            SerializedProperty property = serialized.FindProperty(propertyName);
+            if (property == null || property.objectReferenceValue == null)
+                throw new System.InvalidOperationException(
+                    "Required serialized reference is missing: " + owner + "." + propertyName);
         }
 
         private static void ValidateActiveSceneOrThrow()
@@ -107,22 +115,92 @@ namespace Oddly.Editor
             RequireComponent<AfterChoiceUnwrittenEpilogueTrigger>("Unwritten ending epilogue interaction");
             RequireComponent<AfterChoiceLastEchoTrigger>("The Last Echo reward interaction");
 
-            if (Object.FindObjectOfType<CharacterController>() == null)
-                throw new System.InvalidOperationException("No first-person CharacterController was found.");
+            GameObject player = GameObject.Find("Player");
+            if (player == null || player.GetComponent<CharacterController>() == null ||
+                player.GetComponent<FirstPersonController>() == null ||
+                player.GetComponent<FallRecovery>() == null)
+                throw new System.InvalidOperationException(
+                    "Player must contain CharacterController, FirstPersonController and FallRecovery.");
 
-            if (Object.FindObjectOfType<DialogueDirector>() == null)
+            Camera playerCamera = player.GetComponentInChildren<Camera>(true);
+            if (playerCamera == null || playerCamera.GetComponent<AudioListener>() == null)
+                throw new System.InvalidOperationException("Player camera or its AudioListener is missing.");
+
+            InteractionController interaction = player.GetComponent<InteractionController>();
+            if (interaction == null)
+                throw new System.InvalidOperationException("Player InteractionController is missing.");
+
+            SerializedObject interactionData = new SerializedObject(interaction);
+            RequireReference(interactionData, "playerCamera", "Player InteractionController");
+            RequireReference(interactionData, "holdPoint", "Player InteractionController");
+            if (interactionData.FindProperty("playerCamera").objectReferenceValue != playerCamera)
+                throw new System.InvalidOperationException("InteractionController is not wired to the active player camera.");
+
+            DialogueDirector dialogue = Object.FindObjectOfType<DialogueDirector>();
+            if (dialogue == null)
                 throw new System.InvalidOperationException("DialogueDirector is missing from the generated scene.");
 
-            if (Object.FindObjectsOfType<AfterChoiceEchoPillar>().Length != 8)
+            AfterChoiceEchoPillar[] echoes = Object.FindObjectsOfType<AfterChoiceEchoPillar>();
+            if (echoes.Length != 8)
                 throw new System.InvalidOperationException("The generated memory chamber must contain exactly eight echo pillars.");
 
-            if (Object.FindObjectsOfType<FinalChoiceTrigger>().Length != 3)
+            bool[] echoNumbers = new bool[8];
+            foreach (AfterChoiceEchoPillar echo in echoes)
+            {
+                RequireTriggerOn(echo.gameObject, "Echo pillar " + echo.name);
+                SerializedObject echoData = new SerializedObject(echo);
+                SerializedProperty chapter = echoData.FindProperty("chapterNumber");
+                if (chapter == null || chapter.intValue < 1 || chapter.intValue > 8 ||
+                    echoNumbers[chapter.intValue - 1])
+                    throw new System.InvalidOperationException("Echo chapter numbers must be unique values from 1 to 8.");
+                echoNumbers[chapter.intValue - 1] = true;
+                RequireReference(echoData, "pillarVisual", echo.name);
+                RequireReference(echoData, "statusSign", echo.name);
+            }
+
+            GameObject memoryEntryObject = GameObject.Find("After-choice memory room entry trigger");
+            SerializedObject memoryData = new SerializedObject(memoryEntryObject.GetComponent<AfterChoiceMemoryRoomTrigger>());
+            SerializedProperty pillars = memoryData.FindProperty("memoryPillars");
+            if (pillars == null || pillars.arraySize != 8)
+                throw new System.InvalidOperationException("The memory room must reference exactly eight visual pillars.");
+            for (int i = 0; i < pillars.arraySize; i++)
+                if (pillars.GetArrayElementAtIndex(i).objectReferenceValue == null)
+                    throw new System.InvalidOperationException("Memory pillar reference " + (i + 1) + " is missing.");
+            RequireReference(memoryData, "statusSign", "After-choice memory room");
+
+            FinalChoiceTrigger[] choices = Object.FindObjectsOfType<FinalChoiceTrigger>();
+            if (choices.Length != 3)
                 throw new System.InvalidOperationException("The final decision chamber must contain exactly three ending choices.");
+
+            bool[] endingIndices = new bool[3];
+            foreach (FinalChoiceTrigger choice in choices)
+            {
+                RequireTriggerOn(choice.gameObject, "Final choice " + choice.name);
+                SerializedObject choiceData = new SerializedObject(choice);
+                RequireReference(choiceData, "puzzle", choice.name);
+                SerializedProperty endingIndex = choiceData.FindProperty("endingIndex");
+                if (endingIndex == null || endingIndex.intValue < 0 || endingIndex.intValue > 2 ||
+                    endingIndices[endingIndex.intValue])
+                    throw new System.InvalidOperationException("Final choice indices must be unique values from 0 to 2.");
+                endingIndices[endingIndex.intValue] = true;
+            }
+
+            GameObject finalPageObject = GameObject.Find("Unwritten ending epilogue interaction");
+            SerializedObject finalPageData =
+                new SerializedObject(finalPageObject.GetComponent<AfterChoiceUnwrittenEpilogueTrigger>());
+            RequireReference(finalPageData, "statusSign", "The Last Page epilogue");
 
             bool sceneEnabled = EditorBuildSettings.scenes.Any(scene =>
                 scene.path == ScenePath && scene.enabled);
             if (!sceneEnabled)
                 throw new System.InvalidOperationException("Prototype scene is not enabled in Build Settings.");
+        }
+
+        private static void RequireTriggerOn(GameObject target, string description)
+        {
+            BoxCollider collider = target.GetComponent<BoxCollider>();
+            if (collider == null || !collider.isTrigger)
+                throw new System.InvalidOperationException("A trigger collider is required on " + description + ".");
         }
     }
 }
