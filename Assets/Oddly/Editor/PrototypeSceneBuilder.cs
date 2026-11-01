@@ -704,6 +704,76 @@ namespace Oddly.Editor
             laughingRoomCollider.size = new Vector3(9f, 4f, 22f);
             LaughingRoomDirector laughingRoomDirector = laughingRoomTrigger.AddComponent<LaughingRoomDirector>();
 
+            // Chapter 8: each apparent exit returns the player to a subtly altered room.
+            CreatePrimitive("Chapter 8 loop floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 279), new Vector3(10, 0.5f, 24), floorMat);
+            CreatePrimitive("Chapter 8 left wall", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 279), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 8 right wall", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 279), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 8 far wall left", PrimitiveType.Cube,
+                new Vector3(-4.15f, 2.5f, 291), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 8 far wall right", PrimitiveType.Cube,
+                new Vector3(4.15f, 2.5f, 291), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 8 far wall header", PrimitiveType.Cube,
+                new Vector3(0, 4.55f, 291), new Vector3(6.6f, 0.9f, 0.5f), wallMat);
+            GameObject chapterEightExit = CreatePrimitive("Chapter 8 loop exit",
+                PrimitiveType.Cube, new Vector3(0, 2, 290.7f), new Vector3(2.8f, 4, 0.35f), doorMat);
+            DoorController chapterEightExitController = chapterEightExit.AddComponent<DoorController>();
+
+            GameObject chapterEightEntry = new GameObject("Chapter 8 entry trigger");
+            chapterEightEntry.transform.position = new Vector3(0, 1.2f, 265.5f);
+            BoxCollider chapterEightEntryCollider = chapterEightEntry.AddComponent<BoxCollider>();
+            chapterEightEntryCollider.isTrigger = true;
+            chapterEightEntryCollider.size = new Vector3(8.5f, 2.4f, 1.2f);
+            ChapterEntryTrigger chapterEightEntryTrigger = chapterEightEntry.AddComponent<ChapterEntryTrigger>();
+            GameObject chapterEightCheckpoint = new GameObject("Chapter 8 checkpoint");
+            chapterEightCheckpoint.transform.position = new Vector3(0f, 0.15f, 267.5f);
+
+            TextMesh chapterEightSign = new GameObject("Chapter 8 title sign").AddComponent<TextMesh>();
+            chapterEightSign.transform.position = new Vector3(0, 3.65f, 269f);
+            chapterEightSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            chapterEightSign.text = "CHAPTER 08 / THE LOOP";
+            chapterEightSign.fontSize = 42;
+            chapterEightSign.characterSize = 0.055f;
+            chapterEightSign.anchor = TextAnchor.MiddleCenter;
+            chapterEightSign.alignment = TextAlignment.Center;
+            chapterEightSign.color = new Color(0.22f, 0.25f, 0.32f);
+
+            TextMesh loopSign = new GameObject("Loop counter sign").AddComponent<TextMesh>();
+            loopSign.transform.position = new Vector3(0, 2.9f, 273f);
+            loopSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            loopSign.fontSize = 34;
+            loopSign.characterSize = 0.05f;
+            loopSign.anchor = TextAnchor.MiddleCenter;
+            loopSign.alignment = TextAlignment.Center;
+            loopSign.color = new Color(0.82f, 0.28f, 0.42f);
+
+            GameObject loopPropOne = CreatePrimitive("Loop prop one", PrimitiveType.Cube,
+                new Vector3(-2.5f, 0.8f, 278f), Vector3.one * 1.1f, accentMat);
+            GameObject loopPropTwo = CreatePrimitive("Loop prop two", PrimitiveType.Sphere,
+                new Vector3(0f, 0.8f, 278f), Vector3.one * 1.1f, cubeMat);
+            GameObject loopPropThree = CreatePrimitive("Loop prop three", PrimitiveType.Capsule,
+                new Vector3(2.5f, 0.8f, 278f), Vector3.one * 1.1f, doorMat);
+
+            GameObject loopLightObject = new GameObject("Loop room reactive light");
+            loopLightObject.transform.position = new Vector3(0, 4.2f, 280f);
+            Light loopLight = loopLightObject.AddComponent<Light>();
+            loopLight.type = LightType.Point;
+            loopLight.range = 16f;
+            loopLight.intensity = 0.9f;
+
+            GameObject loopReturnPoint = new GameObject("Loop return point");
+            loopReturnPoint.transform.position = new Vector3(0f, 0.1f, 269.5f);
+            loopReturnPoint.transform.rotation = Quaternion.identity;
+
+            GameObject loopTrigger = new GameObject("Loop traversal trigger");
+            loopTrigger.transform.position = new Vector3(0f, 1.5f, 283f);
+            BoxCollider loopTriggerCollider = loopTrigger.AddComponent<BoxCollider>();
+            loopTriggerCollider.isTrigger = true;
+            loopTriggerCollider.size = new Vector3(8.8f, 3f, 0.8f);
+            LoopRoomDirector loopRoomDirector = loopTrigger.AddComponent<LoopRoomDirector>();
+
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
             BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
@@ -926,6 +996,20 @@ namespace Oddly.Editor
             SetPrivate(laughingRoomDirector, "movingWall", movingPrankWall.transform);
             SetPrivate(laughingRoomDirector, "linkedDoor", chapterSevenExitController);
             SetPrivate(chapterSevenExitController, "dialogue", director);
+            SetPrivate(chapterEightEntryTrigger, "dialogue", director);
+            SetPrivate(chapterEightEntryTrigger, "chapterSign", chapterEightSign);
+            SetPrivate(chapterEightEntryTrigger, "dialogueId", "chapter_eight_entry");
+            SetPrivate(chapterEightEntryTrigger, "englishSign", "CHAPTER 08  /  THE LOOP");
+            SetPrivate(chapterEightEntryTrigger, "turkishSign", "BÖLÜM 08  /  DÖNGÜ");
+            SetPrivate(chapterEightEntryTrigger, "fallRecovery", fallRecovery);
+            SetPrivate(chapterEightEntryTrigger, "checkpoint", chapterEightCheckpoint.transform);
+            SetPrivate(loopRoomDirector, "returnPoint", loopReturnPoint.transform);
+            SetPrivate(loopRoomDirector, "exitDoor", chapterEightExitController);
+            SetPrivate(loopRoomDirector, "dialogue", director);
+            SetPrivate(loopRoomDirector, "loopSign", loopSign);
+            SetPrivate(loopRoomDirector, "changingProps", new Transform[] { loopPropOne.transform, loopPropTwo.transform, loopPropThree.transform });
+            SetPrivate(loopRoomDirector, "roomLight", loopLight);
+            SetPrivate(chapterEightExitController, "dialogue", director);
             PerspectiveBridgePuzzle bridgePuzzle = player.AddComponent<PerspectiveBridgePuzzle>();
             SetPrivate(bridgePuzzle, "bridge", bridgePerspectiveObject);
             SetPrivate(bridgePuzzle, "landingTarget", bridgeTarget.transform);
