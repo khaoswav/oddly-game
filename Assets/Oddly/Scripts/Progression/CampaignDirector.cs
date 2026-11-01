@@ -143,6 +143,9 @@ namespace Oddly
             PlayerPrefs.DeleteKey("oddly.epilogue.archiveFound");
             PlayerPrefs.DeleteKey("oddly.afterchoice.echoMask");
             PlayerPrefs.DeleteKey("oddly.afterchoice.lastEchoClaimed");
+            PlayerPrefs.DeleteKey("oddly.afterchoice.ninthRecordFound");
+            PlayerPrefs.DeleteKey("oddly.afterchoice.alternateEndingUnlocked");
+            PlayerPrefs.DeleteKey("oddly.campaign.endingHistoryMask");
             PlayerPrefs.DeleteKey("oddly.ending");
             PlayerPrefs.DeleteKey("oddly.ending.name");
             PlayerPrefs.Save();
