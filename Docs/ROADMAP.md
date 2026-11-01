@@ -20,6 +20,7 @@
 - [x] Require both relay objects to settle physically on their pads before the exit unlocks.
 - [x] Add Chapter 2's physical perspective bridge: a depth-resized plank must span a real platform gap, settle on both ledges and unlock the far exit.
 - [x] Add a localized Chapter 2 entry beat, title sign and reactive bilingual bridge hints.
+- [x] Add a Chapter 2 checkpoint, player fall recovery and automatic reset for dropped props that fall out of the playable space.
 - [ ] Expand perspective-dependent placement into larger multi-step forced-perspective room tricks, object combinations and linked follow-on rooms.
 - [x] Add a paired impossible-room doorway loop with reactive bilingual dialogue and changing signs.
 - [x] Add a bilingual notice-and-forbidden-button meta puzzle that unlocks the exit.
