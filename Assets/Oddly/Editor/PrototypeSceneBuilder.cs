@@ -2426,12 +2426,14 @@ namespace Oddly.Editor
             SetPrivate(sightlinePuzzle, "linkedDoor", sightlineExitController);
             SetPrivate(sightlinePuzzle, "dialogue", director);
             SetPrivate(chapterTwoEntryTrigger, "dialogue", director);
+            SetPrivate(chapterTwoEntryTrigger, "campaignChapterIndex", 2);
             SetPrivate(chapterTwoEntryTrigger, "chapterSign", chapterTwoSign);
             SetPrivate(chapterTwoEntryTrigger, "fallRecovery", fallRecovery);
             SetPrivate(chapterTwoEntryTrigger, "checkpoint", chapterTwoCheckpoint.transform);
             fallRecovery.SetDialogue(director);
             SetPrivate(chapterTwoExitController, "dialogue", director);
             SetPrivate(chapterThreeEntryTrigger, "dialogue", director);
+            SetPrivate(chapterThreeEntryTrigger, "campaignChapterIndex", 3);
             SetPrivate(chapterThreeEntryTrigger, "chapterSign", chapterThreeSign);
             SetPrivate(chapterThreeEntryTrigger, "dialogueId", "chapter_three_entry");
             SetPrivate(chapterThreeEntryTrigger, "englishSign", "CHAPTER 03  /  WRONG DIMENSION");
@@ -2445,6 +2447,7 @@ namespace Oddly.Editor
             SetPrivate(dimensionPuzzle, "dialogue", director);
             SetPrivate(chapterThreeExitController, "dialogue", director);
             SetPrivate(chapterFourEntryTrigger, "dialogue", director);
+            SetPrivate(chapterFourEntryTrigger, "campaignChapterIndex", 4);
             SetPrivate(chapterFourEntryTrigger, "chapterSign", chapterFourSign);
             SetPrivate(chapterFourEntryTrigger, "dialogueId", "chapter_four_entry");
             SetPrivate(chapterFourEntryTrigger, "englishSign", "CHAPTER 04  /  SYSTEM ERROR");
@@ -2454,6 +2457,7 @@ namespace Oddly.Editor
             SetPrivate(systemErrorPuzzle, "dialogue", director);
             SetPrivate(chapterFourExitController, "dialogue", director);
             SetPrivate(chapterFiveEntryTrigger, "dialogue", director);
+            SetPrivate(chapterFiveEntryTrigger, "campaignChapterIndex", 5);
             SetPrivate(chapterFiveEntryTrigger, "chapterSign", chapterFiveSign);
             SetPrivate(chapterFiveEntryTrigger, "dialogueId", "chapter_five_entry");
             SetPrivate(chapterFiveEntryTrigger, "englishSign", "CHAPTER 05  /  DON'T TRUST YOUR EYES");
@@ -2468,6 +2472,7 @@ namespace Oddly.Editor
             SetPrivate(blindSpotPuzzle, "dialogue", director);
             SetPrivate(chapterFiveExitController, "dialogue", director);
             SetPrivate(chapterSixEntryTrigger, "dialogue", director);
+            SetPrivate(chapterSixEntryTrigger, "campaignChapterIndex", 6);
             SetPrivate(chapterSixEntryTrigger, "chapterSign", chapterSixSign);
             SetPrivate(chapterSixEntryTrigger, "dialogueId", "chapter_six_entry");
             SetPrivate(chapterSixEntryTrigger, "englishSign", "CHAPTER 06  /  YOU AGAIN?");
@@ -2482,6 +2487,7 @@ namespace Oddly.Editor
             SetPrivate(behaviorMemoryPuzzle, "waitCountLabel", waitLabel);
             SetPrivate(chapterSixExitController, "dialogue", director);
             SetPrivate(chapterSevenEntryTrigger, "dialogue", director);
+            SetPrivate(chapterSevenEntryTrigger, "campaignChapterIndex", 7);
             SetPrivate(chapterSevenEntryTrigger, "chapterSign", chapterSevenSign);
             SetPrivate(chapterSevenEntryTrigger, "dialogueId", "chapter_seven_entry");
             SetPrivate(chapterSevenEntryTrigger, "englishSign", "CHAPTER 07  /  THE ROOM THAT LAUGHS");
@@ -2496,6 +2502,7 @@ namespace Oddly.Editor
             SetPrivate(laughingRoomDirector, "linkedDoor", chapterSevenExitController);
             SetPrivate(chapterSevenExitController, "dialogue", director);
             SetPrivate(chapterEightEntryTrigger, "dialogue", director);
+            SetPrivate(chapterEightEntryTrigger, "campaignChapterIndex", 8);
             SetPrivate(chapterEightEntryTrigger, "chapterSign", chapterEightSign);
             SetPrivate(chapterEightEntryTrigger, "dialogueId", "chapter_eight_entry");
             SetPrivate(chapterEightEntryTrigger, "englishSign", "CHAPTER 08  /  THE LOOP");
@@ -2510,6 +2517,7 @@ namespace Oddly.Editor
             SetPrivate(loopRoomDirector, "roomLight", loopLight);
             SetPrivate(chapterEightExitController, "dialogue", director);
             SetPrivate(chapterNineEntryTrigger, "dialogue", director);
+            SetPrivate(chapterNineEntryTrigger, "campaignChapterIndex", 9);
             SetPrivate(chapterNineEntryTrigger, "chapterSign", chapterNineSign);
             SetPrivate(chapterNineEntryTrigger, "dialogueId", "chapter_nine_entry");
             SetPrivate(chapterNineEntryTrigger, "englishSign", "CHAPTER 09  /  THE WRONG AUDIENCE");
@@ -2523,6 +2531,7 @@ namespace Oddly.Editor
             SetPrivate(audiencePuzzle, "stageLight", stageLight);
             SetPrivate(chapterNineExitController, "dialogue", director);
             SetPrivate(chapterTenEntryTrigger, "dialogue", director);
+            SetPrivate(chapterTenEntryTrigger, "campaignChapterIndex", 10);
             SetPrivate(chapterTenEntryTrigger, "chapterSign", chapterTenSign);
             SetPrivate(chapterTenEntryTrigger, "dialogueId", "chapter_ten_entry");
             SetPrivate(chapterTenEntryTrigger, "englishSign", "CHAPTER 10  /  THE UNFINISHED GAME");
@@ -2536,6 +2545,7 @@ namespace Oddly.Editor
             SetPrivate(unfinishedPuzzle, "markLabels", buildMarkLabels);
             SetPrivate(chapterTenExitController, "dialogue", director);
             SetPrivate(chapterElevenEntryTrigger, "dialogue", director);
+            SetPrivate(chapterElevenEntryTrigger, "campaignChapterIndex", 11);
             SetPrivate(chapterElevenEntryTrigger, "chapterSign", chapterElevenSign);
             SetPrivate(chapterElevenEntryTrigger, "dialogueId", "chapter_eleven_entry");
             SetPrivate(chapterElevenEntryTrigger, "englishSign", "CHAPTER 11  /  THE PATCH NOTES");
@@ -2549,6 +2559,7 @@ namespace Oddly.Editor
             SetPrivate(patchPuzzle, "roomLight", patchRoomLight);
             SetPrivate(chapterElevenExitController, "dialogue", director);
             SetPrivate(chapterTwelveEntryTrigger, "dialogue", director);
+            SetPrivate(chapterTwelveEntryTrigger, "campaignChapterIndex", 12);
             SetPrivate(chapterTwelveEntryTrigger, "chapterSign", chapterTwelveSign);
             SetPrivate(chapterTwelveEntryTrigger, "dialogueId", "chapter_twelve_entry");
             SetPrivate(chapterTwelveEntryTrigger, "englishSign", "CHAPTER 12  /  THE LAST SAVE");
@@ -2562,6 +2573,7 @@ namespace Oddly.Editor
             SetPrivate(lastSavePuzzle, "roomLight", saveRoomLight);
             SetPrivate(chapterTwelveExitController, "dialogue", director);
             SetPrivate(chapterThirteenEntryTrigger, "dialogue", director);
+            SetPrivate(chapterThirteenEntryTrigger, "campaignChapterIndex", 13);
             SetPrivate(chapterThirteenEntryTrigger, "chapterSign", chapterThirteenSign);
             SetPrivate(chapterThirteenEntryTrigger, "dialogueId", "chapter_thirteen_entry");
             SetPrivate(chapterThirteenEntryTrigger, "englishSign", "CHAPTER 13  /  THE CONTROL ROOM");
@@ -2574,6 +2586,7 @@ namespace Oddly.Editor
             SetPrivate(controlPuzzle, "channelProps", controlChannels);
             SetPrivate(controlPuzzle, "controlLight", controlRoomLight);
             SetPrivate(chapterFourteenEntryTrigger, "dialogue", director);
+            SetPrivate(chapterFourteenEntryTrigger, "campaignChapterIndex", 14);
             SetPrivate(chapterFourteenEntryTrigger, "chapterSign", chapterFourteenSign);
             SetPrivate(chapterFourteenEntryTrigger, "dialogueId", "chapter_fourteen_entry");
             SetPrivate(chapterFourteenEntryTrigger, "englishSign", "CHAPTER 14  /  THE FINAL DECISION");
@@ -2600,6 +2613,8 @@ namespace Oddly.Editor
             SetPrivate(tomorrowExitTrigger, "puzzle", tomorrowPuzzle);
             SetPrivate(hiddenFourExitController, "dialogue", director);
             SetPrivate(hiddenThreeEntryTrigger, "dialogue", director);
+            SetPrivate(hiddenThreeEntryTrigger, "campaignChapterIndex", 3);
+            SetPrivate(hiddenThreeEntryTrigger, "hiddenChapter", true);
             SetPrivate(hiddenThreeEntryTrigger, "chapterSign", hiddenThreeTitle);
             SetPrivate(hiddenThreeEntryTrigger, "dialogueId", "hidden_chapter_three_entry");
             SetPrivate(hiddenThreeEntryTrigger, "englishSign", "HIDDEN 03  /  THE MOMENT BETWEEN BLINKS");
@@ -2619,6 +2634,8 @@ namespace Oddly.Editor
                 SetPrivate(stationTrigger, "puzzle", echoPuzzle);
             }
             SetPrivate(hiddenTwoEntryTrigger, "dialogue", director);
+            SetPrivate(hiddenTwoEntryTrigger, "campaignChapterIndex", 2);
+            SetPrivate(hiddenTwoEntryTrigger, "hiddenChapter", true);
             SetPrivate(hiddenTwoEntryTrigger, "chapterSign", hiddenTwoTitle);
             SetPrivate(hiddenTwoEntryTrigger, "dialogueId", "hidden_chapter_two_entry");
             SetPrivate(hiddenTwoEntryTrigger, "englishSign", "HIDDEN 02  /  THE ROOM THAT HOLDS ITS BREATH");
@@ -2638,6 +2655,8 @@ namespace Oddly.Editor
             }
             SetPrivate(hiddenGate, "dialogue", director);
             SetPrivate(hiddenEntryTrigger, "dialogue", director);
+            SetPrivate(hiddenEntryTrigger, "campaignChapterIndex", 1);
+            SetPrivate(hiddenEntryTrigger, "hiddenChapter", true);
             SetPrivate(hiddenEntryTrigger, "chapterSign", hiddenChapterTitle);
             SetPrivate(hiddenEntryTrigger, "dialogueId", "hidden_chapter_one_entry");
             SetPrivate(hiddenEntryTrigger, "englishSign", "HIDDEN 01  /  THE ROOM THAT FORGOT YOU");
