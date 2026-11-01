@@ -25,6 +25,7 @@ namespace Oddly
                     : "HIDDEN 04 / THE ROOM THAT REMEMBERS TOMORROW";
             puzzle?.InitializeFromHistory(FindObjectOfType<BehaviorTracker>());
             dialogue?.Say("hidden_chapter_four_entry");
+            CampaignDirector.Instance?.EnterChapter(4, "THE ROOM THAT REMEMBERS TOMORROW", "YARINI HATIRLAYAN ODA", true);
         }
     }
 }
