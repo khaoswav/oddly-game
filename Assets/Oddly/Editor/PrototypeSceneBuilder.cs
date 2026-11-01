@@ -953,6 +953,103 @@ namespace Oddly.Editor
             CreatePrimitive("Chapter 9 to 10 connector right rail", PrimitiveType.Cube,
                 new Vector3(5, 2.5f, 333), new Vector3(0.25f, 5, 12), wallMat);
 
+            // Chapter 11: patch notes physically rewrite the room. The required
+            // release order is deliberately non-chronological: 3.0, 1.0, 2.0.
+            CreatePrimitive("Chapter 11 patch floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 387), new Vector3(10, 0.5f, 24), floorMat);
+            CreatePrimitive("Chapter 11 left wall", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 387), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 11 right wall", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 387), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 11 far wall left", PrimitiveType.Cube,
+                new Vector3(-4.15f, 2.5f, 399), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 11 far wall right", PrimitiveType.Cube,
+                new Vector3(4.15f, 2.5f, 399), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 11 far wall header", PrimitiveType.Cube,
+                new Vector3(0, 4.55f, 399), new Vector3(6.6f, 0.9f, 0.5f), wallMat);
+            GameObject chapterElevenExit = CreatePrimitive("Chapter 11 patch exit",
+                PrimitiveType.Cube, new Vector3(0, 2, 398.7f), new Vector3(2.8f, 4, 0.35f), doorMat);
+            DoorController chapterElevenExitController = chapterElevenExit.AddComponent<DoorController>();
+
+            GameObject chapterElevenEntry = new GameObject("Chapter 11 entry trigger");
+            chapterElevenEntry.transform.position = new Vector3(0, 1.2f, 373.5f);
+            BoxCollider chapterElevenEntryCollider = chapterElevenEntry.AddComponent<BoxCollider>();
+            chapterElevenEntryCollider.isTrigger = true;
+            chapterElevenEntryCollider.size = new Vector3(8.5f, 2.4f, 1.2f);
+            ChapterEntryTrigger chapterElevenEntryTrigger = chapterElevenEntry.AddComponent<ChapterEntryTrigger>();
+            GameObject chapterElevenCheckpoint = new GameObject("Chapter 11 checkpoint");
+            chapterElevenCheckpoint.transform.position = new Vector3(0f, 0.15f, 375.5f);
+
+            TextMesh chapterElevenSign = new GameObject("Chapter 11 title sign").AddComponent<TextMesh>();
+            chapterElevenSign.transform.position = new Vector3(0, 3.65f, 377f);
+            chapterElevenSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            chapterElevenSign.text = "CHAPTER 11 / THE PATCH NOTES";
+            chapterElevenSign.fontSize = 38;
+            chapterElevenSign.characterSize = 0.05f;
+            chapterElevenSign.anchor = TextAnchor.MiddleCenter;
+            chapterElevenSign.alignment = TextAlignment.Center;
+            chapterElevenSign.color = new Color(0.22f, 0.25f, 0.32f);
+
+            TextMesh patchStatusSign = new GameObject("Patch notes status sign").AddComponent<TextMesh>();
+            patchStatusSign.transform.position = new Vector3(0, 3.1f, 381f);
+            patchStatusSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            patchStatusSign.fontSize = 30;
+            patchStatusSign.characterSize = 0.05f;
+            patchStatusSign.anchor = TextAnchor.MiddleCenter;
+            patchStatusSign.alignment = TextAlignment.Center;
+            patchStatusSign.color = new Color(0.35f, 0.7f, 1f);
+
+            Transform[] patchProps = new Transform[3];
+            float[] patchXs = { -3f, 0f, 3f };
+            string[] patchVersions = { "PATCH 1.0 / SCALE FIX", "PATCH 2.0 / ROTATION FIX", "PATCH 3.0 / FLOATING FIX" };
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject patchConsole = CreatePrimitive("Patch console " + (i + 1),
+                    PrimitiveType.Cube, new Vector3(patchXs[i], 0.65f, 390f),
+                    new Vector3(1.2f, 1.3f, 1.2f), i == 0 ? accentMat : cubeMat);
+                patchProps[i] = patchConsole.transform;
+
+                TextMesh patchLabel = new GameObject("Patch version label " + (i + 1)).AddComponent<TextMesh>();
+                patchLabel.transform.position = new Vector3(patchXs[i], 2.1f, 390f);
+                patchLabel.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                patchLabel.text = patchVersions[i];
+                patchLabel.fontSize = 24;
+                patchLabel.characterSize = 0.045f;
+                patchLabel.anchor = TextAnchor.MiddleCenter;
+                patchLabel.alignment = TextAlignment.Center;
+                patchLabel.color = new Color(0.28f, 0.72f, 0.95f);
+            }
+
+            GameObject patchLightObject = new GameObject("Patch notes reactive light");
+            patchLightObject.transform.position = new Vector3(0, 4.2f, 390f);
+            Light patchRoomLight = patchLightObject.AddComponent<Light>();
+            patchRoomLight.type = LightType.Point;
+            patchRoomLight.range = 15f;
+            patchRoomLight.intensity = 0.8f;
+
+            GameObject patchPuzzleObject = new GameObject("Patch notes puzzle controller");
+            PatchNotesPuzzle patchPuzzle = patchPuzzleObject.AddComponent<PatchNotesPuzzle>();
+            GameObject[] patchZones = new GameObject[3];
+            for (int i = 0; i < 3; i++)
+            {
+                patchZones[i] = new GameObject("Apply patch " + (i + 1) + " trigger");
+                patchZones[i].transform.position = new Vector3(patchXs[i], 1f, 390f);
+                BoxCollider patchZoneCollider = patchZones[i].AddComponent<BoxCollider>();
+                patchZoneCollider.isTrigger = true;
+                patchZoneCollider.size = new Vector3(1.8f, 2.4f, 1.8f);
+                PatchNoteTrigger patchTrigger = patchZones[i].AddComponent<PatchNoteTrigger>();
+                SetPrivate(patchTrigger, "puzzle", patchPuzzle);
+                SetPrivate(patchTrigger, "patchIndex", i);
+            }
+
+            // Connector from the unfinished build room into the patch theatre.
+            CreatePrimitive("Chapter 10 to 11 connector floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 369), new Vector3(10, 0.5f, 12), floorMat);
+            CreatePrimitive("Chapter 10 to 11 connector left rail", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 369), new Vector3(0.25f, 5, 12), wallMat);
+            CreatePrimitive("Chapter 10 to 11 connector right rail", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 369), new Vector3(0.25f, 5, 12), wallMat);
+
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
             BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
@@ -1215,6 +1312,19 @@ namespace Oddly.Editor
             SetPrivate(unfinishedPuzzle, "buildMarks", buildMarks);
             SetPrivate(unfinishedPuzzle, "markLabels", buildMarkLabels);
             SetPrivate(chapterTenExitController, "dialogue", director);
+            SetPrivate(chapterElevenEntryTrigger, "dialogue", director);
+            SetPrivate(chapterElevenEntryTrigger, "chapterSign", chapterElevenSign);
+            SetPrivate(chapterElevenEntryTrigger, "dialogueId", "chapter_eleven_entry");
+            SetPrivate(chapterElevenEntryTrigger, "englishSign", "CHAPTER 11  /  THE PATCH NOTES");
+            SetPrivate(chapterElevenEntryTrigger, "turkishSign", "BÖLÜM 11  /  YAMA NOTLARI");
+            SetPrivate(chapterElevenEntryTrigger, "fallRecovery", fallRecovery);
+            SetPrivate(chapterElevenEntryTrigger, "checkpoint", chapterElevenCheckpoint.transform);
+            SetPrivate(patchPuzzle, "exitDoor", chapterElevenExitController);
+            SetPrivate(patchPuzzle, "dialogue", director);
+            SetPrivate(patchPuzzle, "statusSign", patchStatusSign);
+            SetPrivate(patchPuzzle, "patchProps", patchProps);
+            SetPrivate(patchPuzzle, "roomLight", patchRoomLight);
+            SetPrivate(chapterElevenExitController, "dialogue", director);
             PerspectiveBridgePuzzle bridgePuzzle = player.AddComponent<PerspectiveBridgePuzzle>();
             SetPrivate(bridgePuzzle, "bridge", bridgePerspectiveObject);
             SetPrivate(bridgePuzzle, "landingTarget", bridgeTarget.transform);
