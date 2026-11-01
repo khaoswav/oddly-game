@@ -17,8 +17,7 @@ The first vertical slice is intentionally small and playable:
 - A camera-projected perspective frame puzzle.
 - Paired impossible doorways that loop through the same room and react with changing signs.
 - A bilingual meta puzzle built around a forbidden red button and a misleading instruction.
-- Per-event dialogue cooldowns, randomized banter and narrator/system speaker handoff.
-- Two-character dialogue system with Turkish and English lines, contextual reactions and varied banter.
+- Turkish/English dialogue from two distinct characters, with per-event cooldowns, randomized banter and speaker handoff.
 - Runtime-created prototype room, HUD and title screen.
 
 The prototype scene is generated automatically by the Unity Editor bootstrap when the project is opened. If it has not appeared, use **Oddly → Create / Repair Prototype Scene**.
