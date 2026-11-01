@@ -34,6 +34,7 @@ namespace Oddly
                     ? "KONTROLLER İADE EDİLDİ\nÇIKIŞ AÇIK"
                     : "CONTROLS RETURNED\nEXIT OPEN";
             dialogue?.Say("hidden_controls_returned");
+            HiddenChapterArchive.MarkCompleted(5);
             exitDoor?.Unlock();
         }
 
