@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 namespace Oddly
 {
@@ -12,6 +13,13 @@ namespace Oddly
     {
         [SerializeField] private DialogueDirector dialogue;
         [SerializeField] private TextMesh sign;
+        [SerializeField] private Transform revealPanel;
+        [SerializeField, Min(0.1f)] private float revealDistance = 5.5f;
+        [SerializeField, Min(0.1f)] private float revealSpeed = 3.2f;
+        [SerializeField, Min(0f)] private float revealDelay = 1.2f;
+        private Vector3 panelClosedPosition;
+        private Vector3 panelOpenPosition;
+        private bool opening;
         [SerializeField] private string dialogueId = "false_exit";
         [SerializeField] private string revealedSignEnglish = "NOT AN EXIT";
         [SerializeField] private string revealedSignTurkish = "ÇIKIŞ DEĞİL";
@@ -31,7 +39,7 @@ namespace Oddly
             if (sign != null)
                 sign.text = dialogue != null && dialogue.IsTurkish
                     ? revealedSignTurkish : revealedSignEnglish;
-            dialogue?.Say(dialogueId);
+            dialogue?.Say(dialogueId);\n            if (revealPanel != null)\n                StartCoroutine(OpenRevealAfterDelay());
         }
     }
 }
