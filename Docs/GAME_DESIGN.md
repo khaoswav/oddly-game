@@ -3,7 +3,7 @@
 **Genre:** First-person perspective puzzle / surreal comedy  
 **Platforms:** Windows and macOS  
 **Languages:** Turkish and English  
-**Target playtime:** 90–120 minutes  
+**Target playtime:** approximately 2 hours for the main story; approximately 3 hours including hidden chapters  
 **Players:** Single-player
 
 ## High concept
@@ -41,17 +41,28 @@ Explore → notice an inconsistency → manipulate an object or viewpoint → te
 - Beyond it, a dual-scale relay chamber requires two separate objects to be resized through perspective and placed on distinct small and large pads at the same time. The player must plan the two scale states independently before the next exit unlocks.
 - The next chamber uses forced perspective as architecture: two fragments at different depths must overlap in the camera view from a marked floor position. The game checks the actual screen-space alignment and viewing angle, then gives a restrained bilingual hint if the player is close but not aligned. The relay puzzle also waits for both dropped objects to physically settle before accepting their placements.
 - Chapter 2 begins beyond that exit with a physical gap between two platforms. A broad plank starts at ordinary scale on a pedestal; the player must use depth-based scaling to enlarge it, place it across the gap, and let its Rigidbody settle before the far exit unlocks. The puzzle checks real placement and scale rather than granting a solution from proximity alone. Its chapter sign and character reactions are localized in Turkish and English.
+- Chapter 3, Wrong Dimension, changes the spatial verb: a wall blocks the player but contains a narrow slot. The player must resize a cube so it physically fits through the opening, carry it to a landing platform on the other side, and release it so physics can settle it before the exit unlocks. The room has its own localized chapter entry, checkpoint, hints and completion banter.
 - Behavior tracking for local, contextual banter.
 
-## Planned chapter arc
-1. **Welcome, Idiot** — onboarding and the first dishonest instruction.
-2. **Size Does Matter** — object scale and perspective.
-3. **Wrong Dimension** — impossible geometry and looping spaces.
-4. **System Error** — unreliable instructions and character conflict.
-5. **Don't Trust Your Eyes** — visual misdirection and hidden routes.
-6. **You Again?** — callbacks based on earlier player behavior.
-7. **The Game Is Lying** — meta puzzles and narrative reveal.
-8. **Wrong Way** — combined mechanics and final reversal.
+## Campaign structure and playtime
+The main story target is approximately **2 hours**, with **about 1 additional hour** for hidden chapters, for roughly **3 hours** to see the full planned experience. These are design targets, not padding requirements. Rooms should stay surprising and mechanically distinct; the game should not stretch its runtime with empty corridors or repeated versions of the same puzzle.
+
+The campaign is planned as **12–14 connected story sequences**, rather than a rigid set of identical-sized levels. The current story arc is:
+1. **Welcome, Idiot** — onboarding, the first dishonest instruction and the first fourth-wall joke.
+2. **Size Does Matter** — depth-based scale, a physical bridge and the consequences of changing object size.
+3. **Wrong Dimension** — a player-blocking wall, a resizeable slot and object transfer across an impossible boundary.
+4. **System Error** — instructions contradict each other and SYSTEM-02 begins overriding the Narrator.
+5. **Don't Trust Your Eyes** — forced perspective, false geometry and routes that only exist from one viewpoint.
+6. **You Again?** — the game remembers repeated habits and turns them into callbacks and puzzle clues.
+7. **The Game Is Lying** — the interface, signage and level rules become part of the puzzle.
+8. **Out of Bounds** — spaces beyond the intended play area become the intended route.
+9. **Memory Leak** — earlier rooms return with altered rules and remembered objects.
+10. **The Other Side** — perspective tricks begin working in reverse.
+11. **Control Room** — the two voices disagree about who is actually in control.
+12. **Wrong Way** — a multi-mechanic finale with choices that shape the ending.
+13–14. **Optional connective sequences** — pacing and story beats may expand to 14 sequences where the finished experience needs them.
+
+Plan **5–8 hidden chapters/rooms** for optional discoveries, plus optional replay challenges. Hidden content is designed to add approximately one hour. At least three ending variations are planned, subject to narrative implementation. The exact sequence count can change during production, but the 2-hour main-story and 3-hour full-experience targets remain the scope guardrails.
 
 ## Language and voice
 All player-facing text and dialogue must exist in Turkish and English. The two language versions should be adapted for natural comedic timing rather than translated word-for-word. Voice acting is a production requirement: two distinct human-sounding performances per language, with emotional range, breath, pauses and comedic timing. Synthetic text-to-speech must not be presented as finished human performance.
