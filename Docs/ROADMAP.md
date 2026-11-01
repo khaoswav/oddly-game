@@ -25,6 +25,8 @@
 - [x] Add a paired impossible-room doorway loop with reactive bilingual dialogue and changing signs.
 - [x] Add a bilingual notice-and-forbidden-button meta puzzle that unlocks the exit.
 - [x] Add per-event dialogue cooldowns and varied bilingual character banter with speaker handoff.
+- [x] Add event-driven Narrator / SYSTEM-02 reactions to pickup habits, repeated drops, failed interactions, door spam and prolonged idle behaviour.
+- [x] Add escalating bilingual reaction tiers with a short delayed handoff so character commentary does not overwrite immediate interaction feedback.
 - [x] Add a persistent options menu for mouse sensitivity and field of view, alongside saved language selection.
 - [x] Add a three-beat bilingual Chapter 1 opening sequence with a deliberate control handoff.
 - [x] Extend the unlocked exit into a traversable corridor with a bilingual false-exit reveal and animated passage into a waiting room.
