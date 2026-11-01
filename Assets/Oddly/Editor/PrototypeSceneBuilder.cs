@@ -153,6 +153,7 @@ namespace Oddly.Editor
             SetPrivate(hud, "prompt", prompt);
             SetPrivate(goalZone, "dialogue", director);
             SetPrivate(doorController, "dialogue", director);
+            SetPrivate(perspectivePuzzle, "dialogue", director);
 
             movement.enabled = false;
             interaction.enabled = false;
