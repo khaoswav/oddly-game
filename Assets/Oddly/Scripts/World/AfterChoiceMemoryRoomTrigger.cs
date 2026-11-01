@@ -24,8 +24,8 @@ namespace Oddly
             bool turkish = PlayerPrefs.GetInt("oddly.language", 1) == 0;
             if (statusSign != null)
                 statusSign.text = turkish
-                    ? "SEÇİMDEN SONRA\nHATIRLANAN ODALAR: " + count + " / 8\nSÖNÜK SÜTUNLAR HENÜZ BULUNMADI"
-                    : "AFTER THE CHOICE\nREMEMBERED ROOMS: " + count + " / 8\nDIM PILLARS ARE STILL UNDISCOVERED";
+                    ? "SEÇİMDEN SONRA\nODALAR: " + count + " / 8  •  YANKILAR: " + AfterChoiceEchoPillar.DiscoveredCount + " / 8"
+                    : "AFTER THE CHOICE\nROOMS: " + count + " / 8  •  ECHOES: " + AfterChoiceEchoPillar.DiscoveredCount + " / 8";
 
             switch (Mathf.Clamp(PlayerPrefs.GetInt("oddly.ending", 2), 0, 2))
             {
