@@ -20,6 +20,9 @@ namespace Oddly
         public int IdleEpisodeCount => idleEpisodes;
         public event Action FailedInteractionRegistered;
         public event Action ObjectDropped;
+        public event Action ObjectPickedUp;
+        public event Action DoorAttemptRegistered;
+        public event Action IdleEpisodeRegistered;
 
         private DialogueDirector dialogue;
 
@@ -40,16 +43,18 @@ namespace Oddly
                 {
                     idleCommentUsed = true;
                     idleEpisodes++;
+                    IdleEpisodeRegistered?.Invoke();
                     dialogue?.Say("idle");
                 }
             }
         }
 
-        public void RegisterPickup() { failedInteractions = 0; }
+        public void RegisterPickup() { failedInteractions = 0; ObjectPickedUp?.Invoke(); }
         public void RegisterDrop() { totalDrops++; ObjectDropped?.Invoke(); }
         public void RegisterDoorAttempt()
         {
             doorAttempts++;
+            DoorAttemptRegistered?.Invoke();
             if (doorAttempts >= 2) dialogue?.Say("repeat");
         }
         public void RegisterFailedInteraction()
