@@ -92,6 +92,13 @@
 - [x] Add three converging ending relics and unlock The Unwritten Ending as a persistent alternate finale discovery.
 - [x] Add a separate E-interaction that plays The Unwritten Ending as a short alternate-finale coda with a world-lighting transition, persistent completion and replay-safe restoration.
 - [x] Preserve ending history and the ninth-record unlock during replay; clear both only on full campaign reset.
+- [x] Chapter 14.5: add The Last Page, a separate epilogue after The Unwritten Ending, with history-aware bilingual closure and replay access.
+- [x] Track replay count independently from campaign completion; preserve it through replay and clear it only on full reset.
+- [x] Make the memory chamber combine all three ending records, hidden-room progress and replay count in its status and dialogue.
+- [x] Animate all three ending relics during the main finale so the unselected choices remain present as subdued world memories.
+- [x] Add generated-scene validation for required final triggers, eight echo pillars, three ending choices, player controller, dialogue director and Build Settings.
+- [x] Add Unity Editor menu commands for validating the generated scene and building macOS / Windows standalone players.
+- [ ] Run Unity 6.3 Editor validation, Play Mode regression, macOS build and Windows build on a machine with the required Unity modules.
 - [x] Persist discovered echo records across replay while keeping them separate from hidden-room completion records.
 - [x] Add The Last Echo reward, unlocked only after all eight hidden rooms are complete and all eight echoes have been heard.
 - [x] Keep the full campaign reset as the explicit action that clears archive access, echo discoveries and the reward claim.
@@ -104,6 +111,11 @@
 - [ ] Add persistent campaign saves and chapter checkpoints.
 
 ## Milestone 5 — Release
+- [ ] macOS Intel/Apple Silicon compatibility testing.
+- [ ] Windows build and controller testing.
+- [ ] Performance, accessibility and localization QA.
+- [x] Add reproducible Unity Editor validation and macOS/Windows build entry points.
+- [ ] Run Unity Editor validation, Play Mode regression and platform builds on supported hardware.
 - [ ] macOS Intel/Apple Silicon compatibility testing.
 - [ ] Windows build and controller testing.
 - [ ] Performance, accessibility and localization QA.
