@@ -1657,8 +1657,66 @@ namespace Oddly.Editor
                 new Vector3(-15f, 2.25f, 521.1f), new Vector3(22f, 4.5f, 0.2f), wallMat);
             CreatePrimitive("After-choice memory room floor", PrimitiveType.Cube,
                 new Vector3(-36f, -0.25f, 519f), new Vector3(20f, 0.5f, 16f), floorMat);
-            CreatePrimitive("After-choice memory room far wall", PrimitiveType.Cube,
-                new Vector3(-46f, 2.25f, 519f), new Vector3(0.25f, 4.5f, 16f), wallMat);
+            // Chapter 14.4: the west archive wall hides a ninth record chamber.
+            CreatePrimitive("After-choice memory room far wall north", PrimitiveType.Cube,
+                new Vector3(-46f, 2.25f, 513.9f), new Vector3(0.25f, 4.5f, 5.8f), wallMat);
+            CreatePrimitive("After-choice memory room far wall south", PrimitiveType.Cube,
+                new Vector3(-46f, 2.25f, 524.1f), new Vector3(0.25f, 4.5f, 5.8f), wallMat);
+            CreatePrimitive("Ninth record entrance header", PrimitiveType.Cube,
+                new Vector3(-46f, 4.35f, 519f), new Vector3(0.25f, 0.3f, 4.2f), wallMat);
+            CreatePrimitive("Ninth record corridor floor", PrimitiveType.Cube,
+                new Vector3(-50f, -0.25f, 519f), new Vector3(8f, 0.5f, 4.2f), floorMat);
+            CreatePrimitive("Ninth record corridor near wall", PrimitiveType.Cube,
+                new Vector3(-50f, 2.25f, 516.9f), new Vector3(8f, 4.5f, 0.2f), wallMat);
+            CreatePrimitive("Ninth record corridor far wall", PrimitiveType.Cube,
+                new Vector3(-50f, 2.25f, 521.1f), new Vector3(8f, 4.5f, 0.2f), wallMat);
+            CreatePrimitive("Ninth record chamber floor", PrimitiveType.Cube,
+                new Vector3(-60.5f, -0.25f, 519f), new Vector3(13f, 0.5f, 12f), floorMat);
+            CreatePrimitive("Ninth record chamber west wall", PrimitiveType.Cube,
+                new Vector3(-67f, 2.25f, 519f), new Vector3(0.25f, 4.5f, 12f), wallMat);
+            CreatePrimitive("Ninth record chamber north wall", PrimitiveType.Cube,
+                new Vector3(-60.5f, 2.25f, 513f), new Vector3(13f, 4.5f, 0.25f), wallMat);
+            CreatePrimitive("Ninth record chamber south wall", PrimitiveType.Cube,
+                new Vector3(-60.5f, 2.25f, 525f), new Vector3(13f, 4.5f, 0.25f), wallMat);
+
+            GameObject ninthRecordDoor = CreatePrimitive("Ninth record sealed convergence door",
+                PrimitiveType.Cube, new Vector3(-46f, 2f, 519f), new Vector3(0.3f, 4f, 4.1f), accentMat);
+            TextMesh ninthRecordSign = new GameObject("Ninth record chamber sign").AddComponent<TextMesh>();
+            ninthRecordSign.transform.position = new Vector3(-66.75f, 3.6f, 519f);
+            ninthRecordSign.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+            ninthRecordSign.text = "THE UNWRITTEN ENDING";
+            ninthRecordSign.fontSize = 26;
+            ninthRecordSign.characterSize = 0.05f;
+            ninthRecordSign.anchor = TextAnchor.MiddleCenter;
+            ninthRecordSign.alignment = TextAlignment.Center;
+            ninthRecordSign.color = new Color(0.92f, 0.84f, 0.68f);
+
+            Transform[] convergenceRelics = new Transform[3];
+            Color[] convergenceColors = {
+                new Color(1f, 0.48f, 0.22f),
+                new Color(0.24f, 0.52f, 1f),
+                new Color(0.28f, 0.9f, 0.62f)
+            };
+            for (int i = 0; i < convergenceRelics.Length; i++)
+            {
+                GameObject relic = CreatePrimitive("Converged ending relic " + (i + 1),
+                    PrimitiveType.Sphere, new Vector3(-60.5f, 1.65f, 515f + i * 4f),
+                    Vector3.one * 1.05f, MakeMaterial("Converged ending " + (i + 1), convergenceColors[i]));
+                convergenceRelics[i] = relic.transform;
+            }
+
+            GameObject ninthRecordTriggerObject = new GameObject("Ninth record convergence trigger");
+            ninthRecordTriggerObject.transform.position = new Vector3(-43.8f, 1.2f, 519f);
+            BoxCollider ninthRecordCollider = ninthRecordTriggerObject.AddComponent<BoxCollider>();
+            ninthRecordCollider.isTrigger = true;
+            ninthRecordCollider.size = new Vector3(2.2f, 2.4f, 3.8f);
+            AfterChoiceNinthRecordTrigger ninthRecord =
+                ninthRecordTriggerObject.AddComponent<AfterChoiceNinthRecordTrigger>();
+            SetPrivate(ninthRecord, "sealedDoor", ninthRecordDoor.transform);
+            SetPrivate(ninthRecord, "convergenceRelics", convergenceRelics);
+            SetPrivate(ninthRecord, "statusSign", ninthRecordSign);
+
+            CreatePrimitive("After-choice memory room near wall", PrimitiveType.Cube,
             CreatePrimitive("After-choice memory room near wall", PrimitiveType.Cube,
                 new Vector3(-36f, 2.25f, 511f), new Vector3(20f, 4.5f, 0.25f), wallMat);
             CreatePrimitive("After-choice memory room far side wall", PrimitiveType.Cube,
