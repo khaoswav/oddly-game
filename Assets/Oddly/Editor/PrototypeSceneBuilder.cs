@@ -232,7 +232,7 @@ namespace Oddly.Editor
             PerspectiveObject largeRelayObject = largeRelaySphere.AddComponent<PerspectiveObject>();
 
             TextMesh relayInstruction = new GameObject("Scale relay instruction").AddComponent<TextMesh>();
-            relayInstruction.transform.position = new Vector3(0, 3.2f, 41.5f);
+            relayInstruction.transform.position = new Vector3(0, 3.2f, 41.5f);\n            relayInstruction.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
             relayInstruction.text = "TWO SIZES. TWO PLACES.";
             relayInstruction.fontSize = 48;
             relayInstruction.characterSize = 0.055f;
