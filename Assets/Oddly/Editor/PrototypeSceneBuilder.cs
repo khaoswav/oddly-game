@@ -361,10 +361,10 @@ namespace Oddly.Editor
             chapterTwoSign.alignment = TextAlignment.Center;
             chapterTwoSign.color = new Color(0.22f, 0.25f, 0.32f);
 
-            GameObject bridgePedestal = CreatePrimitive("Bridge plank pedestal",
+            CreatePrimitive("Bridge plank pedestal",
                 PrimitiveType.Cube, new Vector3(0, 0.25f, 85f), new Vector3(2.8f, 0.5f, 2.6f), accentMat);
             GameObject bridgePlank = CreatePrimitive("Perspective bridge plank",
-                PrimitiveType.Cube, new Vector3(0, 0.62f, 85f), new Vector3(2.2f, 0.1f, 1.8f), cubeMat);
+                PrimitiveType.Cube, new Vector3(0, 0.62f, 85f), new Vector3(1f, 0.1f, 1.8f), cubeMat);
             Rigidbody bridgeBody = bridgePlank.AddComponent<Rigidbody>();
             bridgeBody.mass = 2.4f;
             bridgeBody.interpolation = RigidbodyInterpolation.Interpolate;
