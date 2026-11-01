@@ -99,6 +99,12 @@ namespace Oddly
         public void PlayRevealCue() { PlayEffect(revealCue, 1.04f); }
         public void PlaySurpriseCue() { PlayEffect(surpriseCue, 0.92f); }
 
+        public void PlayEndingCue(int endingIndex)
+        {
+            float pitch = endingIndex == 0 ? 0.78f : endingIndex == 1 ? 1.22f : 1.04f;
+            PlayEffect(revealCue, pitch);
+        }
+
         public void SetMusicVolume(float value) { musicVolume = Mathf.Clamp01(value); ApplyVolumes(); SaveVolumes(); }
         public void SetAmbienceVolume(float value) { ambienceVolume = Mathf.Clamp01(value); ApplyVolumes(); SaveVolumes(); }
         public void SetEffectsVolume(float value) { effectsVolume = Mathf.Clamp01(value); ApplyVolumes(); SaveVolumes(); }
