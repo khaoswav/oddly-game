@@ -24,6 +24,7 @@ namespace Oddly
                     ? "GİZLİ 08 / SENİ HATIRLAYAN ODA"
                     : "HIDDEN 08 / THE ROOM THAT REMEMBERS YOU";
             puzzle?.Begin();
+            CampaignDirector.Instance?.EnterChapter(8, "THE ROOM THAT REMEMBERS YOU", "SENİ HATIRLAYAN ODA", true);
         }
     }
 }
