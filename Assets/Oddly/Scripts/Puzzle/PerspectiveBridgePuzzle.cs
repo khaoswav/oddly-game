@@ -28,9 +28,7 @@ namespace Oddly
             bool nearLanding = IsNearLanding();
             bool settled = !bridge.IsHeld && bridge.IsSettled;
             float scale = bridge.CurrentUniformScale;
-            bool correctScale = scale >= minimumBridgeScale &&
-                                scale <= maximumBridgeScale &&
-                                Mathf.Abs(scale - minimumBridgeScale) <= scaleTolerance;
+            bool correctScale = scale >= minimumBridgeScale && scale <= maximumBridgeScale;
 
             if (nearLanding && settled && correctScale)
             {
