@@ -1333,6 +1333,7 @@ namespace Oddly.Editor
                 choiceCollider.isTrigger = true;
                 choiceCollider.size = new Vector3(2.3f, 2.4f, 2.3f);
                 FinalChoiceTrigger choiceTrigger = choiceTriggerObject.AddComponent<FinalChoiceTrigger>();
+                SetPrivate(choiceTrigger, "puzzle", finalDecisionPuzzle);
                 SetPrivate(choiceTrigger, "endingIndex", i);
             }
 
