@@ -54,6 +54,7 @@ namespace Oddly
                     ? "YOL HATIRLANDI / ÇIKIŞ AÇIK"
                     : "PATH REMEMBERED / EXIT OPEN";
             dialogue?.Say("hidden_backwards_complete");
+            HiddenChapterArchive.MarkCompleted(1);
             exitDoor?.Unlock();
         }
 
