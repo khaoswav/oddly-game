@@ -870,6 +870,89 @@ namespace Oddly.Editor
             CreatePrimitive("Chapter 8 to 9 connector right rail", PrimitiveType.Cube,
                 new Vector3(5, 2.5f, 297), new Vector3(0.25f, 5, 12), wallMat);
 
+            // Chapter 10: the room is an unfinished build. Complete the
+            // three TODO markers in the production board's deliberately odd order.
+            CreatePrimitive("Chapter 10 unfinished floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 351), new Vector3(10, 0.5f, 24), floorMat);
+            CreatePrimitive("Chapter 10 left wall", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 351), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 10 right wall", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 351), new Vector3(0.25f, 5, 24), wallMat);
+            CreatePrimitive("Chapter 10 far wall left", PrimitiveType.Cube,
+                new Vector3(-4.15f, 2.5f, 363), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 10 far wall right", PrimitiveType.Cube,
+                new Vector3(4.15f, 2.5f, 363), new Vector3(1.7f, 5, 0.5f), wallMat);
+            CreatePrimitive("Chapter 10 far wall header", PrimitiveType.Cube,
+                new Vector3(0, 4.55f, 363), new Vector3(6.6f, 0.9f, 0.5f), wallMat);
+            GameObject chapterTenExit = CreatePrimitive("Chapter 10 unfinished exit",
+                PrimitiveType.Cube, new Vector3(0, 2, 362.7f), new Vector3(2.8f, 4, 0.35f), doorMat);
+            DoorController chapterTenExitController = chapterTenExit.AddComponent<DoorController>();
+
+            GameObject chapterTenEntry = new GameObject("Chapter 10 entry trigger");
+            chapterTenEntry.transform.position = new Vector3(0, 1.2f, 337.5f);
+            BoxCollider chapterTenEntryCollider = chapterTenEntry.AddComponent<BoxCollider>();
+            chapterTenEntryCollider.isTrigger = true;
+            chapterTenEntryCollider.size = new Vector3(8.5f, 2.4f, 1.2f);
+            ChapterEntryTrigger chapterTenEntryTrigger = chapterTenEntry.AddComponent<ChapterEntryTrigger>();
+            GameObject chapterTenCheckpoint = new GameObject("Chapter 10 checkpoint");
+            chapterTenCheckpoint.transform.position = new Vector3(0f, 0.15f, 339.5f);
+
+            TextMesh chapterTenSign = new GameObject("Chapter 10 title sign").AddComponent<TextMesh>();
+            chapterTenSign.transform.position = new Vector3(0, 3.65f, 341f);
+            chapterTenSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            chapterTenSign.text = "CHAPTER 10 / THE UNFINISHED GAME";
+            chapterTenSign.fontSize = 38;
+            chapterTenSign.characterSize = 0.05f;
+            chapterTenSign.anchor = TextAnchor.MiddleCenter;
+            chapterTenSign.alignment = TextAlignment.Center;
+            chapterTenSign.color = new Color(0.22f, 0.25f, 0.32f);
+
+            TextMesh buildStatusSign = new GameObject("Unfinished build status sign").AddComponent<TextMesh>();
+            buildStatusSign.transform.position = new Vector3(0, 2.9f, 344.5f);
+            buildStatusSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            buildStatusSign.fontSize = 30;
+            buildStatusSign.characterSize = 0.05f;
+            buildStatusSign.anchor = TextAnchor.MiddleCenter;
+            buildStatusSign.alignment = TextAlignment.Center;
+            buildStatusSign.color = new Color(0.95f, 0.55f, 0.22f);
+
+            Transform[] buildMarks = new Transform[3];
+            TextMesh[] buildMarkLabels = new TextMesh[3];
+            float[] buildXs = { -3f, 0f, 3f };
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject pad = CreatePrimitive("TODO build marker " + (i + 1),
+                    PrimitiveType.Cube, new Vector3(buildXs[i], 0.06f, 351f),
+                    new Vector3(2f, 0.12f, 2f), accentMat);
+                buildMarks[i] = pad.transform;
+
+                TextMesh label = new GameObject("Build marker label " + (i + 1)).AddComponent<TextMesh>();
+                label.transform.position = new Vector3(buildXs[i], 1.1f, 351f);
+                label.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                label.text = "TODO";
+                label.fontSize = 32;
+                label.characterSize = 0.055f;
+                label.anchor = TextAnchor.MiddleCenter;
+                label.alignment = TextAlignment.Center;
+                label.color = new Color(0.95f, 0.55f, 0.22f);
+                buildMarkLabels[i] = label;
+            }
+
+            GameObject unfinishedPuzzleObject = new GameObject("Unfinished game puzzle zone");
+            unfinishedPuzzleObject.transform.position = new Vector3(0f, 1.5f, 351f);
+            BoxCollider unfinishedPuzzleCollider = unfinishedPuzzleObject.AddComponent<BoxCollider>();
+            unfinishedPuzzleCollider.isTrigger = true;
+            unfinishedPuzzleCollider.size = new Vector3(9.5f, 3f, 22f);
+            UnfinishedGamePuzzle unfinishedPuzzle = unfinishedPuzzleObject.AddComponent<UnfinishedGamePuzzle>();
+
+            // Connector from the theatre into the unfinished production space.
+            CreatePrimitive("Chapter 9 to 10 connector floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 333), new Vector3(10, 0.5f, 12), floorMat);
+            CreatePrimitive("Chapter 9 to 10 connector left rail", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 333), new Vector3(0.25f, 5, 12), wallMat);
+            CreatePrimitive("Chapter 9 to 10 connector right rail", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 333), new Vector3(0.25f, 5, 12), wallMat);
+
             GameObject chapterTwoEntry = new GameObject("Chapter 2 entry trigger");
             chapterTwoEntry.transform.position = new Vector3(0, 1.2f, 79.5f);
             BoxCollider chapterTwoEntryCollider = chapterTwoEntry.AddComponent<BoxCollider>();
@@ -1119,6 +1202,19 @@ namespace Oddly.Editor
             SetPrivate(audiencePuzzle, "audienceMembers", new Transform[] { audienceOne.transform, audienceTwo.transform, audienceThree.transform });
             SetPrivate(audiencePuzzle, "stageLight", stageLight);
             SetPrivate(chapterNineExitController, "dialogue", director);
+            SetPrivate(chapterTenEntryTrigger, "dialogue", director);
+            SetPrivate(chapterTenEntryTrigger, "chapterSign", chapterTenSign);
+            SetPrivate(chapterTenEntryTrigger, "dialogueId", "chapter_ten_entry");
+            SetPrivate(chapterTenEntryTrigger, "englishSign", "CHAPTER 10  /  THE UNFINISHED GAME");
+            SetPrivate(chapterTenEntryTrigger, "turkishSign", "BÖLÜM 10  /  YARIM KALAN OYUN");
+            SetPrivate(chapterTenEntryTrigger, "fallRecovery", fallRecovery);
+            SetPrivate(chapterTenEntryTrigger, "checkpoint", chapterTenCheckpoint.transform);
+            SetPrivate(unfinishedPuzzle, "exitDoor", chapterTenExitController);
+            SetPrivate(unfinishedPuzzle, "dialogue", director);
+            SetPrivate(unfinishedPuzzle, "statusSign", buildStatusSign);
+            SetPrivate(unfinishedPuzzle, "buildMarks", buildMarks);
+            SetPrivate(unfinishedPuzzle, "markLabels", buildMarkLabels);
+            SetPrivate(chapterTenExitController, "dialogue", director);
             PerspectiveBridgePuzzle bridgePuzzle = player.AddComponent<PerspectiveBridgePuzzle>();
             SetPrivate(bridgePuzzle, "bridge", bridgePerspectiveObject);
             SetPrivate(bridgePuzzle, "landingTarget", bridgeTarget.transform);
