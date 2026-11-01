@@ -57,7 +57,33 @@ namespace Oddly.Editor
             Material doorMat = MakeMaterial("Exit Cream", new Color(0.98f, 0.72f, 0.35f));
 
             CreatePrimitive("Soft-lit floor", PrimitiveType.Cube, new Vector3(0, -0.25f, 0), new Vector3(18, 0.5f, 18), floorMat);
-            CreatePrimitive("Back wall", PrimitiveType.Cube, new Vector3(0, 2.5f, 9), new Vector3(18, 5, 0.5f), wallMat);
+            // Leave a real opening around the main exit, then continue the room
+            // into a narrow corridor so the player has somewhere to go.
+            CreatePrimitive("Back wall left", PrimitiveType.Cube, new Vector3(-5.2f, 2.5f, 9), new Vector3(7.6f, 5, 0.5f), wallMat);
+            CreatePrimitive("Back wall right", PrimitiveType.Cube, new Vector3(5.2f, 2.5f, 9), new Vector3(7.6f, 5, 0.5f), wallMat);
+            CreatePrimitive("Back wall above exit", PrimitiveType.Cube, new Vector3(0, 4.65f, 9), new Vector3(3.2f, 0.7f, 0.5f), wallMat);
+            CreatePrimitive("Exit corridor floor", PrimitiveType.Cube, new Vector3(0, -0.25f, 17), new Vector3(3.6f, 0.5f, 16), floorMat);
+            CreatePrimitive("Exit corridor left", PrimitiveType.Cube, new Vector3(-1.8f, 2.5f, 17), new Vector3(0.25f, 5, 16), wallMat);
+            CreatePrimitive("Exit corridor right", PrimitiveType.Cube, new Vector3(1.8f, 2.5f, 17), new Vector3(0.25f, 5, 16), wallMat);
+            CreatePrimitive("Exit corridor ceiling", PrimitiveType.Cube, new Vector3(0, 5.05f, 17), new Vector3(3.6f, 0.2f, 16), wallMat);
+            CreatePrimitive("Corridor end wall", PrimitiveType.Cube, new Vector3(0, 2.5f, 25), new Vector3(3.6f, 5, 0.5f), wallMat);
+
+            TextMesh falseExitSign = new GameObject("False exit sign").AddComponent<TextMesh>();
+            falseExitSign.transform.position = new Vector3(0, 3.15f, 23.8f);
+            falseExitSign.text = "EXIT";
+            falseExitSign.fontSize = 64;
+            falseExitSign.characterSize = 0.075f;
+            falseExitSign.anchor = TextAnchor.MiddleCenter;
+            falseExitSign.alignment = TextAlignment.Center;
+            falseExitSign.color = new Color(0.88f, 0.25f, 0.39f);
+
+            GameObject corridorBeat = new GameObject("False exit reveal trigger");
+            corridorBeat.transform.position = new Vector3(0, 1.2f, 20.5f);
+            BoxCollider corridorBeatCollider = corridorBeat.AddComponent<BoxCollider>();
+            corridorBeatCollider.isTrigger = true;
+            corridorBeatCollider.size = new Vector3(3.2f, 2.4f, 0.8f);
+            ChapterBeatTrigger corridorBeatTrigger = corridorBeat.AddComponent<ChapterBeatTrigger>();
+            SetPrivate(corridorBeatTrigger, "sign", falseExitSign);
             CreatePrimitive("Left wall", PrimitiveType.Cube, new Vector3(-9, 2.5f, 0), new Vector3(0.5f, 5, 18), wallMat);
             CreatePrimitive("Right wall", PrimitiveType.Cube, new Vector3(9, 2.5f, 0), new Vector3(0.5f, 5, 18), wallMat);
             CreatePrimitive("Front wall left", PrimitiveType.Cube, new Vector3(-5.2f, 2.5f, -9), new Vector3(7.6f, 5, 0.5f), wallMat);
@@ -157,7 +183,7 @@ namespace Oddly.Editor
             noticeText.transform.SetParent(notice.transform, false);
             noticeText.transform.localPosition = new Vector3(0f, 0f, -0.56f);
             noticeText.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
-            noticeText.text = "BASMA / DO NOT\\nKIRMIZI / RED";
+            noticeText.text = "BASMA / DO NOT\nKIRMIZI / RED";
             noticeText.fontSize = 44;
             noticeText.characterSize = 0.035f;
             noticeText.anchor = TextAnchor.MiddleCenter;
@@ -195,6 +221,7 @@ namespace Oddly.Editor
             PrototypeHUD hud = canvas.gameObject.AddComponent<PrototypeHUD>();
             SetPrivate(hud, "interaction", interaction);
             SetPrivate(hud, "prompt", prompt);
+            SetPrivate(corridorBeatTrigger, "dialogue", director);
             SetPrivate(goalZone, "dialogue", director);
             SetPrivate(doorController, "dialogue", director);
             SetPrivate(perspectivePuzzle, "dialogue", director);
