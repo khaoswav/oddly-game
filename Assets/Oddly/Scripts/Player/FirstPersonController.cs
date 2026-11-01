@@ -22,6 +22,14 @@ namespace Oddly
             lookSensitivity = Mathf.Clamp(value, 0.5f, 5f);
         }
 
+        public void ResetMotion()
+        {
+            verticalVelocity = -2f;
+            pitch = 0f;
+            if (cameraPivot != null)
+                cameraPivot.localRotation = Quaternion.identity;
+        }
+
         private void Awake()
         {
             controller = GetComponent<CharacterController>();
