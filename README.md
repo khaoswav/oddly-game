@@ -37,6 +37,7 @@ The first vertical slice is intentionally small and playable:
 - Chapter 11's Patch Notes turns updates into physical world changes. Apply three patches in the right release order or trigger a rollback that resets the room.
 - Chapter 12's Last Save lets you restore one of three archived room states. Two snapshots are corrupted; restoring the last stable save changes the room back and opens the real exit.
 - Chapter 13's Control Room makes the player settle a power struggle between the Narrator and SYSTEM-02 by routing three live channels into a stable ownership pattern.
+- Cinematic bilingual chapter cards, persistent campaign progress, saved ending choice and automatic resume from the latest chapter checkpoint.
 - Hidden Chapter 08, The Room That Remembers You, recalls the saved finale choice and tracks completed hidden rooms in a persistent archive.
 - Hidden Chapter 07, The Room That Steals Your Shadow, mirrors the player's movement into an independent shadow that must reach three alternating pools of light.
 - Hidden Chapter 06, The Room That Exists When Watched, makes three barriers appear and become solid only while the player looks directly at them.
