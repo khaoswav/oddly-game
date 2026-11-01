@@ -113,6 +113,12 @@ namespace Oddly
             AddVariant("chapter_six_entry", "ANLATICI", "Seni tanıdığımızı söylemek istemiyorum. Ama şu ana kadar kaç şeyi yere bıraktığını biliyoruz.", "I don't want to say we know you. But we do know how many things you've dropped so far.");
             Add("behavior_memory_wrong", "ANLATICI", "Güzel tahmin. Ama bu odanın hafızası senden biraz daha iyi.", "Nice guess. But this room has a slightly better memory than you do.");
             Add("behavior_memory_solved", "SYSTEM-02", "Alışkanlık doğrulandı. Kullanıcı kendini tanıyor. Bu gelişme kayda değer.", "Habit verified. The user recognises themself. This is a noteworthy development.");
+            Add("chapter_seven_entry", "ANLATICI", "BÖLÜM 07: Gülen Oda. Burada hiçbir şey kişisel değil. Özellikle birazdan olacaklar.", "CHAPTER 07: The Room That Laughs. Nothing here is personal. Especially what happens next.");
+            AddVariant("chapter_seven_entry", "SYSTEM-02", "Uyarı: Oda, tekrarlanan kullanıcı davranışlarına tepki verecek şekilde tasarlanmıştır. Lütfen normal davranın.", "Warning: This room reacts to repeated user behaviour. Please act normally.");
+            Add("laughing_room_entry", "SYSTEM-02", "Davranış sensörleri etkin. Her hareketiniz değerlendirilecektir.", "Behaviour sensors active. Every action will be evaluated.");
+            Add("laughing_room_fail", "ANLATICI", "Bunu bilerek yaptın, değil mi? Oda da öyle düşündü.", "You did that on purpose, right? The room thought so too.");
+            Add("laughing_room_drop", "ANLATICI", "Yere bıraktın. O da yer değiştirdi. Şimdi kimin eşyası?", "You dropped it. It moved. Whose object is it now?");
+            Add("laughing_room_escalate", "SYSTEM-02", "Oda düzeni güncellendi. Lütfen mobilyalarla tartışmayın. Mobilyalar kazanıyor.", "Room layout updated. Please do not argue with the furniture. The furniture is winning.");
             Add("impossible_room", "ANLATICI", "Bir dakika... Az önce nereden geldin? Boş ver. Ben de artık takip etmiyorum.", "Wait... where did you just come from? Never mind. I've stopped keeping track too.");
             Add("meta_notice", "SYSTEM-02", "UYARI: KIRMIZI DÜĞMEYE BASMAYIN. Bu uyarıyı okuduğunuz kaydedildi.", "NOTICE: DO NOT PRESS THE RED BUTTON. Your reading of this notice has been recorded.");
             Add("meta_wrong", "ANLATICI", "Önce bir şeyi fark etmen gerekiyordu. Tabela süs olsun diye burada değil.", "You were supposed to notice something first. The sign isn't here for decoration.");
