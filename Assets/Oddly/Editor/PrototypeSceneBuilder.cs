@@ -79,6 +79,19 @@ namespace Oddly.Editor
             DoorController doorController = door.AddComponent<DoorController>();
             SetPrivate(goalZone, "linkedDoor", doorController);
 
+            // A second, viewpoint-dependent solution: line the dropped cube up
+            // with the wall frame and match its apparent size from the camera.
+            GameObject frame = CreatePrimitive("Perspective frame", PrimitiveType.Cube,
+                new Vector3(-4f, 2.15f, 8.55f), new Vector3(1.55f, 1.55f, 0.18f), accentMat);
+            GameObject target = new GameObject("Perspective target");
+            target.transform.position = new Vector3(-4f, 2.15f, 8.42f);
+            target.transform.localScale = Vector3.one * 0.72f;
+            GameObject targetVisual = CreatePrimitive("Target marker", PrimitiveType.Cube,
+                target.transform.position, Vector3.one * 0.72f, cubeMat);
+            targetVisual.transform.SetParent(target.transform, true);
+            targetVisual.transform.localScale = Vector3.one * 0.72f;
+            targetVisual.GetComponent<Collider>().enabled = false;
+
             GameObject player = new GameObject("Player");
             player.transform.position = new Vector3(0, 0.15f, -5.8f);
             CharacterController character = player.AddComponent<CharacterController>();
@@ -102,6 +115,12 @@ namespace Oddly.Editor
             InteractionController interaction = player.AddComponent<InteractionController>();
             SetPrivate(interaction, "playerCamera", camera);
             SetPrivate(interaction, "holdPoint", holdPoint.transform);
+
+            PerspectiveFramePuzzle perspectivePuzzle = player.AddComponent<PerspectiveFramePuzzle>();
+            SetPrivate(perspectivePuzzle, "playerCamera", camera);
+            SetPrivate(perspectivePuzzle, "puzzleObject", cube.GetComponent<PerspectiveObject>());
+            SetPrivate(perspectivePuzzle, "target", target.transform);
+            SetPrivate(perspectivePuzzle, "linkedDoor", doorController);
 
             CreateLighting();
             Canvas canvas = CreateCanvas();
