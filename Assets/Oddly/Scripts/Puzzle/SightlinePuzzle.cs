@@ -21,6 +21,7 @@ namespace Oddly
         [SerializeField] private DialogueDirector dialogue;
 
         private float alignedSince = -1f;
+        private float nextHintTime;
         private bool completed;
 
         private void Update()
@@ -50,6 +51,11 @@ namespace Oddly
                 angle > aimTolerance || fragmentError > 0.025f)
             {
                 alignedSince = -1f;
+                if (Time.time >= nextHintTime)
+                {
+                    nextHintTime = Time.time + 4f;
+                    dialogue?.Say("sightline_adjust");
+                }
                 return;
             }
 
