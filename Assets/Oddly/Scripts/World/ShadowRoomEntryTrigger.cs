@@ -25,6 +25,7 @@ namespace Oddly
                     ? "GİZLİ 07 / GÖLGESİNİ ÇALAN ODA"
                     : "HIDDEN 07 / THE ROOM THAT STEALS YOUR SHADOW";
             puzzle?.Begin(controller);
+            CampaignDirector.Instance?.EnterChapter(7, "THE ROOM THAT STEALS YOUR SHADOW", "GÖLGESİNİ ÇALAN ODA", true);
         }
     }
 }
