@@ -15,7 +15,7 @@
 - [x] Add a camera-projected, apparent-size perspective frame puzzle to the generated prototype room.
 - [ ] Expand perspective-dependent placement into multi-step forced-perspective room tricks.
 - [x] Add a paired impossible-room doorway loop with reactive bilingual dialogue and changing signs.
-- [ ] Add one memorable meta puzzle.
+- [x] Add a bilingual notice-and-forbidden-button meta puzzle that unlocks the exit.
 - [ ] Add dialogue cooldowns, variation and speaker handoff.
 - [ ] Add options menu and persistent language selection.
 - [ ] Add original placeholder music and sound design.
