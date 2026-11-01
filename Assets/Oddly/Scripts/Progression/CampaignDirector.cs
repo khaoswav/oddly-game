@@ -83,6 +83,18 @@ namespace Oddly
             PlayerPrefs.SetInt("oddly.campaign.lastMainChapter", 14);
             PlayerPrefs.SetInt("oddly.campaign.furthestMainChapter", 14);
             PlayerPrefs.Save();
+            if (cardGroup != null && titleLabel != null && chapterLabel != null && subtitleLabel != null)
+            {
+                string[] endingsEn = { "THE STORYTELLER", "THE SYSTEM", "THE PLAYER" };
+                string[] endingsTr = { "HİKÂYE ANLATICISI", "SİSTEM", "OYUNCU" };
+                string[] subtitlesEn = { "THE STORY ENDS WHERE IT BEGAN.", "ORDER IS RESTORED. OR IS IT?", "NO ONE ELSE GETS THE FINAL WORD." };
+                string[] subtitlesTr = { "HİKÂYE BAŞLADIĞI YERDE BİTİYOR.", "DÜZEN GERİ GELDİ. PEKİ YA?", "SON SÖZÜ ARTIK KİMSE ELİNDEN ALAMAZ." };
+                if (activeCard != null) StopCoroutine(activeCard);
+                activeCard = StartCoroutine(PlayCard(
+                    turkish ? "HİKÂYE TAMAMLANDI" : "CAMPAIGN COMPLETE",
+                    turkish ? endingsTr[Mathf.Clamp(endingIndex, 0, 2)] : endingsEn[Mathf.Clamp(endingIndex, 0, 2)],
+                    turkish ? subtitlesTr[Mathf.Clamp(endingIndex, 0, 2)] : subtitlesEn[Mathf.Clamp(endingIndex, 0, 2)]));
+            }
         }
 
         public static void ClearCampaignProgress()
