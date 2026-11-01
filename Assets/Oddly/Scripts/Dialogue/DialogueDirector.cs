@@ -65,6 +65,7 @@ namespace Oddly
             Add("chapter_reveal", "SYSTEM-02", "Gizli geçit açıldı. Lütfen bekleme odasına geçin. Beklemek zorunda değilsiniz. Şimdilik.", "Hidden passage opened. Please proceed to the waiting room. You are not required to wait. For now.");
             Add("intro", "ANLATICI", "Hoş geldin. Test çok kolay. Hatta senin için biraz fazla kolay olabilir.", "Welcome. This test is easy. Possibly a little too easy for you.");
             Add("picked_up", "SYSTEM-02", "Nesne alındı. Lütfen onu bir daha kaybetmeyin. Geçen sefer kötü olmuştu.", "Object acquired. Please do not lose it again. Last time was embarrassing.");
+            Add("perspective_grab_scaled", "ANLATICI", "Bir dakika... Elindeyken boyutu değişti. Mesafeyi hesaba katmayı unutmuşsun.", "Wait... it changed size when you picked it up. Distance matters. Who knew?");
             Add("door_locked", "ANLATICI", "Kapı açılmıyor mu? Çok şaşırdım. Gerçekten.", "The door won't open? I'm absolutely shocked. Truly.");
             Add("door_unlocked", "SYSTEM-02", "Bulmaca çözüldü. Beklenmedik bir gelişme.", "Puzzle solved. An unexpected development.");
             Add("door_open", "ANLATICI", "Açıldı! Bak, bazen sana güvenmek işe yarıyor.", "It opened! See? Sometimes trusting you works.");
