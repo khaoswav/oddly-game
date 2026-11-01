@@ -259,6 +259,48 @@ namespace Oddly.Editor
             relayInstruction.alignment = TextAlignment.Center;
             relayInstruction.color = new Color(0.22f, 0.25f, 0.32f);
 
+            // A new chamber turns the next exit into a literal forced-perspective
+            // sightline: separated fragments resolve into one symbol from a marked spot.
+            CreatePrimitive("Sightline chamber floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 67), new Vector3(10, 0.5f, 20), floorMat);
+            CreatePrimitive("Sightline chamber left wall", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 67), new Vector3(0.25f, 5, 20), wallMat);
+            CreatePrimitive("Sightline chamber right wall", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 67), new Vector3(0.25f, 5, 20), wallMat);
+            CreatePrimitive("Sightline far wall left", PrimitiveType.Cube,
+                new Vector3(-4.2f, 2.5f, 77), new Vector3(1.6f, 5, 0.5f), wallMat);
+            CreatePrimitive("Sightline far wall right", PrimitiveType.Cube,
+                new Vector3(4.2f, 2.5f, 77), new Vector3(1.6f, 5, 0.5f), wallMat);
+            CreatePrimitive("Sightline far wall header", PrimitiveType.Cube,
+                new Vector3(0, 4.65f, 77), new Vector3(6.8f, 0.7f, 0.5f), wallMat);
+            GameObject sightlineExit = CreatePrimitive("Sightline chamber exit",
+                PrimitiveType.Cube, new Vector3(0, 2, 76.7f), new Vector3(2.8f, 4, 0.35f), doorMat);
+            DoorController sightlineExitController = sightlineExit.AddComponent<DoorController>();
+
+            Vector3 viewpointPosition = new Vector3(0, 0.08f, 61f);
+            GameObject viewpointMarker = CreatePrimitive("Correct viewpoint marker",
+                PrimitiveType.Cylinder, viewpointPosition, new Vector3(1.35f, 0.08f, 1.35f), accentMat);
+            GameObject sightlineTarget = new GameObject("Sightline target");
+            sightlineTarget.transform.position = new Vector3(0f, 1.65f, 76f);
+
+            // Two pieces occupy different depths but share the same viewing ray.
+            // From the marker they overlap into a single impossible doorway glyph.
+            CreatePrimitive("Near sightline fragment", PrimitiveType.Cube,
+                new Vector3(0f, 1.65f, 65f), new Vector3(0.32f, 1.65f, 0.18f), accentMat);
+            CreatePrimitive("Far sightline fragment left", PrimitiveType.Cube,
+                new Vector3(-0.55f, 1.65f, 73f), new Vector3(0.22f, 1.65f, 0.18f), cubeMat);
+            CreatePrimitive("Far sightline fragment right", PrimitiveType.Cube,
+                new Vector3(0.55f, 1.65f, 73f), new Vector3(0.22f, 1.65f, 0.18f), cubeMat);
+            TextMesh sightlineInstruction = new GameObject("Sightline instruction").AddComponent<TextMesh>();
+            sightlineInstruction.transform.position = new Vector3(0, 3.35f, 62.5f);
+            sightlineInstruction.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            sightlineInstruction.text = "ONE VIEW / TEK BAKIŞ\nFIND THE MARK / İŞARETİ BUL";
+            sightlineInstruction.fontSize = 42;
+            sightlineInstruction.characterSize = 0.05f;
+            sightlineInstruction.anchor = TextAnchor.MiddleCenter;
+            sightlineInstruction.alignment = TextAlignment.Center;
+            sightlineInstruction.color = new Color(0.22f, 0.25f, 0.32f);
+
             SetPrivate(movement, "cameraPivot", cameraPivot.transform);
 
             GameObject holdPoint = new GameObject("Hold Point");
@@ -362,6 +404,13 @@ namespace Oddly.Editor
             SetPrivate(waitingRoomDoorController, "dialogue", director);
             SetPrivate(relayExitController, "dialogue", director);
             SetPrivate(relayPuzzle, "dialogue", director);
+            SightlinePuzzle sightlinePuzzle = player.AddComponent<SightlinePuzzle>();
+            SetPrivate(sightlinePuzzle, "viewpoint", viewpointMarker.transform);
+            SetPrivate(sightlinePuzzle, "sightlineTarget", sightlineTarget.transform);
+            SetPrivate(sightlinePuzzle, "playerCamera", camera);
+            SetPrivate(sightlinePuzzle, "linkedDoor", sightlineExitController);
+            SetPrivate(sightlinePuzzle, "dialogue", director);
+            SetPrivate(sightlineExitController, "dialogue", director);
             SetPrivate(waitingRoomPuzzle, "dialogue", director);
             SetPrivate(perspectivePuzzle, "dialogue", director);
             SetPrivate(portalAController, "dialogue", director);
