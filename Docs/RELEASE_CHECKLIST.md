@@ -91,6 +91,7 @@ The build commands regenerate and validate the scene before calling Unity's Buil
 - [ ] Windows x86-64 build launches and completes the full finale flow.
 - [ ] Keyboard/mouse controls, cursor lock and UI interaction are checked on both platforms.
 - [ ] Turkish and English text fit all signs and subtitle surfaces.
+- [ ] Subtitle contrast backplate and speaker/subtitle drop shadows remain legible in bright and dark rooms; check font size and safe margins at 16:9 and ultrawide resolutions.
 - [ ] Audio levels, transitions and missing/placeholder audio assets are reviewed.
 - [ ] Performance, memory use, accessibility and save migration are checked. The runtime applies a 60 FPS desktop baseline and reduces shadow distance, shadow resolution and per-pixel light count automatically on systems with 8 GB RAM or less; verify this profile on actual hardware.
 - [ ] Clean-install and upgrade-from-existing-save paths are tested.
