@@ -823,6 +823,55 @@ namespace Oddly.Editor
             loopTriggerCollider.size = new Vector3(8.8f, 3f, 0.8f);
             LoopRoomDirector loopRoomDirector = loopTrigger.AddComponent<LoopRoomDirector>();
 
+            // A short encore corridor bridges the loop chamber and theatre.
+            // Its props rise for a tiny standing ovation, then politely ask the
+            // player to leave before the next chapter begins.
+            CreatePrimitive("Encore corridor floor", PrimitiveType.Cube,
+                new Vector3(0, -0.25f, 297.5f), new Vector3(10, 0.5f, 12), floorMat);
+            CreatePrimitive("Encore corridor left rail", PrimitiveType.Cube,
+                new Vector3(-5, 2.5f, 297.5f), new Vector3(0.25f, 5, 12), wallMat);
+            CreatePrimitive("Encore corridor right rail", PrimitiveType.Cube,
+                new Vector3(5, 2.5f, 297.5f), new Vector3(0.25f, 5, 12), wallMat);
+
+            GameObject encorePropOne = CreatePrimitive("Encore floating prop A", PrimitiveType.Cube,
+                new Vector3(-2f, 0.9f, 297.2f), Vector3.one * 0.72f, accentMat);
+            GameObject encorePropTwo = CreatePrimitive("Encore floating prop B", PrimitiveType.Sphere,
+                new Vector3(0f, 0.9f, 297.2f), Vector3.one * 0.72f, cubeMat);
+            GameObject encorePropThree = CreatePrimitive("Encore floating prop C", PrimitiveType.Capsule,
+                new Vector3(2f, 0.9f, 297.2f), Vector3.one * 0.72f, doorMat);
+            encorePropOne.GetComponent<Collider>().enabled = false;
+            encorePropTwo.GetComponent<Collider>().enabled = false;
+            encorePropThree.GetComponent<Collider>().enabled = false;
+
+            TextMesh encoreSign = new GameObject("Encore corridor sign").AddComponent<TextMesh>();
+            encoreSign.transform.position = new Vector3(0f, 3.35f, 302f);
+            encoreSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            encoreSign.text = "THANK YOU FOR PLAYING";
+            encoreSign.fontSize = 42;
+            encoreSign.characterSize = 0.052f;
+            encoreSign.anchor = TextAnchor.MiddleCenter;
+            encoreSign.alignment = TextAlignment.Center;
+            encoreSign.color = new Color(0.22f, 0.25f, 0.32f);
+
+            GameObject encoreLightObject = new GameObject("Encore corridor light");
+            encoreLightObject.transform.position = new Vector3(0f, 3.8f, 297.2f);
+            Light encoreLight = encoreLightObject.AddComponent<Light>();
+            encoreLight.type = LightType.Point;
+            encoreLight.range = 11f;
+            encoreLight.intensity = 0.75f;
+
+            GameObject encoreTriggerObject = new GameObject("Encore corridor set-piece trigger");
+            encoreTriggerObject.transform.position = new Vector3(0f, 1.5f, 298.5f);
+            BoxCollider encoreTriggerCollider = encoreTriggerObject.AddComponent<BoxCollider>();
+            encoreTriggerCollider.isTrigger = true;
+            encoreTriggerCollider.size = new Vector3(9f, 3f, 1.2f);
+            EncoreCorridorTrigger encoreTrigger = encoreTriggerObject.AddComponent<EncoreCorridorTrigger>();
+            SetPrivate(encoreTrigger, "props", new Transform[] {
+                encorePropOne.transform, encorePropTwo.transform, encorePropThree.transform
+            });
+            SetPrivate(encoreTrigger, "sign", encoreSign);
+            SetPrivate(encoreTrigger, "eventLight", encoreLight);
+
             // Chapter 9: a stage that rewards the player for refusing the audience.
             CreatePrimitive("Chapter 9 theatre floor", PrimitiveType.Cube,
                 new Vector3(0, -0.25f, 315), new Vector3(12, 0.5f, 24), floorMat);
