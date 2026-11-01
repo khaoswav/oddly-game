@@ -22,8 +22,13 @@ namespace Oddly
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.GetComponentInParent<CharacterController>() != null)
-                playerInside = true;
+            if (other.GetComponentInParent<CharacterController>() == null) return;
+            playerInside = true;
+
+            if (!epilogueShown && statusSign != null)
+                statusSign.text = dialogue != null && dialogue.IsTurkish
+                    ? "SON KARARINI HATIRLA / E'YE BAS"
+                    : "REMEMBER YOUR CHOICE / PRESS E";
         }
 
         private void OnTriggerExit(Collider other)
