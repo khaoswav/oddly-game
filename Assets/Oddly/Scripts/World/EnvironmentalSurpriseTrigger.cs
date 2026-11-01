@@ -51,6 +51,7 @@ namespace Oddly
         {
             if (played || other.GetComponentInParent<CharacterController>() == null) return;
             played = true;
+            WorldAudioDirector.Instance?.PlaySurpriseCue();
             StartCoroutine(PlaySequence());
         }
 
@@ -88,6 +89,7 @@ namespace Oddly
                     : "JUST KIDDING. MAYBE.";
                 sign.color = new Color(0.22f, 0.25f, 0.32f);
             }
+            WorldAudioDirector.Instance?.PlayRevealCue();
             if (eventLight != null)
             {
                 eventLight.color = new Color(0.35f, 0.72f, 1f);
