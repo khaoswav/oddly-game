@@ -2189,18 +2189,18 @@ namespace Oddly.Editor
             for (int i = 0; i < memoryChoiceX.Length; i++)
             {
                 CreatePrimitive("Hidden 08 memory plinth " + (i + 1), PrimitiveType.Cube,
-                    new Vector3(memoryChoiceX[i], 0.65f, 495f), new Vector3(2.5f, 1.3f, 3.2f), memoryGlassMat);
+                    new Vector3(memoryChoiceX[i], 0.65f, 499f), new Vector3(2.5f, 1.3f, 3.2f), memoryGlassMat);
                 CreatePrimitive("Hidden 08 memory panel " + (i + 1), PrimitiveType.Cube,
-                    new Vector3(memoryChoiceX[i], 2.15f, 495f), new Vector3(2.1f, 1.5f, 0.18f), memoryGoldMat);
+                    new Vector3(memoryChoiceX[i], 2.15f, 498f), new Vector3(2.1f, 1.5f, 0.18f), memoryGoldMat);
                 memoryLabels[i] = new GameObject("Hidden 08 memory label " + (i + 1)).AddComponent<TextMesh>();
-                memoryLabels[i].transform.position = new Vector3(memoryChoiceX[i], 2.2f, 492.9f);
+                memoryLabels[i].transform.position = new Vector3(memoryChoiceX[i], 2.2f, 496.8f);
                 memoryLabels[i].text = i == 0 ? "THE STORYTELLER" : i == 1 ? "THE SYSTEM" : "THE PLAYER";
                 memoryLabels[i].fontSize = 24; memoryLabels[i].characterSize = 0.045f;
                 memoryLabels[i].anchor = TextAnchor.MiddleCenter; memoryLabels[i].alignment = TextAlignment.Center;
                 memoryLabels[i].color = new Color(0.16f, 0.18f, 0.24f);
 
                 GameObject choiceObject = new GameObject("Hidden 08 ending memory choice " + i);
-                choiceObject.transform.position = new Vector3(memoryChoiceX[i], 1.2f, 495f);
+                choiceObject.transform.position = new Vector3(memoryChoiceX[i], 1.2f, 499f);
                 BoxCollider choiceCollider = choiceObject.AddComponent<BoxCollider>();
                 choiceCollider.isTrigger = true; choiceCollider.size = new Vector3(2.2f, 2.4f, 4.2f);
                 RememberedEndingChoiceTrigger choice = choiceObject.AddComponent<RememberedEndingChoiceTrigger>();
