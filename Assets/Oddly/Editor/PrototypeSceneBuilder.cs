@@ -924,6 +924,7 @@ namespace Oddly.Editor
             SetPrivate(laughingRoomDirector, "prankObjects", new Transform[] { prankOne.transform, prankTwo.transform, prankThree.transform });
             SetPrivate(laughingRoomDirector, "roomLight", laughLight);
             SetPrivate(laughingRoomDirector, "movingWall", movingPrankWall.transform);
+            SetPrivate(laughingRoomDirector, "linkedDoor", chapterSevenExitController);
             SetPrivate(chapterSevenExitController, "dialogue", director);
             PerspectiveBridgePuzzle bridgePuzzle = player.AddComponent<PerspectiveBridgePuzzle>();
             SetPrivate(bridgePuzzle, "bridge", bridgePerspectiveObject);
