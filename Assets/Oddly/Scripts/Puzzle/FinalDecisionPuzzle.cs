@@ -66,6 +66,18 @@ namespace Oddly
             for (int i = 0; i < endingRelics.Length; i++)
                 if (endingRelics[i] != null)
                     relicBasePositions[i] = endingRelics[i].localPosition;
+
+            // Migrate a previously saved finale into the new history archive.
+            if (PlayerPrefs.HasKey("oddly.ending"))
+            {
+                int previousEnding = Mathf.Clamp(PlayerPrefs.GetInt("oddly.ending"), 0, 2);
+                int migratedMask = EndingHistoryMask | (1 << previousEnding);
+                if (migratedMask != EndingHistoryMask)
+                {
+                    PlayerPrefs.SetInt("oddly.campaign.endingHistoryMask", migratedMask);
+                    PlayerPrefs.Save();
+                }
+            }
         }
 
         private void Start()
