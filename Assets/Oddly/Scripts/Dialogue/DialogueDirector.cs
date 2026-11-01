@@ -119,6 +119,7 @@ namespace Oddly
             Add("laughing_room_fail", "ANLATICI", "Bunu bilerek yaptın, değil mi? Oda da öyle düşündü.", "You did that on purpose, right? The room thought so too.");
             Add("laughing_room_drop", "ANLATICI", "Yere bıraktın. O da yer değiştirdi. Şimdi kimin eşyası?", "You dropped it. It moved. Whose object is it now?");
             Add("laughing_room_escalate", "SYSTEM-02", "Oda düzeni güncellendi. Lütfen mobilyalarla tartışmayın. Mobilyalar kazanıyor.", "Room layout updated. Please do not argue with the furniture. The furniture is winning.");
+            Add("laughing_room_open", "ANLATICI", "Tamam, tamam! Yeterince güldük. Kapıyı açın, bu oda artık şaka yapamıyor.", "Okay, okay! That's enough laughing. Open the door. This room is out of jokes.");
             Add("impossible_room", "ANLATICI", "Bir dakika... Az önce nereden geldin? Boş ver. Ben de artık takip etmiyorum.", "Wait... where did you just come from? Never mind. I've stopped keeping track too.");
             Add("meta_notice", "SYSTEM-02", "UYARI: KIRMIZI DÜĞMEYE BASMAYIN. Bu uyarıyı okuduğunuz kaydedildi.", "NOTICE: DO NOT PRESS THE RED BUTTON. Your reading of this notice has been recorded.");
             Add("meta_wrong", "ANLATICI", "Önce bir şeyi fark etmen gerekiyordu. Tabela süs olsun diye burada değil.", "You were supposed to notice something first. The sign isn't here for decoration.");
