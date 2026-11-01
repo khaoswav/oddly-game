@@ -91,6 +91,9 @@ The campaign is planned as **12–14 connected story sequences**, rather than a 
 
 Plan **5–8 hidden chapters/rooms** for optional discoveries, plus optional replay challenges. Hidden content is designed to add approximately one hour. At least three ending variations are planned, subject to narrative implementation. The exact sequence count can change during production, but the 2-hour main-story and 3-hour full-experience targets remain the scope guardrails.
 
+## Adaptive character reactions
+The Narrator and SYSTEM-02 observe the player's run-local habits through the behaviour tracker. Pickup frequency, repeated object drops, failed interactions, repeated door attempts and long idle episodes can trigger distinct bilingual reaction beats. Reactions escalate at selected milestones rather than firing on every input, and a short delayed handoff prevents them from replacing immediate puzzle feedback. These comments are optional flavour: they never change puzzle rules, block controls or punish experimentation.
+
 ## Language and voice
 All player-facing text and dialogue must exist in Turkish and English. The two language versions should be adapted for natural comedic timing rather than translated word-for-word. Voice acting is a production requirement: two distinct human-sounding performances per language, with emotional range, breath, pauses and comedic timing. Synthetic text-to-speech must not be presented as finished human performance.
 
