@@ -1943,7 +1943,7 @@ namespace Oddly.Editor
                     PrimitiveType.Cube, new Vector3(gazeGateX[i], 1.85f, 495f),
                     new Vector3(0.5f, 3.7f, 16f), i == 1 ? accentMat : cubeMat);
                 GazeReactiveBarrier gazeBarrier = barrier.AddComponent<GazeReactiveBarrier>();
-                SetPrivate(gazeBarrier, "playerView", playerCamera.transform);
+                SetPrivate(gazeBarrier, "playerView", camera.transform);
                 SetPrivate(gazeBarrier, "gazeThreshold", 0.91f);
                 SetPrivate(gazeBarrier, "activationDistance", 10f);
             }
