@@ -10,6 +10,8 @@ namespace Oddly
 
         private Rigidbody body;
         private Vector3 originalScale;
+        private Vector3 originalPosition;
+        private Quaternion originalRotation;
         private Transform activeHoldPoint;
         private float scaleAtGrab;
         private float cameraDistanceAtGrab;
@@ -24,6 +26,22 @@ namespace Oddly
         {
             body = GetComponent<Rigidbody>();
             originalScale = transform.localScale;
+            originalPosition = transform.position;
+            originalRotation = transform.rotation;
+        }
+
+        private void Update()
+        {
+            if (IsHeld || transform.position.y >= -12f) return;
+
+            body.isKinematic = true;
+            transform.SetParent(null, true);
+            transform.SetPositionAndRotation(originalPosition, originalRotation);
+            transform.localScale = originalScale;
+            body.velocity = Vector3.zero;
+            body.angularVelocity = Vector3.zero;
+            body.isKinematic = false;
+            body.Sleep();
         }
 
         public void PickUp(Transform holdPoint, Camera viewCamera)
