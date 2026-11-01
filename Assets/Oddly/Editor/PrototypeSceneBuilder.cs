@@ -720,6 +720,39 @@ namespace Oddly.Editor
             CreatePrimitive("Chapter 7 to 8 connector right rail", PrimitiveType.Cube,
                 new Vector3(5, 2.5f, 261), new Vector3(0.25f, 5, 12), wallMat);
 
+            // A one-shot corridor gag: the exit sign changes its mind while
+            // nearby props perform an impossible little rearrangement.
+            TextMesh corridorSurpriseSign = new GameObject("Corridor lying exit sign").AddComponent<TextMesh>();
+            corridorSurpriseSign.transform.position = new Vector3(0f, 3.25f, 260.7f);
+            corridorSurpriseSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            corridorSurpriseSign.text = "EXIT THIS WAY";
+            corridorSurpriseSign.fontSize = 44;
+            corridorSurpriseSign.characterSize = 0.055f;
+            corridorSurpriseSign.anchor = TextAnchor.MiddleCenter;
+            corridorSurpriseSign.alignment = TextAlignment.Center;
+            corridorSurpriseSign.color = new Color(0.22f, 0.25f, 0.32f);
+
+            GameObject corridorPropOne = CreatePrimitive("Corridor floating prop A", PrimitiveType.Cube,
+                new Vector3(-2.1f, 0.75f, 260.2f), Vector3.one * 0.72f, accentMat);
+            GameObject corridorPropTwo = CreatePrimitive("Corridor floating prop B", PrimitiveType.Sphere,
+                new Vector3(0f, 0.75f, 260.2f), Vector3.one * 0.72f, cubeMat);
+            GameObject corridorPropThree = CreatePrimitive("Corridor floating prop C", PrimitiveType.Capsule,
+                new Vector3(2.1f, 0.75f, 260.2f), Vector3.one * 0.72f, doorMat);
+
+            GameObject corridorSurpriseLightObject = new GameObject("Corridor surprise light");
+            corridorSurpriseLightObject.transform.position = new Vector3(0f, 3.8f, 260.2f);
+            Light corridorSurpriseLight = corridorSurpriseLightObject.AddComponent<Light>();
+            corridorSurpriseLight.type = LightType.Point;
+            corridorSurpriseLight.range = 10f;
+            corridorSurpriseLight.intensity = 0.8f;
+
+            GameObject corridorSurpriseTrigger = new GameObject("Corridor environmental surprise trigger");
+            corridorSurpriseTrigger.transform.position = new Vector3(0f, 1.5f, 259.4f);
+            BoxCollider corridorSurpriseCollider = corridorSurpriseTrigger.AddComponent<BoxCollider>();
+            corridorSurpriseCollider.isTrigger = true;
+            corridorSurpriseCollider.size = new Vector3(8.5f, 3f, 1.4f);
+            EnvironmentalSurpriseTrigger corridorSurprise = corridorSurpriseTrigger.AddComponent<EnvironmentalSurpriseTrigger>();
+
             // Chapter 8: each apparent exit returns the player to a subtly altered room.
             CreatePrimitive("Chapter 8 loop floor", PrimitiveType.Cube,
                 new Vector3(0, -0.25f, 279), new Vector3(10, 0.5f, 24), floorMat);
@@ -2502,6 +2535,10 @@ namespace Oddly.Editor
             SetPrivate(laughingRoomDirector, "movingWall", movingPrankWall.transform);
             SetPrivate(laughingRoomDirector, "linkedDoor", chapterSevenExitController);
             SetPrivate(chapterSevenExitController, "dialogue", director);
+            SetPrivate(corridorSurprise, "props", new Transform[] { corridorPropOne.transform, corridorPropTwo.transform, corridorPropThree.transform });
+            SetPrivate(corridorSurprise, "sign", corridorSurpriseSign);
+            SetPrivate(corridorSurprise, "eventLight", corridorSurpriseLight);
+            SetPrivate(corridorSurprise, "dialogue", director);
             SetPrivate(chapterEightEntryTrigger, "dialogue", director);
             SetPrivate(chapterEightEntryTrigger, "campaignChapterIndex", 8);
             SetPrivate(chapterEightEntryTrigger, "chapterSign", chapterEightSign);
