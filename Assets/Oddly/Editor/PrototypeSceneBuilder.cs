@@ -52,8 +52,16 @@ namespace Oddly.Editor
         private static void AddSceneToBuild()
         {
             EditorBuildSettingsScene[] current = EditorBuildSettings.scenes;
-            foreach (EditorBuildSettingsScene entry in current)
-                if (entry.path == ScenePath) return;
+            for (int i = 0; i < current.Length; i++)
+            {
+                if (current[i].path != ScenePath) continue;
+                if (!current[i].enabled)
+                {
+                    current[i] = new EditorBuildSettingsScene(ScenePath, true);
+                    EditorBuildSettings.scenes = current;
+                }
+                return;
+            }
 
             var updated = new EditorBuildSettingsScene[current.Length + 1];
             current.CopyTo(updated, 0);
