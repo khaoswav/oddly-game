@@ -1619,6 +1619,32 @@ namespace Oddly.Editor
             endingLight.range = 18f;
             endingLight.intensity = 1.1f;
 
+            // A short post-ending coda continues beyond the unlocked final door.
+            CreatePrimitive("Final epilogue corridor floor", PrimitiveType.Cube,
+                new Vector3(0f, -0.25f, 519f), new Vector3(8f, 0.5f, 24f), floorMat);
+            CreatePrimitive("Final epilogue corridor left wall", PrimitiveType.Cube,
+                new Vector3(-4f, 2.25f, 519f), new Vector3(0.25f, 4.5f, 24f), wallMat);
+            CreatePrimitive("Final epilogue corridor right wall", PrimitiveType.Cube,
+                new Vector3(4f, 2.25f, 519f), new Vector3(0.25f, 4.5f, 24f), wallMat);
+            TextMesh epilogueSign = new GameObject("Final epilogue archive sign").AddComponent<TextMesh>();
+            epilogueSign.transform.position = new Vector3(0f, 3.1f, 522f);
+            epilogueSign.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            epilogueSign.text = "THE STORY CONTINUES IN THE ARCHIVE";
+            epilogueSign.fontSize = 20;
+            epilogueSign.characterSize = 0.045f;
+            epilogueSign.anchor = TextAnchor.MiddleCenter;
+            epilogueSign.alignment = TextAlignment.Center;
+            epilogueSign.color = new Color(0.22f, 0.25f, 0.32f);
+
+            GameObject epilogueTriggerObject = new GameObject("Final epilogue trigger");
+            epilogueTriggerObject.transform.position = new Vector3(0f, 1.2f, 513f);
+            BoxCollider epilogueCollider = epilogueTriggerObject.AddComponent<BoxCollider>();
+            epilogueCollider.isTrigger = true;
+            epilogueCollider.size = new Vector3(7f, 2.4f, 1.5f);
+            FinalEpilogueTrigger epilogueTrigger =
+                epilogueTriggerObject.AddComponent<FinalEpilogueTrigger>();
+            SetPrivate(epilogueTrigger, "statusSign", epilogueSign);
+
             // Hidden Chapter 01: a secret side route is revealed by collecting three lost fragments.
             TextMesh hiddenClue = new GameObject("Hidden chapter clue").AddComponent<TextMesh>();
             hiddenClue.transform.position = new Vector3(0, 3.35f, 487.8f);
@@ -2868,6 +2894,7 @@ namespace Oddly.Editor
             SetPrivate(finalDecisionPuzzle, "decisionSign", finalDecisionSign);
             SetPrivate(finalDecisionPuzzle, "endingLight", endingLight);
             SetPrivate(finalDecisionPuzzle, "endingRelics", endingRelics);
+            SetPrivate(epilogueTrigger, "dialogue", director);
             TomorrowMemoryEntryTrigger tomorrowEntryTrigger =
                 hiddenFourEntry.AddComponent<TomorrowMemoryEntryTrigger>();
             SetPrivate(tomorrowEntryTrigger, "puzzle", tomorrowPuzzle);
