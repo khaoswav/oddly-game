@@ -234,7 +234,7 @@ namespace Oddly.Editor
             TextMesh relayInstruction = new GameObject("Scale relay instruction").AddComponent<TextMesh>();
             relayInstruction.transform.position = new Vector3(0, 3.2f, 41.5f);
             relayInstruction.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-            relayInstruction.text = "TWO SIZES / İKİ BOYUT\\nTWO PLACES / İKİ YER";
+            relayInstruction.text = "TWO SIZES / İKİ BOYUT\nTWO PLACES / İKİ YER";
             TextMesh smallPadLabel = new GameObject("Small pad label").AddComponent<TextMesh>();
             smallPadLabel.transform.position = new Vector3(smallPadPosition.x, 1.65f, smallPadPosition.z);
             smallPadLabel.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
