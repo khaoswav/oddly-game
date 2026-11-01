@@ -6,10 +6,13 @@ namespace Oddly
     {
         [SerializeField] private Transform movingPanel;
         [SerializeField] private DialogueDirector dialogue;
+        [SerializeField, Min(0.1f)] private float openingDuration = 1.15f;
+        [SerializeField] private AnimationCurve openingEase = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
         private bool unlocked;
         private bool opening;
         private Vector3 closedPosition;
         private Vector3 openPosition;
+        private float openingElapsed;
 
         private void Awake()
         {
@@ -21,9 +24,11 @@ namespace Oddly
         private void Update()
         {
             if (!opening) return;
-            movingPanel.localPosition = Vector3.MoveTowards(
-                movingPanel.localPosition, openPosition, 3.2f * Time.deltaTime);
-            if (Vector3.SqrMagnitude(movingPanel.localPosition - openPosition) < 0.0001f)
+            openingElapsed += Time.deltaTime;
+            float normalized = Mathf.Clamp01(openingElapsed / openingDuration);
+            float eased = openingEase != null ? openingEase.Evaluate(normalized) : Mathf.SmoothStep(0f, 1f, normalized);
+            movingPanel.localPosition = Vector3.LerpUnclamped(closedPosition, openPosition, eased);
+            if (normalized >= 1f)
             {
                 movingPanel.localPosition = openPosition;
                 opening = false;
@@ -47,6 +52,7 @@ namespace Oddly
                 return;
             }
 
+            openingElapsed = 0f;
             opening = true;
             dialogue?.Say("door_open");
         }
