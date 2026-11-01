@@ -1,4 +1,5 @@
-using System;\nusing UnityEngine;
+using System;
+using UnityEngine;
 
 namespace Oddly
 {
@@ -16,7 +17,9 @@ namespace Oddly
         public int DropCount => totalDrops;
         public int FailedInteractionCount => totalFailedInteractions;
         public int DoorAttemptCount => doorAttempts;
-        public int IdleEpisodeCount => idleEpisodes;\n        public event Action FailedInteractionRegistered;\n        public event Action ObjectDropped;
+        public int IdleEpisodeCount => idleEpisodes;
+        public event Action FailedInteractionRegistered;
+        public event Action ObjectDropped;
 
         private DialogueDirector dialogue;
 
@@ -52,7 +55,8 @@ namespace Oddly
         public void RegisterFailedInteraction()
         {
             failedInteractions++;
-            totalFailedInteractions++;\n            FailedInteractionRegistered?.Invoke();
+            totalFailedInteractions++;
+            FailedInteractionRegistered?.Invoke();
             if (failedInteractions >= 3)
             {
                 dialogue?.Say("repeat");
