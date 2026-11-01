@@ -1266,13 +1266,13 @@ namespace Oddly.Editor
             // Leave a concealed side opening for optional content; its gate stays closed
             // until the player discovers all three fragments hidden in the finale.
             CreatePrimitive("Chapter 14 right wall front segment", PrimitiveType.Cube,
-                new Vector3(5, 2.5f, 486.5f), new Vector3(0.25f, 5, 7), wallMat);
+                new Vector3(5, 2.5f, 487.5f), new Vector3(0.25f, 5, 9), wallMat);
             CreatePrimitive("Chapter 14 right wall rear segment", PrimitiveType.Cube,
-                new Vector3(5, 2.5f, 503.5f), new Vector3(0.25f, 5, 7), wallMat);
+                new Vector3(5, 2.5f, 502.5f), new Vector3(0.25f, 5, 9), wallMat);
             CreatePrimitive("Chapter 14 hidden doorway header", PrimitiveType.Cube,
-                new Vector3(5, 4.55f, 495), new Vector3(0.25f, 0.9f, 3.5f), wallMat);
+                new Vector3(5, 4.55f, 495), new Vector3(0.25f, 0.9f, 6.5f), wallMat);
             GameObject hiddenGatePanel = CreatePrimitive("Concealed hidden chapter gate",
-                PrimitiveType.Cube, new Vector3(4.82f, 1.8f, 495), new Vector3(0.35f, 3.6f, 3.1f), doorMat);
+                PrimitiveType.Cube, new Vector3(4.82f, 1.8f, 495), new Vector3(0.35f, 3.6f, 6f), doorMat);
             CreatePrimitive("Chapter 14 far wall left", PrimitiveType.Cube,
                 new Vector3(-4.15f, 2.5f, 507), new Vector3(1.7f, 5, 0.5f), wallMat);
             CreatePrimitive("Chapter 14 far wall right", PrimitiveType.Cube,
@@ -1419,13 +1419,13 @@ namespace Oddly.Editor
             CreatePrimitive("Hidden chapter room far wall", PrimitiveType.Cube,
                 new Vector3(35, 2.5f, 507), new Vector3(20, 5, 0.25f), wallMat);
             CreatePrimitive("Hidden chapter exit wall front", PrimitiveType.Cube,
-                new Vector3(45, 2.5f, 486.5f), new Vector3(0.25f, 5, 7), wallMat);
+                new Vector3(45, 2.5f, 487.5f), new Vector3(0.25f, 5, 9), wallMat);
             CreatePrimitive("Hidden chapter exit wall rear", PrimitiveType.Cube,
-                new Vector3(45, 2.5f, 503.5f), new Vector3(0.25f, 5, 7), wallMat);
+                new Vector3(45, 2.5f, 502.5f), new Vector3(0.25f, 5, 9), wallMat);
             CreatePrimitive("Hidden chapter exit header", PrimitiveType.Cube,
-                new Vector3(45, 4.55f, 495), new Vector3(0.25f, 0.9f, 3.5f), wallMat);
+                new Vector3(45, 4.55f, 495), new Vector3(0.25f, 0.9f, 6.5f), wallMat);
             GameObject hiddenExit = CreatePrimitive("Hidden chapter exit door",
-                PrimitiveType.Cube, new Vector3(44.82f, 2, 495), new Vector3(0.35f, 4, 3.1f), doorMat);
+                PrimitiveType.Cube, new Vector3(44.82f, 2, 495), new Vector3(0.35f, 4, 6f), doorMat);
             DoorController hiddenExitController = hiddenExit.AddComponent<DoorController>();
 
             GameObject hiddenEntry = new GameObject("Hidden Chapter 01 entry trigger");
