@@ -48,8 +48,8 @@ namespace Oddly
                 }
                 if (statusSign != null)
                     statusSign.text = dialogue != null && dialogue.IsTurkish
-                        ? $"HAFIZA DOĞRULANDI\n{completedRooms}/8 ODA HATIRLANDI\nÇIKIŞ AÇIK"
-                        : $"MEMORY VERIFIED\n{completedRooms}/8 ROOMS REMEMBERED\nEXIT OPEN";
+                        ? $"HAFIZA DOĞRULANDI\n{completedRooms + 1}/8 ODA HATIRLANDI\nÇIKIŞ AÇIK"
+                        : $"MEMORY VERIFIED\n{completedRooms + 1}/8 ROOMS REMEMBERED\nEXIT OPEN";
                 dialogue?.Say("hidden_memory_complete");
                 exitDoor?.Unlock();
             }
@@ -71,7 +71,7 @@ namespace Oddly
             for (int i = 0; i < memoryLabels.Length; i++)
             {
                 if (memoryLabels[i] == null) continue;
-                memoryLabels[i].text = dialogue != null && dialogue.IsTurkish ? tr[i] + "\\n[E]" : en[i] + "\\n[ E ]";
+                memoryLabels[i].text = dialogue != null && dialogue.IsTurkish ? tr[i] + "\n[E]" : en[i] + "\n[ E ]";
             }
             if (statusSign != null)
                 statusSign.text = dialogue != null && dialogue.IsTurkish
