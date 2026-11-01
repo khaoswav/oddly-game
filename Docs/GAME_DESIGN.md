@@ -48,6 +48,7 @@ Explore → notice an inconsistency → manipulate an object or viewpoint → te
 - Chapter 7, The Room That Laughs, listens to drops and failed interactions while the player is inside the chamber. Each reaction shifts a prop, rotates it, slides a wall panel and pulses the room light. Five reactions unlock the exit, with escalating bilingual character commentary. The room stops listening when the player leaves.
 - Chapter 8, The Loop, sends the player back to the start of a corridor after each traversal. Three passes rearrange props, rotate their orientation, shift the room-light colour and update the bilingual sign. On the third pass the loop breaks and the far exit unlocks.
 - Chapter 9, The Wrong Audience, stages a deliberately awkward performance. The player enters the spotlight and earns a standing ovation by turning their back on the audience and holding still for 2.2 seconds. The audience turns away, the spotlight cools and the exit unlocks. Progress is shown on a bilingual stage sign.
+- Chapter 10, The Unfinished Game, turns the production process into a playable space. Three TODO floor markers must be visited in the order 2 → 3 → 1. Stepping on a wrong marker resets progress; each correct marker updates its label, and completing all three unlocks the exit. The production board and dialogue are localized.
 - Behavior tracking for local, contextual banter.
 
 ## Campaign structure and playtime
