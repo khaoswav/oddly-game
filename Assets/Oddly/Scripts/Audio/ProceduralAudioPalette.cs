@@ -30,6 +30,44 @@ namespace Oddly
             return CreateClip("ODDLY Procedural Ambient Bed", samples);
         }
 
+        public static AudioClip CreateOriginalScoreLoop()
+        {
+            const float duration = 16f;
+            int count = Mathf.RoundToInt(SampleRate * duration);
+            float[] samples = new float[count];
+            float[] bellNotes = { 220f, 261.63f, 196f, 246.94f };
+            const float noteLength = 3.8f;
+
+            for (int i = 0; i < count; i++)
+            {
+                float time = i / (float)SampleRate;
+                float pulse = 0.72f + 0.28f * Mathf.Sin(2f * Mathf.PI * time / duration);
+                float drone =
+                    Mathf.Sin(2f * Mathf.PI * 55f * time) * 0.042f +
+                    Mathf.Sin(2f * Mathf.PI * 82.5f * time) * 0.026f +
+                    Mathf.Sin(2f * Mathf.PI * 110f * time) * 0.018f +
+                    Mathf.Sin(2f * Mathf.PI * 165f * time) * 0.009f;
+
+                int noteIndex = Mathf.Min(3, Mathf.FloorToInt(time / 4f));
+                float noteStart = noteIndex * 4f + 0.35f;
+                float noteTime = time - noteStart;
+                float bell = 0f;
+                if (noteTime >= 0f && noteTime < noteLength)
+                {
+                    float envelope = (1f - Mathf.Exp(-noteTime * 3.2f)) * Mathf.Exp(-noteTime * 1.05f);
+                    float frequency = bellNotes[noteIndex];
+                    bell = (
+                        Mathf.Sin(2f * Mathf.PI * frequency * noteTime) +
+                        Mathf.Sin(2f * Mathf.PI * frequency * 2.01f * noteTime) * 0.22f
+                    ) * envelope * 0.035f;
+                }
+
+                samples[i] = (drone * pulse) + bell;
+            }
+
+            return CreateClip("ODDLY Original 16 Second Ambient Score", samples);
+        }
+
         public static AudioClip CreateDoorCue()
         {
             const float duration = 0.42f;
