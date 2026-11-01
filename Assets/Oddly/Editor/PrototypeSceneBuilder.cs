@@ -277,20 +277,18 @@ namespace Oddly.Editor
                 PrimitiveType.Cube, new Vector3(0, 2, 76.7f), new Vector3(2.8f, 4, 0.35f), doorMat);
             DoorController sightlineExitController = sightlineExit.AddComponent<DoorController>();
 
-            Vector3 viewpointPosition = new Vector3(0, 0.08f, 61f);
+            Vector3 viewpointPosition = new Vector3(-2f, 0.08f, 61f);
             GameObject viewpointMarker = CreatePrimitive("Correct viewpoint marker",
                 PrimitiveType.Cylinder, viewpointPosition, new Vector3(1.35f, 0.08f, 1.35f), accentMat);
             GameObject sightlineTarget = new GameObject("Sightline target");
-            sightlineTarget.transform.position = new Vector3(0f, 1.65f, 76f);
+            sightlineTarget.transform.position = new Vector3(-0.125f, 1.65f, 76f);
 
             // Two pieces occupy different depths but share the same viewing ray.
             // From the marker they overlap into a single impossible doorway glyph.
-            CreatePrimitive("Near sightline fragment", PrimitiveType.Cube,
-                new Vector3(0f, 1.65f, 65f), new Vector3(0.32f, 1.65f, 0.18f), accentMat);
-            CreatePrimitive("Far sightline fragment left", PrimitiveType.Cube,
-                new Vector3(-0.55f, 1.65f, 73f), new Vector3(0.22f, 1.65f, 0.18f), cubeMat);
-            CreatePrimitive("Far sightline fragment right", PrimitiveType.Cube,
-                new Vector3(0.55f, 1.65f, 73f), new Vector3(0.22f, 1.65f, 0.18f), cubeMat);
+            GameObject nearSightlineFragment = CreatePrimitive("Near sightline fragment", PrimitiveType.Cube,
+                new Vector3(-1.5f, 1.65f, 65f), new Vector3(0.32f, 1.65f, 0.18f), accentMat);
+            GameObject farSightlineFragment = CreatePrimitive("Far sightline fragment", PrimitiveType.Cube,
+                new Vector3(-0.5f, 1.65f, 73f), new Vector3(0.32f, 1.65f, 0.18f), cubeMat);
             TextMesh sightlineInstruction = new GameObject("Sightline instruction").AddComponent<TextMesh>();
             sightlineInstruction.transform.position = new Vector3(0, 3.35f, 62.5f);
             sightlineInstruction.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
@@ -407,6 +405,8 @@ namespace Oddly.Editor
             SightlinePuzzle sightlinePuzzle = player.AddComponent<SightlinePuzzle>();
             SetPrivate(sightlinePuzzle, "viewpoint", viewpointMarker.transform);
             SetPrivate(sightlinePuzzle, "sightlineTarget", sightlineTarget.transform);
+            SetPrivate(sightlinePuzzle, "nearFragment", nearSightlineFragment.transform);
+            SetPrivate(sightlinePuzzle, "farFragment", farSightlineFragment.transform);
             SetPrivate(sightlinePuzzle, "playerCamera", camera);
             SetPrivate(sightlinePuzzle, "linkedDoor", sightlineExitController);
             SetPrivate(sightlinePuzzle, "dialogue", director);
