@@ -96,6 +96,9 @@ namespace Oddly
             }
         }
 
+        public static int EndingHistoryMask =>
+            PlayerPrefs.GetInt("oddly.campaign.endingHistoryMask", 0) & 0x7;
+
         public void ChooseEnding(int endingIndex)
         {
             if (decided || endingIndex < 0 || endingIndex > 2) return;
@@ -119,6 +122,8 @@ namespace Oddly
                     break;
             }
 
+            int historyMask = EndingHistoryMask | (1 << endingIndex);
+            PlayerPrefs.SetInt("oddly.campaign.endingHistoryMask", historyMask);
             PlayerPrefs.SetInt("oddly.ending", endingIndex);
             PlayerPrefs.SetString("oddly.ending.name", endingName);
             PlayerPrefs.Save();
