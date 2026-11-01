@@ -40,6 +40,17 @@ Replace the executable and project paths with the local Unity installation and r
 
 A successful process exit and the validation success log are required before packaging.
 
+## GitHub Actions release builds
+
+A manual workflow is available at **Actions → ODDLY Unity Release Builds → Run workflow**.
+
+Before running it:
+1. Activate the Unity 6.3 license on a machine with Unity Hub.
+2. Export the license file contents and add them to the repository Actions secret named `UNITY_LICENSE`.
+3. Confirm the repository's GitHub Actions plan permits the required runner minutes and artifact storage.
+
+The workflow builds macOS and Windows x86-64 players with Unity 6000.3.0f1 and uploads separate downloadable artifacts. The workflow is intentionally manual so an unconfigured license does not create misleading failing PR checks. A successful workflow run is required before either platform is marked built.
+
 ## Standalone builds
 
 Install the matching Unity Build Support modules first.
@@ -88,7 +99,9 @@ The build commands regenerate and validate the scene before calling Unity's Buil
 - Unity Editor compilation and generated-scene validation have not yet been run in this development environment.
 - Play Mode regression has not yet been performed.
 - macOS and Windows player builds have not yet been produced or tested.
-- The repository does not currently configure a Unity CI workflow. A licensed Unity build runner and platform modules are needed for reliable automated player builds.
-- The project still needs its authored/original final music and sound-design pass, plus release visuals and store assets.
+- The manual GitHub Actions workflow is configured, but has not been run. It requires the repository secret `UNITY_LICENSE`; no build artifact exists until a successful run.
+- The runtime now generates an original 16-second ambient score loop plus procedural ambience and one-shot effects. This is an original prototype soundtrack layer, not a final composed score or mastered sound-design pack.
+- Recorded Turkish/English character voice performances are still absent. Dialogue remains subtitle-led.
+- The project still needs final authored art, lighting review in the actual renderer, accessibility review and store assets.
 
 Do not mark a platform as verified until its player has been built and launched on that platform.
